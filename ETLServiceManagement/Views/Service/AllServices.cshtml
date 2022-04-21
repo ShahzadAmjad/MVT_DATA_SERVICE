@@ -1,0 +1,87 @@
+﻿@model IEnumerable<Service>
+
+@{
+    ViewBag.Title = "All Services";
+}
+
+<div class="mtop20">
+    @*<a asp-controller="IndividualPropertySchedule" asp-action="PropertySchedule" class="btn btn-success">Add New Property Schedule</a>*@
+    @*<button type="button" class="btn btn-success" data-toggle="modal" data-target="#createPropertyModel">Add New Property Schedule</button>*@
+    <button type="button" class="btn btn-success" data-toggle="ajax-modal" id="AddPropertybtn" name="AddPropertybtn"
+            data-target="#AddPropertyScheduleModalIndividual" data-url="@Url.Action("AddPropertySchedule")">
+        Configure New Service
+    </button>
+</div>
+
+
+<div class="mtop20">
+    <table id="tblPropertyinfo" class="table table-bordered table-hover table-striped ">
+        <thead class="thead-light">
+            <tr>
+                <th id="serviceId">Service ID</th>
+                <th id="serviceName" class="hideCol hideHideCol_2">Service Name</th>
+                <th id="dataSource" class="hideCol hideHideCol_3">Data Source</th>
+                <th id="mapping" class="hideCol hideHideCol_3">Mapping</th>
+                <th id="status" class="hideCol hideHideCol_3">Status</th>
+                <th>Edit</th>
+                <th>Delete</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model != null)
+            {
+
+
+                @if (Model.Count() > 0)
+                {
+                    @foreach (var service in Model)
+
+                    {
+                        var tm = "#myModal" + service.ServiceId;
+                        var mid = "myModal" + service.ServiceId;
+                        <tr>
+                            <td>@service.ServiceId</td>
+                            <td>@service.ServiceName</td>
+                            <td>@service.DataSource</td>
+                            <td>@service.Mapping</td>
+                            <td>@service.Status</td>
+                            <td><a asp-controller="Service" asp-action="EditService" style="width:80px;" class="btn btn-primary btn-sm" asp-route-id="@service.ServiceId">Edit</a></td>
+
+                            <td>
+                                <button type="button" style="width:80px;" class="btn btn-danger btn-sm" data-toggle="modal" data-target="@tm">
+                                    Delete
+                                </button>
+
+                                <div class="modal fade" id="@mid" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                @*<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>*@
+                                                <h4 class="modal-title text-center" id="myModalLabel">Delete Property</h4>
+                                                <button type="button" class="close " data-dismiss="modal" aria-hidden="true">&times;</button>
+                                            </div>
+                                            <div class="modal-body">
+                                                Are you sure want to delete this Service?
+                                            </div>
+                                            <div class="modal-footer">
+
+                                                <a asp-controller="Service" asp-action="DeleteService" asp-route-Id="@service.ServiceId" id="deleteBtn" class="btn bg-danger mr-1">Delete</a>
+                                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                }
+            }
+        </tbody>
+    </table>
+
+
+
+
+
+
+</div>
