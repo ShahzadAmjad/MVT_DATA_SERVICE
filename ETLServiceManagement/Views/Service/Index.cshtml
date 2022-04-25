@@ -45,7 +45,7 @@
                             </div>
                             <div class="item form-group">
                                 <label class="col-form-label col-md-3 col-sm-3 label-align" asp-for="RefreshTime">
-                                    Refresh Time<span class="required">*</span>
+                                    Refresh Time (MiliSeconds)<span class="required">*</span>
                                 </label>
                                 <div class="col-md-6 col-sm-6 ">
                                     <input type="text" asp-for="RefreshTime" id="refreshTime" name="refreshTime" required="required" class="form-control ">
@@ -54,13 +54,15 @@
 
                              <div class="item form-group">
                                 <label asp-for="DataSource" class="col-form-label col-md-3 col-sm-3 label-align">Data Source</label>
-                                 <select asp-for="DataSource" id="dataSource" name="dataSource" class="form-control">
-                                        <option>CSV</option>
-                                        <option>Json</option>
-                                        <option>tex</option>
-                                        <option>Excel</option>
-                                        <option>RestAPI</option>
-                                    </select>
+                                <div class="col-md-6 col-sm-6 "> 
+                                    <select asp-for="DataSource" id="dataSource" name="dataSource" class="form-control">
+                                            <option>CSV</option>
+                                            <option>Json</option>
+                                            <option>tex</option>
+                                            <option>Excel</option>
+                                            <option>RestAPI</option>
+                                        </select>
+                                </div>
                             </div>
                              <div class="item form-group">
                                 <label class="col-form-label col-md-3 col-sm-3 label-align" asp-for="SourceFolder">
@@ -84,7 +86,7 @@
                              <div class="item form-group">
                                 <label asp-for="DestinationDb" class="col-form-label col-md-3 col-sm-3 label-align">Gender</label>
                                 <div class="col-md-6 col-sm-6 ">
-                                    <select asp-for="DestinationDb" id="gender" name="gender" class="form-control">
+                                    <select asp-for="DestinationDb" id="destinationDb" name="destinationDb" class="form-control">
                                         <option>ElasticSeach</option>
                                         <option>MongoDb</option>
                                     </select>

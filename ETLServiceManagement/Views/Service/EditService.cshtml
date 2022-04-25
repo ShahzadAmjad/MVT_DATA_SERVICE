@@ -45,44 +45,96 @@
                             </div>
                             <div class="item form-group">
                                 <label class="col-form-label col-md-3 col-sm-3 label-align" asp-for="RefreshTime">
-                                    Refresh Time<span class="required">*</span>
+                                    Refresh Time (MiliSeconds)<span class="required">*</span>
                                 </label>
                                 <div class="col-md-6 col-sm-6 ">
                                     <input type="text" asp-for="RefreshTime" id="refreshTime" name="refreshTime" required="required" class="form-control ">
                                 </div>
                             </div>
-                            
-                            <div class="item form-group">
-                                <label asp-for="Mapping" class="col-form-label col-md-3 col-sm-3 label-align"> Mapping</label>
-                                <div class="col-md-6 col-sm-6 ">
-                                    <input asp-for="Mapping" id="mapping" name="mapping" class="form-control" type="text">
+
+                             <div class="item form-group">
+                                <label asp-for="DataSource" class="col-form-label col-md-3 col-sm-3 label-align">Data Source</label>
+                                <div class="col-md-6 col-sm-6 "> 
+                                    <select asp-for="DataSource" id="dataSource" name="dataSource" class="form-control">
+                                            <option>CSV</option>
+                                            <option>Json</option>
+                                            <option>tex</option>
+                                            <option>Excel</option>
+                                            <option>RestAPI</option>
+                                        </select>
                                 </div>
                             </div>
-                            <div class="item form-group">
-                                <label class="col-form-label col-md-3 col-sm-3 label-align" asp-for="Status">
-                                    Status
+                             <div class="item form-group">
+                                <label class="col-form-label col-md-3 col-sm-3 label-align" asp-for="SourceFolder">
+                                    Source Folder
                                 </label>
                                 <div class="col-md-6 col-sm-6 ">
-                                    <input type="text" asp-for="Status" id="Status" name="Status" required="required" class="form-control ">
+                                    <input type="text" asp-for="SourceFolder" id="sourceFolder" name="sourceFolder" required="required" class="form-control ">
                                 </div>
                             </div>
-                            
-                            
-
-
-                           
-
                             <div class="item form-group">
-                                <label asp-for="DataSource" class="col-form-label col-md-3 col-sm-3 label-align">DataSource</label>
+                                <label asp-for="Mapping" class="col-form-label col-md-3 col-sm-3 label-align"> Mapping</label>
+                                 <div class="col-md-6 col-sm-6 ">
+                                    <select asp-for="Mapping" id="mapping" name="mapping" class="form-control">
+                                        <option>SampleMappingStudent</option>
+                                        <option>SampleMappingEmployee</option>
+                                    </select>
+                                </div>
+                            </div>
+                           
+                            
+                             <div class="item form-group">
+                                <label asp-for="DestinationDb" class="col-form-label col-md-3 col-sm-3 label-align">Gender</label>
                                 <div class="col-md-6 col-sm-6 ">
-                                    <select asp-for="DataSource" asp-items="Html.GetEnumSelectList<DataSourceList>()" id="sataSource" name="dataSource" class="form-control">
+                                    <select asp-for="DestinationDb" id="destinationDb" name="destinationDb" class="form-control">
+                                        <option>ElasticSeach</option>
+                                        <option>MongoDb</option>
                                     </select>
                                 </div>
                             </div>
 
+                            <div class="item form-group">
+                                <label class="col-form-label col-md-3 col-sm-3 label-align" asp-for="DbUrl">
+                                    DB Url with Port
+                                </label>
+                                <div class="col-md-6 col-sm-6 ">
+                                    <input type="text" asp-for="DbUrl" id="dbUrl" name="dbUrl" required="required" class="form-control ">
+                                </div>
+                            </div>
+
+                            <div class="item form-group">
+                                <label class="col-form-label col-md-3 col-sm-3 label-align" asp-for="DbName">
+                                    DB Name
+                                </label>
+                                <div class="col-md-6 col-sm-6 ">
+                                    <input type="text" asp-for="DbName" id="dbName" name="dbName" required="required" class="form-control ">
+                                </div>
+                            </div>
+
+                            <div class="item form-group">
+                                <label class="col-form-label col-md-3 col-sm-3 label-align" asp-for="TableName">
+                                    Table Name
+                                </label>
+                                <div class="col-md-6 col-sm-6 ">
+                                    <input type="text" asp-for="TableName" id="tableName" name="tableName" required="required" class="form-control ">
+                                </div>
+                            </div>
                            
 
-                            
+                           
+
+                            <div class="item form-group">
+                                <label class="col-form-label col-md-3 col-sm-3 label-align" asp-for="Status">
+                                    Status
+                                </label>
+                                 <div class="col-md-6 col-sm-6 ">
+                                    <select asp-for="Status" id="status" name="status" class="form-control">
+                                        <option>Running</option>
+                                        <option>Stopped</option>
+                                    </select>
+                                </div>
+                            </div>
+
 
                            
 
