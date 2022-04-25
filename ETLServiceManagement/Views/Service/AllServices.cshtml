@@ -5,7 +5,7 @@
 }
 
 <div class="mtop20">
-    <a asp-controller="IndividualPropertySchedule" asp-action="PropertySchedule" class="btn btn-success">Configure New Service</a>
+    <a asp-controller="Service" asp-action="CreateService" class="btn btn-success">Configure New Service</a>
     @*<button type="button" class="btn btn-success" data-toggle="modal" data-target="#createPropertyModel">Add New Property Schedule</button>*@
     @*<button type="button" class="btn btn-success" data-toggle="ajax-modal" id="AddPropertybtn" name="AddPropertybtn"
             data-target="#AddPropertyScheduleModalIndividual" data-url="@Url.Action("AddPropertySchedule")">
@@ -80,8 +80,15 @@
     </table>
 
 
+        @*Related To partial View*@
+    <div name="PlaceHolderHere" id="PlaceHolderHere">
+        @*<partial name="_AddNewService" />*@
+    </div>
 
-
-
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script>
+    
+    
+    </script>
 
 </div>
