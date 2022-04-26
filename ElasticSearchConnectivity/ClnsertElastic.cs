@@ -10,9 +10,9 @@ namespace ElasticSearchConnectivity
 {
     public class ClnsertElastic
     {
-        public ElasticClient OpenDBConn(string defaultindex)
+        public ElasticClient OpenDBConn(string defaultindex, string IP)
         {
-            string IP = "https://localhost:9200";
+             IP = "https://localhost:9200";
             var node = new Uri(IP);
             var settings = new ConnectionSettings(node);
             // I like exceptions
