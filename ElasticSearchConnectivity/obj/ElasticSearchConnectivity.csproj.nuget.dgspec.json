@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Administrator\\Documents\\GitHub\\MVT_DATA_SERVICE\\DummyDataETL\\DummyDataETL.csproj": {}
+    "C:\\Users\\Administrator\\Documents\\GitHub\\MVT_DATA_SERVICE\\ElasticSearchConnectivity\\ElasticSearchConnectivity.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Administrator\\Documents\\GitHub\\MVT_DATA_SERVICE\\DummyDataETL\\DummyDataETL.csproj": {
+    "C:\\Users\\Administrator\\Documents\\GitHub\\MVT_DATA_SERVICE\\ElasticSearchConnectivity\\ElasticSearchConnectivity.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Administrator\\Documents\\GitHub\\MVT_DATA_SERVICE\\DummyDataETL\\DummyDataETL.csproj",
-        "projectName": "DummyDataETL",
-        "projectPath": "C:\\Users\\Administrator\\Documents\\GitHub\\MVT_DATA_SERVICE\\DummyDataETL\\DummyDataETL.csproj",
+        "projectUniqueName": "C:\\Users\\Administrator\\Documents\\GitHub\\MVT_DATA_SERVICE\\ElasticSearchConnectivity\\ElasticSearchConnectivity.csproj",
+        "projectName": "ElasticSearchConnectivity",
+        "projectPath": "C:\\Users\\Administrator\\Documents\\GitHub\\MVT_DATA_SERVICE\\ElasticSearchConnectivity\\ElasticSearchConnectivity.csproj",
         "packagesPath": "C:\\Users\\Administrator\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Administrator\\Documents\\GitHub\\MVT_DATA_SERVICE\\DummyDataETL\\obj\\",
+        "outputPath": "C:\\Users\\Administrator\\Documents\\GitHub\\MVT_DATA_SERVICE\\ElasticSearchConnectivity\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Administrator\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -39,6 +39,12 @@
       "frameworks": {
         "net6.0": {
           "targetAlias": "net6.0",
+          "dependencies": {
+            "NEST": {
+              "target": "Package",
+              "version": "[7.17.1, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",
