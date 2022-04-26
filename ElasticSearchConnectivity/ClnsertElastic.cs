@@ -25,12 +25,12 @@ namespace ElasticSearchConnectivity
             return client;
         }
 
-        public bool InsertBatch<T>(List<T> list, string index_name)
+        public bool InsertBatch<T>(List<T> list, string index_name, string ElasticIP)
         {
             try
             {
                 
-                var client = OpenDBConn(index_name);
+                var client = OpenDBConn(index_name, ElasticIP);
               
 
                 if (list is List<Employee>)
