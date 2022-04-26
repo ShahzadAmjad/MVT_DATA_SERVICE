@@ -1,0 +1,21 @@
+{
+  "Version": 1,
+  "ProjectMap": {
+    "dc0c978a-870a-4297-9b57-8294103696e4": {
+      "ProjectGuid": "dc0c978a-870a-4297-9b57-8294103696e4",
+      "DisplayName": "ETLServiceManagement",
+      "ColorIndex": 0
+    },
+    "a2fe74e1-b743-11d0-ae1a-00a0c90fffc3": {
+      "ProjectGuid": "a2fe74e1-b743-11d0-ae1a-00a0c90fffc3",
+      "DisplayName": "Miscellaneous Files",
+      "ColorIndex": -1
+    },
+    "3445ba95-271e-438d-b63d-74722f04966c": {
+      "ProjectGuid": "3445ba95-271e-438d-b63d-74722f04966c",
+      "DisplayName": "DummyDataETL",
+      "ColorIndex": 1
+    }
+  },
+  "NextColorIndex": 2
+}

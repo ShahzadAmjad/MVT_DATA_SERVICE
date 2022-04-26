@@ -54,6 +54,16 @@
         "runtime": {
           "lib/net5.0/System.Diagnostics.DiagnosticSource.dll": {}
         }
+      },
+      "DummyDataETL/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v6.0",
+        "compile": {
+          "bin/placeholder/DummyDataETL.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/DummyDataETL.dll": {}
+        }
       }
     }
   },
@@ -226,27 +236,33 @@
         "useSharedDesignerContext.txt",
         "version.txt"
       ]
+    },
+    "DummyDataETL/1.0.0": {
+      "type": "project",
+      "path": "../DummyDataETL/DummyDataETL.csproj",
+      "msbuildProject": "../DummyDataETL/DummyDataETL.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net6.0": [
+      "DummyDataETL >= 1.0.0",
       "NEST >= 7.17.1"
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Administrator\\.nuget\\packages\\": {}
+    "C:\\Users\\test\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Administrator\\Documents\\GitHub\\MVT_DATA_SERVICE\\ElasticSearchConnectivity\\ElasticSearchConnectivity.csproj",
+      "projectUniqueName": "C:\\Users\\test\\Documents\\GitHub\\MVT_DATA_SERVICE\\ElasticSearchConnectivity\\ElasticSearchConnectivity.csproj",
       "projectName": "ElasticSearchConnectivity",
-      "projectPath": "C:\\Users\\Administrator\\Documents\\GitHub\\MVT_DATA_SERVICE\\ElasticSearchConnectivity\\ElasticSearchConnectivity.csproj",
-      "packagesPath": "C:\\Users\\Administrator\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Administrator\\Documents\\GitHub\\MVT_DATA_SERVICE\\ElasticSearchConnectivity\\obj\\",
+      "projectPath": "C:\\Users\\test\\Documents\\GitHub\\MVT_DATA_SERVICE\\ElasticSearchConnectivity\\ElasticSearchConnectivity.csproj",
+      "packagesPath": "C:\\Users\\test\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\test\\Documents\\GitHub\\MVT_DATA_SERVICE\\ElasticSearchConnectivity\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\Administrator\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\test\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -259,7 +275,11 @@
       "frameworks": {
         "net6.0": {
           "targetAlias": "net6.0",
-          "projectReferences": {}
+          "projectReferences": {
+            "C:\\Users\\test\\Documents\\GitHub\\MVT_DATA_SERVICE\\DummyDataETL\\DummyDataETL.csproj": {
+              "projectPath": "C:\\Users\\test\\Documents\\GitHub\\MVT_DATA_SERVICE\\DummyDataETL\\DummyDataETL.csproj"
+            }
+          }
         }
       },
       "warningProperties": {
@@ -292,7 +312,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.202\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.101\\RuntimeIdentifierGraph.json"
       }
     }
   }

@@ -1,5 +1,6 @@
 ﻿// See https://aka.ms/new-console-template for more information
 using DummyDataETL;
+using System.ComponentModel;
 using System.Text.Json;
 
 Console.WriteLine("Dummy Data Producer!");
@@ -18,11 +19,30 @@ var EmployeeJson= JsonSerializer.Serialize(EmpList);
 
 var StudentJson = JsonSerializer.Serialize(studentList);
 
-//File.WriteAllText(@"D:\Employee.json", EmpList.ToString());
-//File.WriteAllText(@"D:\Student.json", studentList.ToString());
 
-await using FileStream createStream = File.Create(@"D:\Employees.json");
-await JsonSerializer.SerializeAsync(createStream, EmpList);
+//For Jason data Generaor
+//await using FileStream createStream = File.Create(@"G:\Employees.json");
+//await JsonSerializer.SerializeAsync(createStream, EmpList);
 
-await using FileStream createStream1 = File.Create(@"D:\Students.json");
-await JsonSerializer.SerializeAsync(createStream1, studentList);
+//await using FileStream createStream1 = File.Create(@"G:\Students.json");
+//await JsonSerializer.SerializeAsync(createStream1, studentList);
+
+//For CSV
+
+string CSVFilePathEMP = @"G:\EmployeesCSV.csv";
+SaveToCsv(EmpList, CSVFilePathEMP);
+
+string CSVFilePathSTD = @"G:\StudentsSCV.csv";
+SaveToCsv(studentList, CSVFilePathSTD);
+
+
+void SaveToCsv<T>(List<T> ObjList, string path)
+{
+    var lines = new List<string>();
+    IEnumerable<PropertyDescriptor> props = TypeDescriptor.GetProperties(typeof(T)).OfType<PropertyDescriptor>();
+    var header = string.Join(",", props.ToList().Select(x => x.Name));
+    lines.Add(header);
+    var valueLines = ObjList.Select(row => string.Join(",", header.Split(',').Select(a => row.GetType().GetProperty(a).GetValue(row, null))));
+    lines.AddRange(valueLines);
+    File.WriteAllLines(path, lines.ToArray());
+}
