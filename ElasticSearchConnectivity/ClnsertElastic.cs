@@ -54,11 +54,9 @@ namespace ElasticSearchConnectivity
         public bool InsertBatch<T>(List<T> list, string index_name, string ElasticIP)
         {
             try
-            {
-                
+            {            
                 var client = OpenDBConn(index_name, ElasticIP);
-
-               
+  
                 if (list is List<Employee>)
                 {
                     List<Employee> batch = list as List<Employee>;
@@ -84,13 +82,3 @@ namespace ElasticSearchConnectivity
     }
 }
 
-
-
-//var cloudId = "cloudid:xxxxxxxx";
-//var credentials = new BasicAuthenticationCredentials("elastic", "xxxxxxxxxxxx");
-//var pool = new CloudConnectionPool(cloudId, credentials);
-//var settings = new ConnectionSettings(pool)
-//    .ThrowExceptions()
-//    .EnableDebugMode();
-
-//var client = new ElasticClient(settings);
