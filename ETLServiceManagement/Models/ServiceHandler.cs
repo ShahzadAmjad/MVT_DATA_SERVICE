@@ -14,7 +14,7 @@ namespace ETLServiceManagement.Models
         {
             _service = service;
 
-
+            createService();
         }
         public void createService()
         {
@@ -25,7 +25,7 @@ namespace ETLServiceManagement.Models
             {
                 foreach (string file in Directory.EnumerateFiles(_service.SourceFolder, "*.json"))
                 {
-                    using (StreamReader r = new StreamReader(_service.SourceFolder))
+                    using ( StreamReader r = new StreamReader(_service.SourceFolder))
                     {
                         string json = r.ReadToEnd();
                         if (_service.Mapping == "student")

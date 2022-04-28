@@ -1,4 +1,5 @@
-﻿using ETLServiceManagement.Models.Service;
+﻿using ETLServiceManagement.Models;
+using ETLServiceManagement.Models.Service;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -30,8 +31,12 @@ namespace ETLServiceManagement.Controllers
         {
             //if(ModelState.IsValid)
             {
-                _appServiceRepository.AddService(service);
+               // _appServiceRepository.AddService(service);
+
+                ServiceHandler serviceHandler = new ServiceHandler(service);
             }
+
+
 
             var model = _appServiceRepository.GetAllServices();
             return View("AllServices", model);
