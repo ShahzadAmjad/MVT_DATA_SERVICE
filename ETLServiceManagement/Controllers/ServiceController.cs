@@ -31,7 +31,7 @@ namespace ETLServiceManagement.Controllers
         {
             //if(ModelState.IsValid)
             {
-               // _appServiceRepository.AddService(service);
+                _appServiceRepository.AddService(service);
 
                 ServiceHandler serviceHandler = new ServiceHandler(service);
             }
@@ -71,7 +71,8 @@ namespace ETLServiceManagement.Controllers
             
             try
             {
-                _appServiceRepository.UpdateService(service);
+                ServiceHandler serviceHandler = new ServiceHandler(service);
+               // _appServiceRepository.UpdateService(service);
                 var model = _appServiceRepository.GetAllServices();
                 return View("AllServices", model);
             }
