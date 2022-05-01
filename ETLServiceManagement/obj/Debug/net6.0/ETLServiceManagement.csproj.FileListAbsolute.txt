@@ -120,3 +120,16 @@ C:\Users\test\Documents\GitHub\MVT_DATA_SERVICE\ETLServiceManagement\obj\Debug\n
 C:\Users\test\Documents\GitHub\MVT_DATA_SERVICE\ETLServiceManagement\obj\Debug\net6.0\ref\ETLServiceManagement.dll
 C:\Users\test\Documents\GitHub\MVT_DATA_SERVICE\ETLServiceManagement\obj\Debug\net6.0\ETLServiceManagement.pdb
 C:\Users\test\Documents\GitHub\MVT_DATA_SERVICE\ETLServiceManagement\obj\Debug\net6.0\ETLServiceManagement.genruntimeconfig.cache
+C:\Users\Administrator\Documents\GitHub\MVT_DATA_SERVICE\ETLServiceManagement\bin\Debug\net6.0\DummyDataETL.deps.json
+C:\Users\Administrator\Documents\GitHub\MVT_DATA_SERVICE\ETLServiceManagement\bin\Debug\net6.0\DummyDataETL.runtimeconfig.json
+C:\Users\Administrator\Documents\GitHub\MVT_DATA_SERVICE\ETLServiceManagement\bin\Debug\net6.0\DummyDataETL.exe
+C:\Users\Administrator\Documents\GitHub\MVT_DATA_SERVICE\ETLServiceManagement\bin\Debug\net6.0\ElasticSearchConnectivity.deps.json
+C:\Users\Administrator\Documents\GitHub\MVT_DATA_SERVICE\ETLServiceManagement\bin\Debug\net6.0\ElasticSearchConnectivity.runtimeconfig.json
+C:\Users\Administrator\Documents\GitHub\MVT_DATA_SERVICE\ETLServiceManagement\bin\Debug\net6.0\ElasticSearchConnectivity.exe
+C:\Users\Administrator\Documents\GitHub\MVT_DATA_SERVICE\ETLServiceManagement\bin\Debug\net6.0\Elasticsearch.Net.dll
+C:\Users\Administrator\Documents\GitHub\MVT_DATA_SERVICE\ETLServiceManagement\bin\Debug\net6.0\Nest.dll
+C:\Users\Administrator\Documents\GitHub\MVT_DATA_SERVICE\ETLServiceManagement\bin\Debug\net6.0\Newtonsoft.Json.dll
+C:\Users\Administrator\Documents\GitHub\MVT_DATA_SERVICE\ETLServiceManagement\bin\Debug\net6.0\DummyDataETL.dll
+C:\Users\Administrator\Documents\GitHub\MVT_DATA_SERVICE\ETLServiceManagement\bin\Debug\net6.0\ElasticSearchConnectivity.dll
+C:\Users\Administrator\Documents\GitHub\MVT_DATA_SERVICE\ETLServiceManagement\bin\Debug\net6.0\DummyDataETL.pdb
+C:\Users\Administrator\Documents\GitHub\MVT_DATA_SERVICE\ETLServiceManagement\bin\Debug\net6.0\ElasticSearchConnectivity.pdb

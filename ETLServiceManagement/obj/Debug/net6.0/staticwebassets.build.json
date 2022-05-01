@@ -1,6 +1,10 @@
 {
   "Version": 1,
+<<<<<<< HEAD
   "Hash": "S9onsm5u1qvIWE+Si7BOEAPCtzDuv/rFcwEy4rskuU0=",
+=======
+  "Hash": "bU8p9Vrt9nfdh7eXAa2E+eWonJjDD9jiaMznLtzoBrw=",
+>>>>>>> b6c6c84852c715ec5a4366cf46a4f71f6c409bc3
   "Source": "ETLServiceManagement",
   "BasePath": "_content/ETLServiceManagement",
   "Mode": "Default",
@@ -35460,6 +35464,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\lib\\twitter-bootstrap\\scss\\vendor\\_rfs.scss"
+    },
+    {
+      "Identity": "C:\\Users\\Administrator\\Documents\\GitHub\\MVT_DATA_SERVICE\\ETLServiceManagement\\wwwroot\\studentJson\\Students.json",
+      "SourceId": "ETLServiceManagement",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Administrator\\Documents\\GitHub\\MVT_DATA_SERVICE\\ETLServiceManagement\\wwwroot\\",
+      "BasePath": "_content/ETLServiceManagement",
+      "RelativePath": "studentJson/Students.json",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\studentJson\\Students.json"
     }
   ]
 }

@@ -9,8 +9,8 @@ new Student { studentId=2,name="Shehzad Amjad", degree="BSCS",semester=8},
 new Student { studentId=3,name="Yahya Amjad", degree="BSCS",semester=8}};
 
 
-
+//Dummy data Insert in Elasticsearch
 ClnsertElastic cInsertElastic = new ClnsertElastic();
 
-cInsertElastic.InsertBatch(studentList, "student", "https://localhost:9200/");
+bool status = cInsertElastic.InsertBatch(studentList, "student", "https://localhost:9200/");
 
