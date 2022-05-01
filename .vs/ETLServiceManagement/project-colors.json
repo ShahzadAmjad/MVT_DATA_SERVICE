@@ -15,7 +15,12 @@
       "ProjectGuid": "3445ba95-271e-438d-b63d-74722f04966c",
       "DisplayName": "DummyDataETL",
       "ColorIndex": 1
+    },
+    "84c96237-105d-448e-942f-60588a149a10": {
+      "ProjectGuid": "84c96237-105d-448e-942f-60588a149a10",
+      "DisplayName": "ElasticSearchConnectivity",
+      "ColorIndex": 2
     }
   },
-  "NextColorIndex": 2
+  "NextColorIndex": 3
 }
