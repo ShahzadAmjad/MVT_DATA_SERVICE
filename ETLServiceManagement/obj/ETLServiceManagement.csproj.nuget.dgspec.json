@@ -4,20 +4,17 @@
     "C:\\Users\\test\\Documents\\GitHub\\MVT_DATA_SERVICE\\ETLServiceManagement\\ETLServiceManagement.csproj": {}
   },
   "projects": {
-<<<<<<< HEAD
-    "C:\\Users\\test\\Documents\\GitHub\\MVT_DATA_SERVICE\\ETLServiceManagement\\ETLServiceManagement.csproj": {
-=======
-    "C:\\Users\\Administrator\\Documents\\GitHub\\MVT_DATA_SERVICE\\DummyDataETL\\DummyDataETL.csproj": {
+    "C:\\Users\\test\\Documents\\GitHub\\MVT_DATA_SERVICE\\DummyDataETL\\DummyDataETL.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Administrator\\Documents\\GitHub\\MVT_DATA_SERVICE\\DummyDataETL\\DummyDataETL.csproj",
+        "projectUniqueName": "C:\\Users\\test\\Documents\\GitHub\\MVT_DATA_SERVICE\\DummyDataETL\\DummyDataETL.csproj",
         "projectName": "DummyDataETL",
-        "projectPath": "C:\\Users\\Administrator\\Documents\\GitHub\\MVT_DATA_SERVICE\\DummyDataETL\\DummyDataETL.csproj",
-        "packagesPath": "C:\\Users\\Administrator\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Administrator\\Documents\\GitHub\\MVT_DATA_SERVICE\\DummyDataETL\\obj\\",
+        "projectPath": "C:\\Users\\test\\Documents\\GitHub\\MVT_DATA_SERVICE\\DummyDataETL\\DummyDataETL.csproj",
+        "packagesPath": "C:\\Users\\test\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\test\\Documents\\GitHub\\MVT_DATA_SERVICE\\DummyDataETL\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Administrator\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\test\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -57,21 +54,21 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.202\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.101\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\Administrator\\Documents\\GitHub\\MVT_DATA_SERVICE\\ElasticSearchConnectivity\\ElasticSearchConnectivity.csproj": {
+    "C:\\Users\\test\\Documents\\GitHub\\MVT_DATA_SERVICE\\ElasticSearchConnectivity\\ElasticSearchConnectivity.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Administrator\\Documents\\GitHub\\MVT_DATA_SERVICE\\ElasticSearchConnectivity\\ElasticSearchConnectivity.csproj",
+        "projectUniqueName": "C:\\Users\\test\\Documents\\GitHub\\MVT_DATA_SERVICE\\ElasticSearchConnectivity\\ElasticSearchConnectivity.csproj",
         "projectName": "ElasticSearchConnectivity",
-        "projectPath": "C:\\Users\\Administrator\\Documents\\GitHub\\MVT_DATA_SERVICE\\ElasticSearchConnectivity\\ElasticSearchConnectivity.csproj",
-        "packagesPath": "C:\\Users\\Administrator\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Administrator\\Documents\\GitHub\\MVT_DATA_SERVICE\\ElasticSearchConnectivity\\obj\\",
+        "projectPath": "C:\\Users\\test\\Documents\\GitHub\\MVT_DATA_SERVICE\\ElasticSearchConnectivity\\ElasticSearchConnectivity.csproj",
+        "packagesPath": "C:\\Users\\test\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\test\\Documents\\GitHub\\MVT_DATA_SERVICE\\ElasticSearchConnectivity\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Administrator\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\test\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -85,8 +82,8 @@
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "C:\\Users\\Administrator\\Documents\\GitHub\\MVT_DATA_SERVICE\\DummyDataETL\\DummyDataETL.csproj": {
-                "projectPath": "C:\\Users\\Administrator\\Documents\\GitHub\\MVT_DATA_SERVICE\\DummyDataETL\\DummyDataETL.csproj"
+              "C:\\Users\\test\\Documents\\GitHub\\MVT_DATA_SERVICE\\DummyDataETL\\DummyDataETL.csproj": {
+                "projectPath": "C:\\Users\\test\\Documents\\GitHub\\MVT_DATA_SERVICE\\DummyDataETL\\DummyDataETL.csproj"
               }
             }
           }
@@ -121,12 +118,11 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.202\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.101\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\Administrator\\Documents\\GitHub\\MVT_DATA_SERVICE\\ETLServiceManagement\\ETLServiceManagement.csproj": {
->>>>>>> b6c6c84852c715ec5a4366cf46a4f71f6c409bc3
+    "C:\\Users\\test\\Documents\\GitHub\\MVT_DATA_SERVICE\\ETLServiceManagement\\ETLServiceManagement.csproj": {
       "version": "1.0.0",
       "restore": {
         "projectUniqueName": "C:\\Users\\test\\Documents\\GitHub\\MVT_DATA_SERVICE\\ETLServiceManagement\\ETLServiceManagement.csproj",
@@ -150,11 +146,14 @@
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "C:\\Users\\Administrator\\Documents\\GitHub\\MVT_DATA_SERVICE\\DummyDataETL\\DummyDataETL.csproj": {
-                "projectPath": "C:\\Users\\Administrator\\Documents\\GitHub\\MVT_DATA_SERVICE\\DummyDataETL\\DummyDataETL.csproj"
+              "C:\\Users\\test\\Documents\\GitHub\\MVT_DATA_SERVICE\\DummyDataETL\\DummyDataETL.csproj": {
+                "projectPath": "C:\\Users\\test\\Documents\\GitHub\\MVT_DATA_SERVICE\\DummyDataETL\\DummyDataETL.csproj"
               },
-              "C:\\Users\\Administrator\\Documents\\GitHub\\MVT_DATA_SERVICE\\ElasticSearchConnectivity\\ElasticSearchConnectivity.csproj": {
-                "projectPath": "C:\\Users\\Administrator\\Documents\\GitHub\\MVT_DATA_SERVICE\\ElasticSearchConnectivity\\ElasticSearchConnectivity.csproj"
+              "C:\\Users\\test\\Documents\\GitHub\\MVT_DATA_SERVICE\\ElasticSearchConnectivity\\ElasticSearchConnectivity.csproj": {
+                "projectPath": "C:\\Users\\test\\Documents\\GitHub\\MVT_DATA_SERVICE\\ElasticSearchConnectivity\\ElasticSearchConnectivity.csproj"
+              },
+              "C:\\Users\\test\\Documents\\GitHub\\MVT_DATA_SERVICE\\MongoDBConnectivity\\MongoDBConnectivity.csproj": {
+                "projectPath": "C:\\Users\\test\\Documents\\GitHub\\MVT_DATA_SERVICE\\MongoDBConnectivity\\MongoDBConnectivity.csproj"
               }
             }
           }
@@ -198,6 +197,82 @@
             "Microsoft.AspNetCore.App": {
               "privateAssets": "none"
             },
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.101\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\test\\Documents\\GitHub\\MVT_DATA_SERVICE\\MongoDBConnectivity\\MongoDBConnectivity.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\test\\Documents\\GitHub\\MVT_DATA_SERVICE\\MongoDBConnectivity\\MongoDBConnectivity.csproj",
+        "projectName": "MongoDBConnectivity",
+        "projectPath": "C:\\Users\\test\\Documents\\GitHub\\MVT_DATA_SERVICE\\MongoDBConnectivity\\MongoDBConnectivity.csproj",
+        "packagesPath": "C:\\Users\\test\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\test\\Documents\\GitHub\\MVT_DATA_SERVICE\\MongoDBConnectivity\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\test\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net6.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net6.0": {
+            "targetAlias": "net6.0",
+            "projectReferences": {
+              "C:\\Users\\test\\Documents\\GitHub\\MVT_DATA_SERVICE\\DummyDataETL\\DummyDataETL.csproj": {
+                "projectPath": "C:\\Users\\test\\Documents\\GitHub\\MVT_DATA_SERVICE\\DummyDataETL\\DummyDataETL.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net6.0": {
+          "targetAlias": "net6.0",
+          "dependencies": {
+            "MongoDB.Bson": {
+              "target": "Package",
+              "version": "[2.15.0, )"
+            },
+            "MongoDB.Driver": {
+              "target": "Package",
+              "version": "[2.15.0, )"
+            },
+            "MongoDB.Driver.Core": {
+              "target": "Package",
+              "version": "[2.15.0, )"
+            },
+            "MongoDB.Driver.GridFS": {
+              "target": "Package",
+              "version": "[2.15.0, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
             "Microsoft.NETCore.App": {
               "privateAssets": "all"
             }

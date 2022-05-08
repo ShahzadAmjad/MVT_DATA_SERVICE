@@ -1,6 +1,7 @@
 ﻿using DummyDataETL;
 using ElasticSearchConnectivity;
 using ETLServiceManagement.Models.Service;
+using MongoDBConnectivity;
 using Newtonsoft.Json;
 //using System.Timers;
 
@@ -25,42 +26,57 @@ namespace ETLServiceManagement.Models
             {
                 foreach (string file in Directory.EnumerateFiles(_service.SourceFolder, "*.json"))
                 {
-                    using ( StreamReader r = new StreamReader(_service.SourceFolder))
+                    using ( StreamReader r = new StreamReader(file))
                     {
                         string json = r.ReadToEnd();
                         if (_service.Mapping == "student")
                         {
                             try
                             {
-                                studentList = JsonConvert.DeserializeObject<List<Student>>(json);
+                                if(json!=null)
+                                    studentList = JsonConvert.DeserializeObject<List<Student>>(json);
+                                
+                                
                             }
                             catch(Exception ex)
                             {
 
                             }        
 
-                            if (_service.DestinationDb == "ElasticSeach")
+                            if (_service.DestinationDb == "ElasticSeach" && studentList.Count>0)
                             {
                                 ClnsertElastic cInsertElastic = new ClnsertElastic();
                                 bool status = cInsertElastic.InsertBatch(studentList, _service.DbName, _service.DbUrl);
                             }
-                            else if (_service.DestinationDb == "MongoDb")
+                            else if (_service.DestinationDb == "MongoDb" && studentList.Count > 0)
                             {
                                 //Mongo codes goes here
+                                CInsertMongo cInsertMongo = new CInsertMongo();
+                                bool status = cInsertMongo.InsertBatch(studentList, _service.DbName,_service.TableName, _service.DbUrl);
                             }
 
                         }
                         else if (_service.Mapping == "employee")
                         {
-                            EmployeeList = JsonConvert.DeserializeObject<List<Employee>>(json);
-                            if (_service.DestinationDb == "ElasticSeach")
+                            try
+                            {
+                                if (json != null)
+                                    EmployeeList = JsonConvert.DeserializeObject<List<Employee>>(json);
+                            }
+                            catch (Exception ex)
+                            {}
+                            
+                            if (_service.DestinationDb == "ElasticSeach" && EmployeeList.Count > 0)
                             {
                                 ClnsertElastic cInsertElastic = new ClnsertElastic();
-                                bool status = cInsertElastic.InsertBatch(studentList, _service.DbName, _service.DbUrl);
+
+                                bool status = cInsertElastic.InsertBatch(EmployeeList, _service.DbName, _service.DbUrl);
                             }
-                            else if (_service.DestinationDb == "MongoDb")
+                            else if (_service.DestinationDb == "MongoDb" && EmployeeList.Count > 0)
                             {
                                 //Mongo codes goes here
+                                CInsertMongo cInsertMongo = new CInsertMongo();
+                                bool status = cInsertMongo.InsertBatch(EmployeeList, _service.DbName, _service.TableName, _service.DbUrl);
                             }
                         }
                     }
@@ -70,7 +86,24 @@ namespace ETLServiceManagement.Models
             {
                 foreach (string file in Directory.EnumerateFiles(_service.SourceFolder, "*.csv"))
                 {
-                    //Will be done in 2nd phase
+                    if (_service.Mapping == "student")
+                    {
+                        try
+                        {
+                            studentList = File.ReadLines(file).Select(line => new Student(line)).ToList();
+                        }
+                        catch (Exception ex)
+                        { }
+                    }
+                    else if (_service.Mapping == "employee")
+                    {
+                        try
+                        {
+                            EmployeeList = File.ReadLines(file).Select(line => new Employee(line)).ToList();
+                        }
+                        catch (Exception ex)
+                        { }
+                    }
                 }
             }
             

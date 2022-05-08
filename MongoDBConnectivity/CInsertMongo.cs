@@ -27,24 +27,21 @@ namespace MongoDBConnectivity
             try
             {
                 var client = OpenDBConn(DbName, MongoIP);
+                var database = client.GetDatabase(DbName);
 
                 if (list is List<Employee>)
                 {
-                    List<Employee> batch = list as List<Employee>;
-                    var database = client.GetDatabase(DbName);
+                    List<Employee> batch = list as List<Employee>;                 
                     var collection= database.GetCollection<Employee>(tableName);
                     collection.InsertMany((IEnumerable<Employee>)list);
                     status=true;
-                    //return collection.ApiCall.Success;
                 }
                 else if (list is List<Student>)
                 {
                     List<Student> batch = list as List<Student>;
-                    var database = client.GetDatabase(DbName);
                     var collection = database.GetCollection<Student>(tableName);
                     collection.InsertMany((IEnumerable<Student>)list);
                     status = true;
-                    //return index.ApiCall.Success;
                 }
             }
             catch(Exception ex)
