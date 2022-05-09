@@ -20,7 +20,12 @@
       "ProjectGuid": "84c96237-105d-448e-942f-60588a149a10",
       "DisplayName": "ElasticSearchConnectivity",
       "ColorIndex": 2
+    },
+    "5f91b17a-6726-40db-83b8-0da3c7573a81": {
+      "ProjectGuid": "5f91b17a-6726-40db-83b8-0da3c7573a81",
+      "DisplayName": "MongoDBConnectivity",
+      "ColorIndex": 3
     }
   },
-  "NextColorIndex": 3
+  "NextColorIndex": 4
 }
