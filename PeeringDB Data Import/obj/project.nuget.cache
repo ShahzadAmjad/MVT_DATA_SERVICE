@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "GnhYY/7EbaXfwObd9HrMdT405iKeLa3pSgVsbKegHj5AoCOhL0kLt33CaxL9qaK83AcOM8E467bahXLqnOScxA==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\test\\Documents\\GitHub\\MVT_DATA_SERVICE\\PeeringDB Data Import\\PeeringDB Data Import.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\test\\.nuget\\packages\\newtonsoft.json\\13.0.1\\newtonsoft.json.13.0.1.nupkg.sha512"
+  ],
+  "logs": []
+}
