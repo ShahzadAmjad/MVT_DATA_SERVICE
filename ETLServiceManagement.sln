@@ -7,9 +7,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ETLServiceManagement", "ETL
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DummyDataETL", "DummyDataETL\DummyDataETL.csproj", "{3445BA95-271E-438D-B63D-74722F04966C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ElasticSearchConnectivity", "ElasticSearchConnectivity\ElasticSearchConnectivity.csproj", "{84C96237-105D-448E-942F-60588A149A10}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ElasticSearchConnectivity", "ElasticSearchConnectivity\ElasticSearchConnectivity.csproj", "{84C96237-105D-448E-942F-60588A149A10}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MongoDBConnectivity", "MongoDBConnectivity\MongoDBConnectivity.csproj", "{5F91B17A-6726-40DB-83B8-0DA3C7573A81}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MongoDBConnectivity", "MongoDBConnectivity\MongoDBConnectivity.csproj", "{5F91B17A-6726-40DB-83B8-0DA3C7573A81}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PeeringDB Data Import", "PeeringDB Data Import\PeeringDB Data Import.csproj", "{B3B865C8-B1C1-4D7D-8760-D58B8E8D2936}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{5F91B17A-6726-40DB-83B8-0DA3C7573A81}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5F91B17A-6726-40DB-83B8-0DA3C7573A81}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5F91B17A-6726-40DB-83B8-0DA3C7573A81}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B3B865C8-B1C1-4D7D-8760-D58B8E8D2936}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B3B865C8-B1C1-4D7D-8760-D58B8E8D2936}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B3B865C8-B1C1-4D7D-8760-D58B8E8D2936}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B3B865C8-B1C1-4D7D-8760-D58B8E8D2936}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
