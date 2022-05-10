@@ -45,15 +45,15 @@ namespace PeeringDB_Data_Import.Models
             public string zipcode { get; set; }
             public string floor { get; set; }
             public string suite { get; set; }
-            public double latitude { get; set; }
-            public double longitude { get; set; }
+            public double? latitude { get; set; }
+            public double? longitude { get; set; }
         }
 
-        //public class Meta
-        //{
-        //}
+    public class Meta
+    {
+    }
 
-        public class Org
+    public class Org
         {
             public int id { get; set; }
             public string name { get; set; }
@@ -72,22 +72,22 @@ namespace PeeringDB_Data_Import.Models
             public string zipcode { get; set; }
             public string floor { get; set; }
             public string suite { get; set; }
-            public double latitude { get; set; }
-            public double longitude { get; set; }
+            public double? latitude { get; set; }
+            public double? longitude { get; set; }
             public DateTime created { get; set; }
             public DateTime updated { get; set; }
             public string status { get; set; }
         }
 
-        //public class Root
-        //{
-        //    public List<Datum> data { get; set; }
-        //    public Meta meta { get; set; }
-        //}
+    public class Root
+    {
+        public List<pdb_datacenters> data { get; set; }
+        public Meta meta { get; set; }
+    }
 
 
 
-    
+
 }
 
 
