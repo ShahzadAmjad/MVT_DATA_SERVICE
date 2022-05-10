@@ -7,7 +7,7 @@ using System.Net;
 
 Console.WriteLine("MVT Data Service started");
 
-string requestUri = "https://www.peeringdb.com/api/fac";
+string requestUri = "https://www.peeringdb.com/api/ix/1";
 string responseJson = ""; 
 
 HttpWebRequest httpWebRequest = (HttpWebRequest)WebRequest.Create(requestUri);
@@ -15,18 +15,18 @@ httpWebRequest.Method = WebRequestMethods.Http.Get;
 httpWebRequest.Accept = "application/json";
 
 
-
+Console.WriteLine("Getting Response For web service");
 var response = (HttpWebResponse)httpWebRequest.GetResponse();
-
 using (var sr = new StreamReader(response.GetResponseStream()))
 {
     responseJson = sr.ReadToEnd();
 }
 
-Root myDeserializedClass = JsonConvert.DeserializeObject<Root>(responseJson);
 
-List<pdb_datacenters> pdbDatacenters_List = new List<pdb_datacenters>();
-pdbDatacenters_List = myDeserializedClass.data;
+Console.WriteLine("Deserialize Json Data");
+Root myDeserializedClass = JsonConvert.DeserializeObject<Root>(responseJson);
+List<pdb_InternetExchange> pdbInternetExchange_List = new List<pdb_InternetExchange>();
+pdbInternetExchange_List = myDeserializedClass.data;
 
 //Mongo db Configuration
 
@@ -37,49 +37,32 @@ pdbDatacenters_List = myDeserializedClass.data;
 //Pwd: -B7Q7acF9 ? K@KptN
 
 
-
-
 //Mongodb Connection
-//string password = "-B7Q7acF9 ? K@KptN";
-string collectionName = "pdb_datacenters";
-//string ConnectionString = "mongodb://mvtdev:" + password +"@dev.geomentary.com:27017";
+string collectionName = "pdb_internet_exchanges";
 string ConnectionStringCompass = "mongodb://mvtdev:-B7Q7acF9%3FK%40KptN@dev.geomentary.com:27017/?authMechanism=SCRAM-SHA-256&authSource=mvt";
-///?authMechanism=SCRAM-SHA-256&authSource=mvt
 bool status = false;
 
 try
-{
-
-    //var credential = MongoCredential.CreateMongoCRCredential("mvt", "mvtdev", "-B7Q7acF9 ? K@KptN");
-    //var settings = new MongoClientSettings
-    //{
-    //    Credentials = new[] { credential },
-    //    Server = new MongoServerAddress("dev.geomentary.com", 27017)
-        
-    //};
-    ////var client = new MongoClient(settings);
-
-    
+{ 
     var client = new MongoClient(ConnectionStringCompass);
-
-    List<String> databaseNames = client.ListDatabaseNames().ToList<string>();
     IMongoDatabase database = client.GetDatabase("mvt");
 
+    Console.WriteLine("Mongo Isertion started");
     bool collectionStatus = true;//CollectionExists(database, collectionName);
     if (collectionStatus)
     {
         //database.CreateCollection(collectionName);
 
-        var collection = database.GetCollection<pdb_datacenters>(collectionName);
-        collection.InsertMany((IEnumerable<pdb_datacenters>)pdbDatacenters_List);
+        var collection = database.GetCollection<pdb_InternetExchange>(collectionName);
+        collection.InsertMany((IEnumerable<pdb_InternetExchange>)pdbInternetExchange_List);
         status = true;
     }
     else
     {
         database.CreateCollection(collectionName);
 
-        var collection = database.GetCollection<pdb_datacenters>(collectionName);
-        collection.InsertMany((IEnumerable<pdb_datacenters>)pdbDatacenters_List);
+        var collection = database.GetCollection<pdb_InternetExchange>(collectionName);
+        collection.InsertMany((IEnumerable<pdb_InternetExchange>)pdbInternetExchange_List);
         status = true;
     }
 
@@ -90,17 +73,9 @@ catch (Exception ex)
 }
 
 
+Console.WriteLine("Task completed successfully");
 
-//CInsertMongo cInsertMongo = new CInsertMongo();
-//bool status = cInsertMongo.InsertBatch(pdbDatacenters_List, "pdb_Db", "pdb_datacenters", "mongodb://dev.geomentary.com:27017");
-
-
-
-Console.WriteLine(responseJson);
-
-
-
-
+//to check if a collection is exists
 
 bool CollectionExists(IMongoDatabase database, string collectionName)
 {

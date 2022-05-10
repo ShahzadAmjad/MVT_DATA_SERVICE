@@ -25,7 +25,12 @@
       "ProjectGuid": "5f91b17a-6726-40db-83b8-0da3c7573a81",
       "DisplayName": "MongoDBConnectivity",
       "ColorIndex": 3
+    },
+    "b3b865c8-b1c1-4d7d-8760-d58b8e8d2936": {
+      "ProjectGuid": "b3b865c8-b1c1-4d7d-8760-d58b8e8d2936",
+      "DisplayName": "PeeringDB Data Import",
+      "ColorIndex": 4
     }
   },
-  "NextColorIndex": 4
+  "NextColorIndex": 5
 }

@@ -101,11 +101,11 @@ namespace PeeringDB_Data_Import.Models
         public string status { get; set; }
     }
 
-    //public class Meta
-    //{
-    //}
+    public class Meta
+    {
+    }
 
-    public class Org2
+    public class Org
     {
         public int id { get; set; }
         public string name { get; set; }
@@ -131,11 +131,11 @@ namespace PeeringDB_Data_Import.Models
         public string status { get; set; }
     }
 
-    //public class Root
-    //{
-    //    public List<Datum> data { get; set; }
-    //    public Meta meta { get; set; }
-    //}
+    public class Root
+    {
+        public List<pdb_InternetExchange> data { get; set; }
+        public Meta meta { get; set; }
+    }
 
 
 
