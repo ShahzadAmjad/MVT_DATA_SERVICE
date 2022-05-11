@@ -7,7 +7,7 @@ using System.Net;
 
 Console.WriteLine("MVT Data Service started");
 
-string requestUri = "https://www.peeringdb.com/api/ix/1";
+string requestUri = "https://www.peeringdb.com/api/as_set";
 string responseJson = ""; 
 
 HttpWebRequest httpWebRequest = (HttpWebRequest)WebRequest.Create(requestUri);
@@ -25,8 +25,8 @@ using (var sr = new StreamReader(response.GetResponseStream()))
 
 Console.WriteLine("Deserialize Json Data");
 Root myDeserializedClass = JsonConvert.DeserializeObject<Root>(responseJson);
-List<pdb_InternetExchange> pdbInternetExchange_List = new List<pdb_InternetExchange>();
-pdbInternetExchange_List = myDeserializedClass.data;
+List<pdb_AS_SET> pdb_List = new List<pdb_AS_SET>();
+pdb_List = myDeserializedClass.data;
 
 //Mongo db Configuration
 
@@ -38,7 +38,7 @@ pdbInternetExchange_List = myDeserializedClass.data;
 
 
 //Mongodb Connection
-string collectionName = "pdb_internet_exchanges";
+string collectionName = " pdb_as_set";
 string ConnectionStringCompass = "mongodb://mvtdev:-B7Q7acF9%3FK%40KptN@dev.geomentary.com:27017/?authMechanism=SCRAM-SHA-256&authSource=mvt";
 bool status = false;
 
@@ -53,16 +53,16 @@ try
     {
         //database.CreateCollection(collectionName);
 
-        var collection = database.GetCollection<pdb_InternetExchange>(collectionName);
-        collection.InsertMany((IEnumerable<pdb_InternetExchange>)pdbInternetExchange_List);
+        var collection = database.GetCollection<pdb_AS_SET>(collectionName);
+        collection.InsertMany((IEnumerable<pdb_AS_SET>)pdb_List);
         status = true;
     }
     else
     {
         database.CreateCollection(collectionName);
 
-        var collection = database.GetCollection<pdb_InternetExchange>(collectionName);
-        collection.InsertMany((IEnumerable<pdb_InternetExchange>)pdbInternetExchange_List);
+        var collection = database.GetCollection<pdb_AS_SET>(collectionName);
+        collection.InsertMany((IEnumerable<pdb_AS_SET>)pdb_List);
         status = true;
     }
 

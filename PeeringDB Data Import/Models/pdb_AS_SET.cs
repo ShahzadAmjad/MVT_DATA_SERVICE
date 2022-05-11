@@ -6,7 +6,18 @@ using System.Threading.Tasks;
 
 namespace PeeringDB_Data_Import.Models
 {
-    internal class pdb_AS_SET
+    public class pdb_AS_SET
     {
+        public int id { get; set; }
+        public string value { get; set; }
+    }
+    public class Meta
+    {
+    }
+
+    public class Root
+    {
+        public List<pdb_AS_SET> data { get; set; }
+        public Meta meta { get; set; }
     }
 }
