@@ -22,11 +22,47 @@ using (var sr = new StreamReader(response.GetResponseStream()))
     responseJson = sr.ReadToEnd();
 }
 
+List<pdb_AS_SET> pdb_List = new List<pdb_AS_SET>();
+
+
 
 Console.WriteLine("Deserialize Json Data");
-Root myDeserializedClass = JsonConvert.DeserializeObject<Root>(responseJson);
-List<pdb_AS_SET> pdb_List = new List<pdb_AS_SET>();
-pdb_List = myDeserializedClass.data;
+
+
+//Only for as set data deserialization
+string data = (responseJson.Split("[{"))[1];
+string[] dataList = data.Split(",");
+
+foreach(string item in dataList)
+{
+    string[] itemList = item.Split(":");
+    if(itemList.Length>=2)
+    {
+        string[] newitemList = new string[2]; 
+            Array.Copy(itemList, 0, newitemList, 0, 2);
+        pdb_AS_SET pdb_AS_SET = new pdb_AS_SET();
+
+
+        int n;
+        bool isNumeric = int.TryParse((newitemList[0].Replace('"', ' ').Trim()), out n);
+
+        if (isNumeric)
+        {
+            pdb_AS_SET.id = Convert.ToInt32(newitemList[0].Replace('"', ' ').Trim());
+            pdb_AS_SET.value = newitemList[1].Replace('"', ' ').Trim();
+            pdb_List.Add(pdb_AS_SET);
+        }
+        
+    }
+    
+}
+
+
+
+
+//Root myDeserializedClass = JsonConvert.DeserializeObject<Root>(responseJson);
+//List<pdb_AS_SET> pdb_List = new List<pdb_AS_SET>();
+//pdb_List = myDeserializedClass.data;
 
 //Mongo db Configuration
 
