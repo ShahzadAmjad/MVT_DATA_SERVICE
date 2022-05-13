@@ -7,62 +7,83 @@ using System.Net;
 
 Console.WriteLine("MVT Data Service started");
 
-string requestUri = "https://www.peeringdb.com/api/as_set";
-string responseJson = ""; 
+string requestUri = "https://www.peeringdb.com/api/fac";
+string responseJson = "";
 
 HttpWebRequest httpWebRequest = (HttpWebRequest)WebRequest.Create(requestUri);
 httpWebRequest.Method = WebRequestMethods.Http.Get;
 httpWebRequest.Accept = "application/json";
 
 
-Console.WriteLine("Getting Response For web service");
+Console.WriteLine("Getting All data using Web request to get id");
 var response = (HttpWebResponse)httpWebRequest.GetResponse();
 using (var sr = new StreamReader(response.GetResponseStream()))
 {
     responseJson = sr.ReadToEnd();
 }
 
-List<pdb_AS_SET> pdb_List = new List<pdb_AS_SET>();
+Console.WriteLine("Deserializing Json Data");
+Root myDeserializedClass = JsonConvert.DeserializeObject<Root>(responseJson);
 
 
 
-Console.WriteLine("Deserialize Json Data");
 
 
-//Only for as set data deserialization
-string data = (responseJson.Split("[{"))[1];
-string[] dataList = data.Split(",");
-
-foreach(string item in dataList)
+//Getting the List of ids
+List<int> idList= new List<int>();
+foreach (var pdb in myDeserializedClass.data)
 {
-    string[] itemList = item.Split(":");
-    if(itemList.Length>=2)
+    idList.Add(pdb.id);
+}
+
+//to empty the memory
+myDeserializedClass=new Root();
+
+
+//Getting data one by one
+//List<pdb_datacenters> pdbDatacenters_List = new List<pdb_datacenters>();
+List<Newpdb_datacenters> new_pdbDatacenters_List = new List<Newpdb_datacenters>();
+
+foreach (int id in idList)
+{
+    string NewrequestUri = "https://www.peeringdb.com/api/fac/"+id;
+    string newresponseJson = "";
+    HttpWebRequest NewhttpWebRequest = (HttpWebRequest)WebRequest.Create(NewrequestUri);
+    NewhttpWebRequest.Method = WebRequestMethods.Http.Get;
+    NewhttpWebRequest.Accept = "application/json";
+
+    Console.WriteLine("Getting Web request Data for id: "+id);
+    var Newresponse = (HttpWebResponse)NewhttpWebRequest.GetResponse();
+
+    using (var sr = new StreamReader(Newresponse.GetResponseStream()))
     {
-        string[] newitemList = new string[2]; 
-            Array.Copy(itemList, 0, newitemList, 0, 2);
-        pdb_AS_SET pdb_AS_SET = new pdb_AS_SET();
-
-
-        int n;
-        bool isNumeric = int.TryParse((newitemList[0].Replace('"', ' ').Trim()), out n);
-
-        if (isNumeric)
-        {
-            pdb_AS_SET.id = Convert.ToInt32(newitemList[0].Replace('"', ' ').Trim());
-            pdb_AS_SET.value = newitemList[1].Replace('"', ' ').Trim();
-            pdb_List.Add(pdb_AS_SET);
-        }
-        
+        newresponseJson = sr.ReadToEnd();
     }
-    
+
+    //Console.WriteLine("Deserializing Json Data: "+id);
+    Root newMyDeserializedClass = JsonConvert.DeserializeObject<Root>(responseJson);
+    pdb_datacenters pdbDatacenterObj = new pdb_datacenters();
+    pdbDatacenterObj = newMyDeserializedClass.data[0];
+    //pdbDatacenters_List.Add(pdbDatacenterObj);
+
+
+    //tranforming object to new modal class
+    Newpdb_datacenters new_pdbDatacenterObj = new Newpdb_datacenters();
+    new_pdbDatacenterObj._id = (newMyDeserializedClass.data[0].id).ToString();
+    new_pdbDatacenterObj.type = "Feature";
+    new_pdbDatacenterObj.geometry = new Geometry();
+
+    new_pdbDatacenterObj.geometry.type = "Point";
+    new_pdbDatacenterObj.geometry.coordinates = new List<double?>();
+    new_pdbDatacenterObj.geometry.coordinates.Add(pdbDatacenterObj.latitude);
+    new_pdbDatacenterObj.geometry.coordinates.Add(pdbDatacenterObj.longitude);
+    new_pdbDatacenterObj.properties = new pdb_datacenters();
+    new_pdbDatacenterObj.properties= pdbDatacenterObj;
+
+    new_pdbDatacenters_List.Add(new_pdbDatacenterObj);
 }
 
 
-
-
-//Root myDeserializedClass = JsonConvert.DeserializeObject<Root>(responseJson);
-//List<pdb_AS_SET> pdb_List = new List<pdb_AS_SET>();
-//pdb_List = myDeserializedClass.data;
 
 //Mongo db Configuration
 
@@ -74,34 +95,19 @@ foreach(string item in dataList)
 
 
 //Mongodb Connection
-string collectionName = " pdb_as_set";
+string collectionName = "pdb_datacenters";
 string ConnectionStringCompass = "mongodb://mvtdev:-B7Q7acF9%3FK%40KptN@dev.geomentary.com:27017/?authMechanism=SCRAM-SHA-256&authSource=mvt";
 bool status = false;
 
 try
-{ 
+{
+    Console.WriteLine("Inserting to Mongodb");
     var client = new MongoClient(ConnectionStringCompass);
     IMongoDatabase database = client.GetDatabase("mvt");
 
-    Console.WriteLine("Mongo Isertion started");
-    bool collectionStatus = true;//CollectionExists(database, collectionName);
-    if (collectionStatus)
-    {
-        //database.CreateCollection(collectionName);
-
-        var collection = database.GetCollection<pdb_AS_SET>(collectionName);
-        collection.InsertMany((IEnumerable<pdb_AS_SET>)pdb_List);
-        status = true;
-    }
-    else
-    {
-        database.CreateCollection(collectionName);
-
-        var collection = database.GetCollection<pdb_AS_SET>(collectionName);
-        collection.InsertMany((IEnumerable<pdb_AS_SET>)pdb_List);
-        status = true;
-    }
-
+    var collection = database.GetCollection<Newpdb_datacenters>(collectionName);
+    collection.InsertMany((IEnumerable<Newpdb_datacenters>)new_pdbDatacenters_List);
+    status = true;
 }
 catch (Exception ex)
 {
@@ -109,16 +115,13 @@ catch (Exception ex)
 }
 
 
-Console.WriteLine("Task completed successfully");
-
-//to check if a collection is exists
-
-bool CollectionExists(IMongoDatabase database, string collectionName)
+if (status)
 {
-    var filter = new BsonDocument("name", collectionName);
-    var options = new ListCollectionNamesOptions { Filter = filter };
-
-    return database.ListCollectionNames(options).Any();
+    Console.WriteLine("Task Completed Successfully");
+}
+else
+{
+    Console.WriteLine("Task Completed with some exceptions");
 }
 
 

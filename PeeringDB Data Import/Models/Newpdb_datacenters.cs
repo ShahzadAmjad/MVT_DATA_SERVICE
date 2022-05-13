@@ -6,8 +6,50 @@ using System.Threading.Tasks;
 
 namespace PeeringDB_Data_Import.Models
 {
-    // Root myDeserializedClass = JsonConvert.DeserializeObject<Root>(myJsonResponse);
-    public class pdb_datacenters
+    public class Newpdb_datacenters
+    {
+        public string _id { get; set; }
+        public string type { get; set; }
+        public Geometry geometry { get; set; }
+        public pdb_datacenters properties { get; set; }
+    }
+    public class Geometry
+    {
+        public string type { get; set; }
+        public List<double?> coordinates { get; set; }
+    }
+
+    //public class Meta2
+    //{
+    //}
+
+    public class Org2
+    {
+        public int id { get; set; }
+        public string name { get; set; }
+        public string aka { get; set; }
+        public string name_long { get; set; }
+        public string website { get; set; }
+        public string notes { get; set; }
+        public List<int> net_set { get; set; }
+        public List<int> fac_set { get; set; }
+        public List<int> ix_set { get; set; }
+        public string address1 { get; set; }
+        public string address2 { get; set; }
+        public string city { get; set; }
+        public string country { get; set; }
+        public string state { get; set; }
+        public string zipcode { get; set; }
+        public string floor { get; set; }
+        public string suite { get; set; }
+        public double latitude { get; set; }
+        public double longitude { get; set; }
+        public DateTime created { get; set; }
+        public DateTime updated { get; set; }
+        public string status { get; set; }
+    }
+
+    public class Properties
     {
         public int id { get; set; }
         public int org_id { get; set; }
@@ -35,6 +77,9 @@ namespace PeeringDB_Data_Import.Models
         public DateTime created { get; set; }
         public DateTime updated { get; set; }
         public string status { get; set; }
+
+        
+
         public string address1 { get; set; }
         public string address2 { get; set; }
         public string city { get; set; }
@@ -43,60 +88,15 @@ namespace PeeringDB_Data_Import.Models
         public string zipcode { get; set; }
         public string floor { get; set; }
         public string suite { get; set; }
-        public double? latitude { get; set; }
-        public double? longitude { get; set; }
+        public double latitude { get; set; }
+        public double longitude { get; set; }
+
+        
     }
 
-    public class Meta
+    public class NewRoot
     {
-    }
-
-    public class Org
-    {
-        public int id { get; set; }
-        public string name { get; set; }
-        public string aka { get; set; }
-        public string name_long { get; set; }
-        public string website { get; set; }
-        public string notes { get; set; }
-        public List<int> net_set { get; set; }
-        public List<int> fac_set { get; set; }
-        public List<int> ix_set { get; set; }
-        public string address1 { get; set; }
-        public string address2 { get; set; }
-        public string city { get; set; }
-        public string country { get; set; }
-        public string state { get; set; }
-        public string zipcode { get; set; }
-        public string floor { get; set; }
-        public string suite { get; set; }
-        public double? latitude { get; set; }
-        public double? longitude { get; set; }
-        public DateTime created { get; set; }
-        public DateTime updated { get; set; }
-        public string status { get; set; }
-    }
-
-    public class Root
-    {
-        public List<pdb_datacenters> data { get; set; }
+        public List<Newpdb_datacenters> data { get; set; }
         public Meta meta { get; set; }
     }
-
-
-    //public class Geometry
-    //{
-    //    public string type { get; set; }
-    //    public List<double> coordinates { get; set; }
-    //}
-
-    //public class Root
-    //{
-    //    public Geometry geometry { get; set; }
-    //}
-
-
 }
-
-
-
