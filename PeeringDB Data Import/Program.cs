@@ -26,9 +26,6 @@ Console.WriteLine("Deserializing Json Data");
 Root myDeserializedClass = JsonConvert.DeserializeObject<Root>(responseJson);
 
 
-
-
-
 //Getting the List of ids
 List<int> idList= new List<int>();
 foreach (var pdb in myDeserializedClass.data)
@@ -72,7 +69,6 @@ foreach (int id in idList)
     new_pdbDatacenterObj._id = (newMyDeserializedClass.data[0].id).ToString();
     new_pdbDatacenterObj.type = "Feature";
     new_pdbDatacenterObj.geometry = new Geometry();
-
     new_pdbDatacenterObj.geometry.type = "Point";
     new_pdbDatacenterObj.geometry.coordinates = new List<double?>();
     new_pdbDatacenterObj.geometry.coordinates.Add(pdbDatacenterObj.latitude);
