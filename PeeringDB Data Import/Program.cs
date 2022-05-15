@@ -58,7 +58,7 @@ foreach (int id in idList)
     }
 
     //Console.WriteLine("Deserializing Json Data: "+id);
-    Root newMyDeserializedClass = JsonConvert.DeserializeObject<Root>(responseJson);
+    Root newMyDeserializedClass = JsonConvert.DeserializeObject<Root>(newresponseJson);
     pdb_datacenters pdbDatacenterObj = new pdb_datacenters();
     pdbDatacenterObj = newMyDeserializedClass.data[0];
     //pdbDatacenters_List.Add(pdbDatacenterObj);
@@ -66,13 +66,13 @@ foreach (int id in idList)
 
     //tranforming object to new modal class
     Newpdb_datacenters new_pdbDatacenterObj = new Newpdb_datacenters();
-    new_pdbDatacenterObj._id = (newMyDeserializedClass.data[0].id).ToString();
+    new_pdbDatacenterObj._id = (id).ToString();
     new_pdbDatacenterObj.type = "Feature";
     new_pdbDatacenterObj.geometry = new Geometry();
     new_pdbDatacenterObj.geometry.type = "Point";
     new_pdbDatacenterObj.geometry.coordinates = new List<double?>();
-    new_pdbDatacenterObj.geometry.coordinates.Add(pdbDatacenterObj.latitude);
     new_pdbDatacenterObj.geometry.coordinates.Add(pdbDatacenterObj.longitude);
+    new_pdbDatacenterObj.geometry.coordinates.Add(pdbDatacenterObj.latitude);
     new_pdbDatacenterObj.properties = new pdb_datacenters();
     new_pdbDatacenterObj.properties= pdbDatacenterObj;
 
@@ -101,7 +101,10 @@ try
     var client = new MongoClient(ConnectionStringCompass);
     IMongoDatabase database = client.GetDatabase("mvt");
 
+    database.DropCollection(collectionName);
+
     var collection = database.GetCollection<Newpdb_datacenters>(collectionName);
+
     collection.InsertMany((IEnumerable<Newpdb_datacenters>)new_pdbDatacenters_List);
     status = true;
 }
