@@ -7,7 +7,9 @@ using System.Net;
 
 Console.WriteLine("MVT Data Service started");
 
-string requestUri = "https://www.peeringdb.com/api/fac";
+
+//First Change
+string requestUri = "https://www.peeringdb.com/api/poc";
 string responseJson = "";
 
 HttpWebRequest httpWebRequest = (HttpWebRequest)WebRequest.Create(requestUri);
@@ -27,29 +29,29 @@ Root myDeserializedClass = JsonConvert.DeserializeObject<Root>(responseJson);
 
 
 //Getting the List of ids
-List<int> idList= new List<int>();
+List<int> idList = new List<int>();
 foreach (var pdb in myDeserializedClass.data)
 {
     idList.Add(pdb.id);
 }
 
 //to empty the memory
-myDeserializedClass=new Root();
+myDeserializedClass = new Root();
 
 
-//Getting data one by one
-//List<pdb_datacenters> pdbDatacenters_List = new List<pdb_datacenters>();
-List<Newpdb_datacenters> new_pdbDatacenters_List = new List<Newpdb_datacenters>();
+//Getting data one by one adding to list
+List<Cpdb_tranformation> cpdbTransformObj_List = new List<Cpdb_tranformation>();
 
 foreach (int id in idList)
 {
-    string NewrequestUri = "https://www.peeringdb.com/api/fac/"+id;
+    //2nd change
+    string NewrequestUri = "https://www.peeringdb.com/api/poc/" + id;
     string newresponseJson = "";
     HttpWebRequest NewhttpWebRequest = (HttpWebRequest)WebRequest.Create(NewrequestUri);
     NewhttpWebRequest.Method = WebRequestMethods.Http.Get;
     NewhttpWebRequest.Accept = "application/json";
 
-    Console.WriteLine("Getting Web request Data for id: "+id);
+    Console.WriteLine("Getting Web request Data for id: " + id);
     var Newresponse = (HttpWebResponse)NewhttpWebRequest.GetResponse();
 
     using (var sr = new StreamReader(Newresponse.GetResponseStream()))
@@ -57,41 +59,34 @@ foreach (int id in idList)
         newresponseJson = sr.ReadToEnd();
     }
 
-    //Console.WriteLine("Deserializing Json Data: "+id);
     Root newMyDeserializedClass = JsonConvert.DeserializeObject<Root>(newresponseJson);
-    pdb_datacenters pdbDatacenterObj = new pdb_datacenters();
-    pdbDatacenterObj = newMyDeserializedClass.data[0];
-    //pdbDatacenters_List.Add(pdbDatacenterObj);
+
+    //pdb_datacenters pdbDatacenterObj = new pdb_datacenters();
+    //pdbDatacenterObj = newMyDeserializedClass.data[0];
 
 
+    //3rd change
     //tranforming object to new modal class
-    Newpdb_datacenters new_pdbDatacenterObj = new Newpdb_datacenters();
-    new_pdbDatacenterObj._id = (id).ToString();
-    new_pdbDatacenterObj.type = "Feature";
-    new_pdbDatacenterObj.geometry = new Geometry();
-    new_pdbDatacenterObj.geometry.type = "Point";
-    new_pdbDatacenterObj.geometry.coordinates = new List<double?>();
-    new_pdbDatacenterObj.geometry.coordinates.Add(pdbDatacenterObj.longitude);
-    new_pdbDatacenterObj.geometry.coordinates.Add(pdbDatacenterObj.latitude);
-    new_pdbDatacenterObj.properties = new pdb_datacenters();
-    new_pdbDatacenterObj.properties= pdbDatacenterObj;
+    Cpdb_tranformation cpdbTransformObj = new Cpdb_tranformation();
+    cpdbTransformObj._id = (id).ToString();
+    cpdbTransformObj.type = "Feature";
+    cpdbTransformObj.geometry = new Geometry();
+    cpdbTransformObj.geometry.type = "Point";
+    cpdbTransformObj.geometry.coordinates = new List<double?>();
+    //4th change
+    //no lat long in pdb_internet_exchange_prefixes
+    cpdbTransformObj.geometry.coordinates.Add(newMyDeserializedClass.data[0].net.org.longitude);
+    cpdbTransformObj.geometry.coordinates.Add(newMyDeserializedClass.data[0].net.org.latitude);
+    cpdbTransformObj.properties = new pdb_NetworkPOC();
+    cpdbTransformObj.properties = newMyDeserializedClass.data[0];
 
-    new_pdbDatacenters_List.Add(new_pdbDatacenterObj);
+    cpdbTransformObj_List.Add(cpdbTransformObj);
 }
 
 
-
-//Mongo db Configuration
-
-//MongoDB: dev.geomentary.com:27017
-//Auth Mechanism = SCRAM - SHA - 256
-//Auth Database=mvt
-//User: mvtdev
-//Pwd: -B7Q7acF9 ? K@KptN
-
-
+//5th change
 //Mongodb Connection
-string collectionName = "pdb_datacenters";
+string collectionName = "pdb_network_pocs";
 string ConnectionStringCompass = "mongodb://mvtdev:-B7Q7acF9%3FK%40KptN@dev.geomentary.com:27017/?authMechanism=SCRAM-SHA-256&authSource=mvt";
 bool status = false;
 
@@ -102,10 +97,8 @@ try
     IMongoDatabase database = client.GetDatabase("mvt");
 
     database.DropCollection(collectionName);
-
-    var collection = database.GetCollection<Newpdb_datacenters>(collectionName);
-
-    collection.InsertMany((IEnumerable<Newpdb_datacenters>)new_pdbDatacenters_List);
+    var collection = database.GetCollection<Cpdb_tranformation>(collectionName);
+    collection.InsertMany((IEnumerable<Cpdb_tranformation>)cpdbTransformObj_List);
     status = true;
 }
 catch (Exception ex)
