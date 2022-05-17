@@ -71,7 +71,6 @@ foreach (int id in idList)
 }
 
 
-//4th change
 //Mongodb Connection
 string collectionName = "pdb_internet_exchanges";
 string ConnectionStringCompass = "mongodb://mvtdev:-B7Q7acF9%3FK%40KptN@dev.geomentary.com:27017/?authMechanism=SCRAM-SHA-256&authSource=mvt";
@@ -84,7 +83,6 @@ try
     IMongoDatabase database = client.GetDatabase("mvt");
     database.DropCollection(collectionName);
 
-    //5th change
     var collection = database.GetCollection<pdb_InternetExchange>(collectionName);
     collection.InsertMany((IEnumerable<pdb_InternetExchange>)pdbData_List);
     status = true;
