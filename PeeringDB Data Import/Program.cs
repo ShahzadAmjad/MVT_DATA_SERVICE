@@ -7,10 +7,13 @@ using System.Net;
 
 Console.WriteLine("MVT Data Service started");
 
-string requestUri = "https://www.peeringdb.com/api/fac";
+
+//First Change
+string requestUri = "https://www.peeringdb.com/api/ixfac";
 string responseJson = "";
 
 HttpWebRequest httpWebRequest = (HttpWebRequest)WebRequest.Create(requestUri);
+//httpWebRequest.Headers.Add("Accept", "application/json");
 httpWebRequest.Method = WebRequestMethods.Http.Get;
 httpWebRequest.Accept = "application/json";
 
@@ -27,29 +30,36 @@ Root myDeserializedClass = JsonConvert.DeserializeObject<Root>(responseJson);
 
 
 //Getting the List of ids
-List<int> idList= new List<int>();
+List<int> idList = new List<int>();
 foreach (var pdb in myDeserializedClass.data)
 {
     idList.Add(pdb.id);
 }
 
 //to empty the memory
-myDeserializedClass=new Root();
+myDeserializedClass = new Root();
 
 
-//Getting data one by one
-//List<pdb_datacenters> pdbDatacenters_List = new List<pdb_datacenters>();
-List<Newpdb_datacenters> new_pdbDatacenters_List = new List<Newpdb_datacenters>();
+//Getting data one by one adding to list
+
+//2nd Change 
+List<pdb_InternetExchangeFacility> pdbData_List = new List<pdb_InternetExchangeFacility>();
+
 
 foreach (int id in idList)
 {
-    string NewrequestUri = "https://www.peeringdb.com/api/fac/"+id;
+    //3rd change
+    string NewrequestUri = "https://www.peeringdb.com/api/ixfac/" + id;
     string newresponseJson = "";
     HttpWebRequest NewhttpWebRequest = (HttpWebRequest)WebRequest.Create(NewrequestUri);
     NewhttpWebRequest.Method = WebRequestMethods.Http.Get;
     NewhttpWebRequest.Accept = "application/json";
 
-    Console.WriteLine("Getting Web request Data for id: "+id);
+    //var rnd = new Random(DateTime.Now.Millisecond);
+    //int ticks = rnd.Next(3000, 7000);
+
+    Console.WriteLine("Getting Web request Data for id: " + id);
+    //Thread.Sleep(ticks);
     var Newresponse = (HttpWebResponse)NewhttpWebRequest.GetResponse();
 
     using (var sr = new StreamReader(Newresponse.GetResponseStream()))
@@ -57,41 +67,14 @@ foreach (int id in idList)
         newresponseJson = sr.ReadToEnd();
     }
 
-    //Console.WriteLine("Deserializing Json Data: "+id);
     Root newMyDeserializedClass = JsonConvert.DeserializeObject<Root>(newresponseJson);
-    pdb_datacenters pdbDatacenterObj = new pdb_datacenters();
-    pdbDatacenterObj = newMyDeserializedClass.data[0];
-    //pdbDatacenters_List.Add(pdbDatacenterObj);
-
-
-    //tranforming object to new modal class
-    Newpdb_datacenters new_pdbDatacenterObj = new Newpdb_datacenters();
-    new_pdbDatacenterObj._id = (id).ToString();
-    new_pdbDatacenterObj.type = "Feature";
-    new_pdbDatacenterObj.geometry = new Geometry();
-    new_pdbDatacenterObj.geometry.type = "Point";
-    new_pdbDatacenterObj.geometry.coordinates = new List<double?>();
-    new_pdbDatacenterObj.geometry.coordinates.Add(pdbDatacenterObj.longitude);
-    new_pdbDatacenterObj.geometry.coordinates.Add(pdbDatacenterObj.latitude);
-    new_pdbDatacenterObj.properties = new pdb_datacenters();
-    new_pdbDatacenterObj.properties= pdbDatacenterObj;
-
-    new_pdbDatacenters_List.Add(new_pdbDatacenterObj);
+    pdbData_List.Add(newMyDeserializedClass.data[0]);
 }
 
 
-
-//Mongo db Configuration
-
-//MongoDB: dev.geomentary.com:27017
-//Auth Mechanism = SCRAM - SHA - 256
-//Auth Database=mvt
-//User: mvtdev
-//Pwd: -B7Q7acF9 ? K@KptN
-
-
+//4th change
 //Mongodb Connection
-string collectionName = "pdb_datacenters";
+string collectionName = "pdb_internet_exchange_facilities";
 string ConnectionStringCompass = "mongodb://mvtdev:-B7Q7acF9%3FK%40KptN@dev.geomentary.com:27017/?authMechanism=SCRAM-SHA-256&authSource=mvt";
 bool status = false;
 
@@ -100,12 +83,11 @@ try
     Console.WriteLine("Inserting to Mongodb");
     var client = new MongoClient(ConnectionStringCompass);
     IMongoDatabase database = client.GetDatabase("mvt");
-
     database.DropCollection(collectionName);
 
-    var collection = database.GetCollection<Newpdb_datacenters>(collectionName);
-
-    collection.InsertMany((IEnumerable<Newpdb_datacenters>)new_pdbDatacenters_List);
+    //5th change
+    var collection = database.GetCollection<pdb_InternetExchangeFacility>(collectionName);
+    collection.InsertMany((IEnumerable<pdb_InternetExchangeFacility>)pdbData_List);
     status = true;
 }
 catch (Exception ex)

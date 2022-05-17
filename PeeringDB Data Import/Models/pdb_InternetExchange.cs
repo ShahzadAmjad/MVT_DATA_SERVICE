@@ -82,8 +82,8 @@ namespace PeeringDB_Data_Import.Models
     //    public string zipcode { get; set; }
     //    public string floor { get; set; }
     //    public string suite { get; set; }
-    //    public double latitude { get; set; }
-    //    public double longitude { get; set; }
+    //    public double? latitude { get; set; }
+    //    public double? longitude { get; set; }
     //}
 
     //public class IxlanSet
@@ -124,8 +124,8 @@ namespace PeeringDB_Data_Import.Models
     //    public string zipcode { get; set; }
     //    public string floor { get; set; }
     //    public string suite { get; set; }
-    //    public double latitude { get; set; }
-    //    public double longitude { get; set; }
+    //    public double? latitude { get; set; }
+    //    public double? longitude { get; set; }
     //    public DateTime created { get; set; }
     //    public DateTime updated { get; set; }
     //    public string status { get; set; }
