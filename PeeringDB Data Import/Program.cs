@@ -5,15 +5,14 @@ using Newtonsoft.Json;
 using PeeringDB_Data_Import.Models;
 using System.Net;
 
-Console.WriteLine("MVT Data Service started");
-
-
-//First Change
-string requestUri = "https://www.peeringdb.com/api/ix";
-string responseJson = "";
 
 try
 {
+    Console.WriteLine("MVT Data Service started");
+
+    string requestUri = "https://www.peeringdb.com/api/ix";
+    string responseJson = "";
+
     HttpWebRequest httpWebRequest = (HttpWebRequest)WebRequest.Create(requestUri);
     httpWebRequest.Method = WebRequestMethods.Http.Get;
     httpWebRequest.Accept = "application/json";
