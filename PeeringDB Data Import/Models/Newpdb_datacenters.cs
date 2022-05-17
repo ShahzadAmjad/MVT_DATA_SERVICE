@@ -13,19 +13,12 @@ namespace PeeringDB_Data_Import.Models
         public Geometry geometry { get; set; }
         public pdb_datacenters properties { get; set; }
     }
-<<<<<<< HEAD
-    //public class Geometry2
-    //{
-    //    public string type { get; set; }
-    //    public List<double?> coordinates { get; set; }
-    //}
-=======
+
     public class Geometry2
     {
         public string type { get; set; }
         public List<double?> coordinates { get; set; }
     }
->>>>>>> 5bc26f4bf18c6c9eeafceb11bbbc643ced29cc98
 
     //public class Meta2
     //{

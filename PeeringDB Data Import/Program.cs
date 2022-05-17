@@ -12,23 +12,23 @@ Console.WriteLine("MVT Data Service started");
 string requestUri = "https://www.peeringdb.com/api/ix";
 string responseJson = "";
 
-HttpWebRequest httpWebRequest = (HttpWebRequest)WebRequest.Create(requestUri);
-//httpWebRequest.Headers.Add("Accept", "application/json");
-httpWebRequest.Method = WebRequestMethods.Http.Get;
-httpWebRequest.Accept = "application/json";
-
-
-Console.WriteLine("Getting All data using Web request to get id");
-var response = (HttpWebResponse)httpWebRequest.GetResponse();
-using (var sr = new StreamReader(response.GetResponseStream()))
+try
 {
-    responseJson = sr.ReadToEnd();
-}
+    HttpWebRequest httpWebRequest = (HttpWebRequest)WebRequest.Create(requestUri);
+    httpWebRequest.Method = WebRequestMethods.Http.Get;
+    httpWebRequest.Accept = "application/json";
+
+    Console.WriteLine("Getting All data using Web request to get id's List");
+    var response = (HttpWebResponse)httpWebRequest.GetResponse();
+    using (var sr = new StreamReader(response.GetResponseStream()))
+    {
+        responseJson = sr.ReadToEnd();
+    }   
+
+
 
 Console.WriteLine("Deserializing Json Data");
 Root myDeserializedClass = JsonConvert.DeserializeObject<Root>(responseJson);
-
-
 //Getting the List of ids
 List<int> idList = new List<int>();
 foreach (var pdb in myDeserializedClass.data)
@@ -40,55 +40,34 @@ foreach (var pdb in myDeserializedClass.data)
 myDeserializedClass = new Root();
 
 
-//Getting data one by one adding to list
-//List<Cpdb_tranformation> cpdbTransformObj_List = new List<Cpdb_tranformation>();
-
-//2nd Change 
+//Getting data one by one and  adding to list
 List<pdb_InternetExchange> pdbData_List = new List<pdb_InternetExchange>();
-
 
 foreach (int id in idList)
 {
-    //3rd change
     string NewrequestUri = "https://www.peeringdb.com/api/ix/" + id;
     string newresponseJson = "";
+
     HttpWebRequest NewhttpWebRequest = (HttpWebRequest)WebRequest.Create(NewrequestUri);
     NewhttpWebRequest.Method = WebRequestMethods.Http.Get;
     NewhttpWebRequest.Accept = "application/json";
 
-    var rnd = new Random(DateTime.Now.Millisecond);
-    int ticks = rnd.Next(3000, 7000);
+        //For thread sleep
+        //var rnd = new Random(DateTime.Now.Millisecond);
+        //int ticks = rnd.Next(3000, 7000);
+        //Thread.Sleep(ticks);
 
     Console.WriteLine("Getting Web request Data for id: " + id);
-    Thread.Sleep(ticks);
     var Newresponse = (HttpWebResponse)NewhttpWebRequest.GetResponse();
 
     using (var sr = new StreamReader(Newresponse.GetResponseStream()))
-    {
-        newresponseJson = sr.ReadToEnd();
-    }
+        {
+            newresponseJson = sr.ReadToEnd();
+        }
+   
+    
 
     Root newMyDeserializedClass = JsonConvert.DeserializeObject<Root>(newresponseJson);
-
-    //pdb_datacenters pdbDatacenterObj = new pdb_datacenters();
-    //pdbDatacenterObj = newMyDeserializedClass.data[0];
-
-
-    //3rd change
-    ////tranforming object to new modal class
-    //Cpdb_tranformation cpdbTransformObj = new Cpdb_tranformation();
-    //cpdbTransformObj._id = (id).ToString();
-    //cpdbTransformObj.type = "Feature";
-    //cpdbTransformObj.geometry = new Geometry();
-    //cpdbTransformObj.geometry.type = "Point";
-    //cpdbTransformObj.geometry.coordinates = new List<double?>();
-    ////4th change
-    ////no lat long in pdb_internet_exchange_prefixes
-    //cpdbTransformObj.geometry.coordinates.Add(newMyDeserializedClass.data[0].org.longitude);
-    //cpdbTransformObj.geometry.coordinates.Add(newMyDeserializedClass.data[0].org.latitude);
-    //cpdbTransformObj.properties = new pdb_Network();
-    //cpdbTransformObj.properties = newMyDeserializedClass.data[0];
-
     pdbData_List.Add(newMyDeserializedClass.data[0]);
 }
 
@@ -126,6 +105,12 @@ else
     Console.WriteLine("Task Completed with some exceptions");
 }
 
+
+}
+catch (Exception ex)
+{
+    Console.WriteLine(ex.Message);
+}
 
 
 
