@@ -10,7 +10,8 @@ try
 {
     Console.WriteLine("MVT Data Service started");
 
-    string requestUri = "https://www.peeringdb.com/api/ix";
+    //First Change
+    string requestUri = "https://www.peeringdb.com/api/net";
     string responseJson = "";
 
     HttpWebRequest httpWebRequest = (HttpWebRequest)WebRequest.Create(requestUri);
@@ -35,16 +36,23 @@ foreach (var pdb in myDeserializedClass.data)
     idList.Add(pdb.id);
 }
 
-//to empty the memory
-myDeserializedClass = new Root();
+//2-A Change
+//Write to File//saving to avoid block 
+File.WriteAllLines(@"D:\LC\Service\idList\pdb_networks_idList.txt", idList.Select(x => x.ToString()));
+//Read From File
+//var readList = File.ReadAllLines(filePath).Select(x => Convert.ToInt32(x)).ToList();
 
+    //to empty the memory
+    myDeserializedClass = new Root();
 
+//2-B change
 //Getting data one by one and  adding to list
-List<pdb_InternetExchange> pdbData_List = new List<pdb_InternetExchange>();
+List<pdb_Network> pdbData_List = new List<pdb_Network>();
 
 foreach (int id in idList)
 {
-    string NewrequestUri = "https://www.peeringdb.com/api/ix/" + id;
+        //3rd change
+    string NewrequestUri = "https://www.peeringdb.com/api/net/" + id;
     string newresponseJson = "";
 
     HttpWebRequest NewhttpWebRequest = (HttpWebRequest)WebRequest.Create(NewrequestUri);
@@ -70,9 +78,9 @@ foreach (int id in idList)
     pdbData_List.Add(newMyDeserializedClass.data[0]);
 }
 
-
+//4th change
 //Mongodb Connection
-string collectionName = "pdb_internet_exchanges";
+string collectionName = "pdb_networks";
 string ConnectionStringCompass = "mongodb://mvtdev:-B7Q7acF9%3FK%40KptN@dev.geomentary.com:27017/?authMechanism=SCRAM-SHA-256&authSource=mvt";
 bool status = false;
 
@@ -82,10 +90,11 @@ try
     var client = new MongoClient(ConnectionStringCompass);
     IMongoDatabase database = client.GetDatabase("mvt");
     database.DropCollection(collectionName);
-
-    var collection = database.GetCollection<pdb_InternetExchange>(collectionName);
-    collection.InsertMany((IEnumerable<pdb_InternetExchange>)pdbData_List);
-    status = true;
+        //5th change
+    var collection = database.GetCollection<pdb_Network>(collectionName);
+    collection.InsertMany((IEnumerable<pdb_Network>)pdbData_List);
+    
+        status = true;
 }
 catch (Exception ex)
 {
