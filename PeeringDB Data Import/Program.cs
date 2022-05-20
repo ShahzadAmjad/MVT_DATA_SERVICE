@@ -68,11 +68,6 @@ foreach (int id in idList)
     NewhttpWebRequest.Method = WebRequestMethods.Http.Get;
     NewhttpWebRequest.Accept = "application/json";
 
-        //For thread sleep
-        //var rnd = new Random(DateTime.Now.Millisecond);
-        //int ticks = rnd.Next(3000, 7000);
-        //Thread.Sleep(ticks);
-
     Console.WriteLine("Getting Web request Data for id: " + id);
     var Newresponse = (HttpWebResponse)NewhttpWebRequest.GetResponse();
 
@@ -81,18 +76,24 @@ foreach (int id in idList)
             newresponseJson = sr.ReadToEnd();
         }
    
-    
-
     Root newMyDeserializedClass = JsonConvert.DeserializeObject<Root>(newresponseJson);
     pdbData_List.Add(newMyDeserializedClass.data[0]);
         
         //500 bach insertion
         if(pdbData_List.Count >= 500)
         {
+
             InsertBatch(pdbData_List, collectionName);
             Console.WriteLine("500 records Batch Inserted till  id: " + id);
             pdbData_List = new List<pdb_NetworkToIXConnection>();
             insertedBatchCount++;
+            //to save in a file
+            List<int> batchcountAndId = new List<int>();
+            batchcountAndId.Add(insertedBatchCount);
+            batchcountAndId.Add(id);
+            //Write to File//saving to avoid block 
+            File.WriteAllLines(@"D:\LC\Service\idList\batchcountAndId.txt", idList.Select(x => x.ToString()));
+
         }
 }
 
