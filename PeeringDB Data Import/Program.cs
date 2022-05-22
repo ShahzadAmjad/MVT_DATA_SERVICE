@@ -6,9 +6,10 @@ using PeeringDB_Data_Import.Models;
 using System.Net;
 
 Console.WriteLine("MVT Data Service started");
-int insertedBatchCount = 0;
-string collectionName = "pdb_network_to_ix_connection";
-string idListFilePath = @"D:\LC\Service\idList\"+collectionName+ "_idList.txt";
+int insertedBatchCount = 33;
+//First Change
+string collectionName = "pdb_organizations";
+string idListFilePath = @"G:\LC\Service\idList\" + collectionName+ "_idList.txt";
 List<int> idList = new List<int>();
 
 try
@@ -20,8 +21,8 @@ try
     }
     else
     {
-        //First Change
-        string requestUri = "https://www.peeringdb.com/api/netixlan";
+        //2nd Change
+        string requestUri = "https://www.peeringdb.com/api/org";
         string responseJson = "";
 
         HttpWebRequest httpWebRequest = (HttpWebRequest)WebRequest.Create(requestUri);
@@ -54,14 +55,14 @@ try
 
 
 
-//2-B change
+//3rd change change
 //Getting data one by one and  adding to list
-List<pdb_NetworkToIXConnection> pdbData_List = new List<pdb_NetworkToIXConnection>();
+List<pdb_Organization> pdbData_List = new List<pdb_Organization>();
 
 foreach (int id in idList)
 {
-        //3rd change
-    string NewrequestUri = "https://www.peeringdb.com/api/netixlan/" + id;
+        //4th change
+    string NewrequestUri = "https://www.peeringdb.com/api/org/" + id;
     string newresponseJson = "";
 
     HttpWebRequest NewhttpWebRequest = (HttpWebRequest)WebRequest.Create(NewrequestUri);
@@ -85,23 +86,21 @@ foreach (int id in idList)
 
             InsertBatch(pdbData_List, collectionName);
             Console.WriteLine("500 records Batch Inserted till  id: " + id);
-            pdbData_List = new List<pdb_NetworkToIXConnection>();
+            //5th change
+            pdbData_List = new List<pdb_Organization>();
             insertedBatchCount++;
+            Console.WriteLine("Batch count: " + insertedBatchCount);
             //to save in a file
             List<int> batchcountAndId = new List<int>();
             batchcountAndId.Add(insertedBatchCount);
             batchcountAndId.Add(id);
-            //Write to File//saving to avoid block 
-            File.WriteAllLines(@"D:\LC\Service\idList\batchcountAndId.txt", idList.Select(x => x.ToString()));
+            //Write to File the last id inserted and total batches
+            File.WriteAllLines(@"G:\LC\Service\idList\batchCount\" + collectionName+"_batchCountAndId.txt", batchcountAndId.Select(x => x.ToString()));
 
         }
 }
 
 
-    //4th change
-    //Mongodb Connection
-    //string collectionName = "pdb_network_to_ix_connection";
-    //string ConnectionStringCompass = "mongodb://mvtdev:-B7Q7acF9%3FK%40KptN@dev.geomentary.com:27017/?authMechanism=SCRAM-SHA-256&authSource=mvt";
 
 
     //for last bactch insertion
@@ -148,16 +147,17 @@ bool InsertBatch<T>(List<T> list, string collectionName)
 
         if (list is List<pdb_NetworkToIXConnection>)
         {
-            List<pdb_NetworkToIXConnection> batch = list as List<pdb_NetworkToIXConnection>;
+            //6th change
+            List<pdb_Organization> batch = list as List<pdb_Organization>;
             //to empty previous records if any
             if(insertedBatchCount==0)
             {
                 database.DropCollection(collectionName);
             }
             
-            //5th change
-            var collection = database.GetCollection<pdb_NetworkToIXConnection>(collectionName);
-            collection.InsertMany((IEnumerable<pdb_NetworkToIXConnection>)batch);
+            //7th change
+            var collection = database.GetCollection<pdb_Organization>(collectionName);
+            collection.InsertMany((IEnumerable<pdb_Organization>)batch);
 
 
         }
