@@ -6,7 +6,7 @@ using PeeringDB_Data_Import.Models;
 using System.Net;
 
 Console.WriteLine("MVT Data Service started");
-int insertedBatchCount = 33;
+int insertedBatchCount = 0;
 //First Change
 string collectionName = "pdb_organizations";
 string idListFilePath = @"G:\LC\Service\idList\" + collectionName+ "_idList.txt";
@@ -105,24 +105,6 @@ foreach (int id in idList)
 
     //for last bactch insertion
     InsertBatch(pdbData_List, collectionName);
-
-
-//try
-//{
-//    Console.WriteLine("Inserting to Mongodb");
-//    var client = new MongoClient(ConnectionStringCompass);
-//    IMongoDatabase database = client.GetDatabase("mvt");
-//    database.DropCollection(collectionName);
-//        //5th change
-//    var collection = database.GetCollection<pdb_NetworkToIXConnection>(collectionName);
-//    collection.InsertMany((IEnumerable<pdb_NetworkToIXConnection>)pdbData_List);
-    
-//        status = true;
-//}
-//catch (Exception ex)
-//{
-//    Console.WriteLine(ex.Message);
-//}
 
 
     Console.WriteLine("Task Completed Successfully");
