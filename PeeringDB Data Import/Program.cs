@@ -7,114 +7,143 @@ using System.Net;
 
 Console.WriteLine("MVT Data Service started");
 int insertedBatchCount = 0;
-//First Change
-string collectionName = "pdb_organizations";
-string idListFilePath = @"G:\LC\Service\idList\" + collectionName+ "_idList.txt";
-List<int> idList = new List<int>();
+List<string> collectionList = new List<string> 
+{"pdb_datacenters","pdb_internet_exchanges","pdb_internet_exchange_facilities",
+    "pdb_internet_exchange_networks"," pdb_internet_exchange_prefixes","pdb_networks",
+    "pdb_network_pocs","pdb_network_facilities","pdb_network_to_ix_connection","pdb_organizations","pdb_as_set"};
 
-try
-{  
-
-    if(File.Exists(idListFilePath))
-    {
-        idList = File.ReadAllLines(idListFilePath).Select(x => Convert.ToInt32(x)).ToList();
-    }
-    else
-    {
-        //2nd Change
-        string requestUri = "https://www.peeringdb.com/api/org";
-        string responseJson = "";
-
-        HttpWebRequest httpWebRequest = (HttpWebRequest)WebRequest.Create(requestUri);
-        httpWebRequest.Method = WebRequestMethods.Http.Get;
-        httpWebRequest.Accept = "application/json";
-
-        Console.WriteLine("Getting All data using Web request to get id's List");
-        var response = (HttpWebResponse)httpWebRequest.GetResponse();
-        using (var sr = new StreamReader(response.GetResponseStream()))
-        {
-            responseJson = sr.ReadToEnd();
-        }
-        Console.WriteLine("Deserializing Json Data id's List");
-        Root myDeserializedClass = JsonConvert.DeserializeObject<Root>(responseJson);
-        
-        //Getting the List of ids
-        foreach (var pdb in myDeserializedClass.data)
-        {
-            idList.Add(pdb.id);
-        }
-        
-        //to empty memory
-        myDeserializedClass = new Root();
-        
-        //Write to File//saving to avoid block 
-        File.WriteAllLines(idListFilePath, idList.Select(x => x.ToString()));
-    }
+var CollectionvsUri= new List<KeyValuePair<string, string>>();
+CollectionvsUri.Add(new KeyValuePair<string, string>("pdb_datacenters", "https://www.peeringdb.com/api/fac"));
+CollectionvsUri.Add(new KeyValuePair<string, string>("pdb_internet_exchanges", "https://www.peeringdb.com/api/ix"));
+CollectionvsUri.Add(new KeyValuePair<string, string>("pdb_datacenters", ""));
+CollectionvsUri.Add(new KeyValuePair<string, string>("pdb_datacenters", ""));
+CollectionvsUri.Add(new KeyValuePair<string, string>("pdb_datacenters", ""));
+CollectionvsUri.Add(new KeyValuePair<string, string>("pdb_datacenters", ""));
+CollectionvsUri.Add(new KeyValuePair<string, string>("pdb_datacenters", ""));
+CollectionvsUri.Add(new KeyValuePair<string, string>("pdb_datacenters", ""));
+CollectionvsUri.Add(new KeyValuePair<string, string>("pdb_datacenters", ""));
+CollectionvsUri.Add(new KeyValuePair<string, string>("pdb_datacenters", ""));
+CollectionvsUri.Add(new KeyValuePair<string, string>("pdb_datacenters", ""));
 
 
 
+    string uridd = CollectionvsUri.First(kvp => kvp.Key == "").Value;
 
 
-//3rd change change
-//Getting data one by one and  adding to list
-List<pdb_Organization> pdbData_List = new List<pdb_Organization>();
-
-foreach (int id in idList)
+foreach (var collectionName in collectionList)
 {
-        //4th change
-    string NewrequestUri = "https://www.peeringdb.com/api/org/" + id;
-    string newresponseJson = "";
+    
+    //First Change
+    //string collectionName = "pdb_organizations";
+    string idListFilePath = @"G:\LC\Service\idList\" + collectionName + "_idList.txt";
+    List<int> idList = new List<int>();
 
-    HttpWebRequest NewhttpWebRequest = (HttpWebRequest)WebRequest.Create(NewrequestUri);
-    NewhttpWebRequest.Method = WebRequestMethods.Http.Get;
-    NewhttpWebRequest.Accept = "application/json";
+    try
+    {
 
-    Console.WriteLine("Getting Web request Data for id: " + id);
-    var Newresponse = (HttpWebResponse)NewhttpWebRequest.GetResponse();
-
-    using (var sr = new StreamReader(Newresponse.GetResponseStream()))
+        if (File.Exists(idListFilePath))
         {
-            newresponseJson = sr.ReadToEnd();
+            idList = File.ReadAllLines(idListFilePath).Select(x => Convert.ToInt32(x)).ToList();
         }
-   
-    Root newMyDeserializedClass = JsonConvert.DeserializeObject<Root>(newresponseJson);
-    pdbData_List.Add(newMyDeserializedClass.data[0]);
-        
-        //500 bach insertion
-        if(pdbData_List.Count >= 500)
+        else
         {
+            //2nd Change
+            string requestUri = "https://www.peeringdb.com/api/org";
+            string responseJson = "";
 
-            InsertBatch(pdbData_List, collectionName);
-            Console.WriteLine("500 records Batch Inserted till  id: " + id);
-            //5th change
-            pdbData_List = new List<pdb_Organization>();
-            insertedBatchCount++;
-            Console.WriteLine("Batch count: " + insertedBatchCount);
-            //to save in a file
-            List<int> batchcountAndId = new List<int>();
-            batchcountAndId.Add(insertedBatchCount);
-            batchcountAndId.Add(id);
-            //Write to File the last id inserted and total batches
-            File.WriteAllLines(@"G:\LC\Service\idList\batchCount\" + collectionName+"_batchCountAndId.txt", batchcountAndId.Select(x => x.ToString()));
+            //HttpWebRequest httpWebRequest = (HttpWebRequest)WebRequest.Create(requestUri);
+            //httpWebRequest.Method = WebRequestMethods.Http.Get;
+            //httpWebRequest.Accept = "application/json";
 
+            //Console.WriteLine("Getting All data using Web request to get id's List");
+            //var response = (HttpWebResponse)httpWebRequest.GetResponse();
+            //using (var sr = new StreamReader(response.GetResponseStream()))
+            //{
+            //    responseJson = sr.ReadToEnd();
+            //}
+            Console.WriteLine("Deserializing Json Data id's List");
+            Root myDeserializedClass = JsonConvert.DeserializeObject<Root>(responseJson);
+
+            //Getting the List of ids
+            foreach (var pdb in myDeserializedClass.data)
+            {
+                idList.Add(pdb.id);
+            }
+
+            //to empty memory
+            myDeserializedClass = new Root();
+
+            //Write to File//saving to avoid block 
+            File.WriteAllLines(idListFilePath, idList.Select(x => x.ToString()));
         }
+
+
+
+
+
+        //3rd change change
+        //Getting data one by one and  adding to list
+        List<pdb_Organization> pdbData_List = new List<pdb_Organization>();
+
+        foreach (int id in idList)
+        {
+            //4th change
+            string NewrequestUri = "https://www.peeringdb.com/api/org/" + id;
+            string newresponseJson = "";
+
+            HttpWebRequest NewhttpWebRequest = (HttpWebRequest)WebRequest.Create(NewrequestUri);
+            NewhttpWebRequest.Method = WebRequestMethods.Http.Get;
+            NewhttpWebRequest.Accept = "application/json";
+
+            Console.WriteLine("Getting Web request Data for id: " + id);
+            var Newresponse = (HttpWebResponse)NewhttpWebRequest.GetResponse();
+
+            using (var sr = new StreamReader(Newresponse.GetResponseStream()))
+            {
+                newresponseJson = sr.ReadToEnd();
+            }
+
+            Root newMyDeserializedClass = JsonConvert.DeserializeObject<Root>(newresponseJson);
+            pdbData_List.Add(newMyDeserializedClass.data[0]);
+
+            //500 bach insertion
+            if (pdbData_List.Count >= 500)
+            {
+
+                InsertBatch(pdbData_List, collectionName);
+                Console.WriteLine("500 records Batch Inserted till  id: " + id);
+                //5th change
+                pdbData_List = new List<pdb_Organization>();
+                insertedBatchCount++;
+                Console.WriteLine("Batch count: " + insertedBatchCount);
+                //to save in a file
+                List<int> batchcountAndId = new List<int>();
+                batchcountAndId.Add(insertedBatchCount);
+                batchcountAndId.Add(id);
+                //Write to File the last id inserted and total batches
+                File.WriteAllLines(@"G:\LC\Service\idList\batchCount\" + collectionName + "_batchCountAndId.txt", batchcountAndId.Select(x => x.ToString()));
+
+            }
+        }
+
+
+
+
+        //for last bactch insertion
+        InsertBatch(pdbData_List, collectionName);
+
+
+        Console.WriteLine("Task Completed Successfully");
+
+
+    }
+    catch (Exception ex)
+    {
+        Console.WriteLine(ex.Message);
+    }
 }
 
 
-
-
-    //for last bactch insertion
-    InsertBatch(pdbData_List, collectionName);
-
-
-    Console.WriteLine("Task Completed Successfully");
-
-
-}
-catch (Exception ex)
-{
-    Console.WriteLine(ex.Message);
-}
 
 
 

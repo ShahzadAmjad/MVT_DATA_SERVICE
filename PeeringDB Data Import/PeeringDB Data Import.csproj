@@ -16,4 +16,8 @@
     <ProjectReference Include="..\MongoDBConnectivity\MongoDBConnectivity.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="configrationfiles\" />
+  </ItemGroup>
+
 </Project>
