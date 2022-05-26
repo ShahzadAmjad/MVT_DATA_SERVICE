@@ -108,9 +108,9 @@ namespace PeeringDB_Data_Import.Models
         public string status { get; set; }
     }
 
-    public class Meta
-    {
-    }
+    //public class Meta
+    //{
+    //}
 
     public class NetSet
     {

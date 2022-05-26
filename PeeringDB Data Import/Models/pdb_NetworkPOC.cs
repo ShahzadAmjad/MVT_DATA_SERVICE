@@ -11,18 +11,18 @@ namespace PeeringDB_Data_Import.Models
     {
         // Root myDeserializedClass = JsonConvert.DeserializeObject<Root>(myJsonResponse);
 
-        //public int id { get; set; }
-        //public int net_id { get; set; }
-        //public Net net { get; set; }
-        //public string role { get; set; }
-        //public string visible { get; set; }
-        //public string name { get; set; }
-        //public string phone { get; set; }
-        //public string email { get; set; }
-        //public string url { get; set; }
-        //public DateTime? created { get; set; }
-        //public DateTime? updated { get; set; }
-        //public string status { get; set; }
+        public int id { get; set; }
+        public int net_id { get; set; }
+        public Net net { get; set; }
+        public string role { get; set; }
+        public string visible { get; set; }
+        public string name { get; set; }
+        public string phone { get; set; }
+        public string email { get; set; }
+        public string url { get; set; }
+        public DateTime? created { get; set; }
+        public DateTime? updated { get; set; }
+        public string status { get; set; }
     }
 
     //public class Meta
@@ -32,7 +32,7 @@ namespace PeeringDB_Data_Import.Models
     //{
     //    public int id { get; set; }
     //    public int org_id { get; set; }
-    //    public Org org { get; set; }
+    //    public Org_pdb_NetworkPOC org { get; set; }
     //    public string name { get; set; }
     //    public string aka { get; set; }
     //    public string name_long { get; set; }
@@ -71,33 +71,34 @@ namespace PeeringDB_Data_Import.Models
     //    public DateTime? updated { get; set; }
     //    public string status { get; set; }
     //}
-    //public class Org
-    //{
-    //    public int id { get; set; }
-    //    public string name { get; set; }
-    //    public string aka { get; set; }
-    //    public string name_long { get; set; }
-    //    public string website { get; set; }
-    //    public string notes { get; set; }
-    //    public string address1 { get; set; }
-    //    public string address2 { get; set; }
-    //    public string city { get; set; }
-    //    public string country { get; set; }
-    //    public string state { get; set; }
-    //    public string zipcode { get; set; }
-    //    public string floor { get; set; }
-    //    public string suite { get; set; }
-    //    public double? latitude { get; set; }
-    //    public double? longitude { get; set; }
-    //    public DateTime? created { get; set; }
-    //    public DateTime? updated { get; set; }
-    //    public string status { get; set; }
-    //}
-    //public class Root
-    //{
-    //    public List<pdb_NetworkPOC> data { get; set; }
-    //    public Meta meta { get; set; }
-    //}
+    
+    public class Org_pdb_NetworkPOC
+    {
+        public int id { get; set; }
+        public string name { get; set; }
+        public string aka { get; set; }
+        public string name_long { get; set; }
+        public string website { get; set; }
+        public string notes { get; set; }
+        public string address1 { get; set; }
+        public string address2 { get; set; }
+        public string city { get; set; }
+        public string country { get; set; }
+        public string state { get; set; }
+        public string zipcode { get; set; }
+        public string floor { get; set; }
+        public string suite { get; set; }
+        public double? latitude { get; set; }
+        public double? longitude { get; set; }
+        public DateTime? created { get; set; }
+        public DateTime? updated { get; set; }
+        public string status { get; set; }
+    }
+    public class Root_pdb_NetworkPOC
+    {
+        public List<pdb_NetworkPOC> data { get; set; }
+        public Meta meta { get; set; }
+    }
 
 
 

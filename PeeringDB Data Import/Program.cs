@@ -2,6 +2,7 @@
 using MongoDB.Driver;
 using MongoDBConnectivity;
 using Newtonsoft.Json;
+using PeeringDB_Data_Import;
 using PeeringDB_Data_Import.Models;
 using System.Net;
 
@@ -15,19 +16,19 @@ List<string> collectionList = new List<string>
 var CollectionvsUri= new List<KeyValuePair<string, string>>();
 CollectionvsUri.Add(new KeyValuePair<string, string>("pdb_datacenters", "https://www.peeringdb.com/api/fac"));
 CollectionvsUri.Add(new KeyValuePair<string, string>("pdb_internet_exchanges", "https://www.peeringdb.com/api/ix"));
-CollectionvsUri.Add(new KeyValuePair<string, string>("pdb_datacenters", ""));
-CollectionvsUri.Add(new KeyValuePair<string, string>("pdb_datacenters", ""));
-CollectionvsUri.Add(new KeyValuePair<string, string>("pdb_datacenters", ""));
-CollectionvsUri.Add(new KeyValuePair<string, string>("pdb_datacenters", ""));
-CollectionvsUri.Add(new KeyValuePair<string, string>("pdb_datacenters", ""));
-CollectionvsUri.Add(new KeyValuePair<string, string>("pdb_datacenters", ""));
-CollectionvsUri.Add(new KeyValuePair<string, string>("pdb_datacenters", ""));
-CollectionvsUri.Add(new KeyValuePair<string, string>("pdb_datacenters", ""));
-CollectionvsUri.Add(new KeyValuePair<string, string>("pdb_datacenters", ""));
+CollectionvsUri.Add(new KeyValuePair<string, string>("pdb_internet_exchange_facilities", "https://www.peeringdb.com/api/ixfac"));
+CollectionvsUri.Add(new KeyValuePair<string, string>("pdb_internet_exchange_networks", "https://www.peeringdb.com/api/ixlan"));
+CollectionvsUri.Add(new KeyValuePair<string, string>("pdb_internet_exchange_prefixes", "https://www.peeringdb.com/api/ixpfx"));
+CollectionvsUri.Add(new KeyValuePair<string, string>("pdb_networks", "https://www.peeringdb.com/api/net"));
+CollectionvsUri.Add(new KeyValuePair<string, string>("pdb_network_pocs", "https://www.peeringdb.com/api/poc"));
+CollectionvsUri.Add(new KeyValuePair<string, string>("pdb_network_facilities", "https://www.peeringdb.com/api/netfac"));
+CollectionvsUri.Add(new KeyValuePair<string, string>("pdb_network_to_ix_connection", "https://www.peeringdb.com/api/netixlan"));
+CollectionvsUri.Add(new KeyValuePair<string, string>(" pdb_organizations", "https://www.peeringdb.com/api/org"));
+CollectionvsUri.Add(new KeyValuePair<string, string>("pdb_as_set", "https://www.peeringdb.com/api/as_set"));
 
 
 
-    string uridd = CollectionvsUri.First(kvp => kvp.Key == "").Value;
+    //string uridd = 
 
 
 foreach (var collectionName in collectionList)
@@ -48,19 +49,20 @@ foreach (var collectionName in collectionList)
         else
         {
             //2nd Change
-            string requestUri = "https://www.peeringdb.com/api/org";
-            string responseJson = "";
+            string requestUri = CollectionvsUri.First(kvp => kvp.Key == collectionName).Value;
+            WebRequestResponse response = new WebRequestResponse();
+            string responseJson =  response.getWebRequestData(requestUri);
 
-            //HttpWebRequest httpWebRequest = (HttpWebRequest)WebRequest.Create(requestUri);
-            //httpWebRequest.Method = WebRequestMethods.Http.Get;
-            //httpWebRequest.Accept = "application/json";
 
-            //Console.WriteLine("Getting All data using Web request to get id's List");
-            //var response = (HttpWebResponse)httpWebRequest.GetResponse();
-            //using (var sr = new StreamReader(response.GetResponseStream()))
-            //{
-            //    responseJson = sr.ReadToEnd();
-            //}
+            if(collectionName== "pdb_Organization")
+            {
+
+            }
+            else if(collectionName== "")
+            {
+
+            }
+
             Console.WriteLine("Deserializing Json Data id's List");
             Root myDeserializedClass = JsonConvert.DeserializeObject<Root>(responseJson);
 

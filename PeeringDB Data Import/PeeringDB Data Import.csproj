@@ -9,15 +9,17 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="configrationfiles\**" />
+    <EmbeddedResource Remove="configrationfiles\**" />
+    <None Remove="configrationfiles\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\MongoDBConnectivity\MongoDBConnectivity.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="configrationfiles\" />
   </ItemGroup>
 
 </Project>

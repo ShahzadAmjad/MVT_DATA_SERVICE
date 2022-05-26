@@ -43,6 +43,9 @@ C:\Users\Administrator\Documents\GitHub\MVT_DATA_SERVICE\MongoDBConnectivity\obj
 C:\Users\Administrator\Documents\GitHub\MVT_DATA_SERVICE\MongoDBConnectivity\obj\Debug\net6.0\MongoDBConnectivity.pdb
 C:\Users\Administrator\Documents\GitHub\MVT_DATA_SERVICE\MongoDBConnectivity\obj\Debug\net6.0\MongoDBConnectivity.genruntimeconfig.cache
 C:\Users\Administrator\Documents\GitHub\MVT_DATA_SERVICE\MongoDBConnectivity\obj\Debug\net6.0\ref\MongoDBConnectivity.dll
+C:\Users\test\Documents\GitHub\MVT_DATA_SERVICE\MongoDBConnectivity\bin\Debug\net6.0\DummyDataETL.deps.json
+C:\Users\test\Documents\GitHub\MVT_DATA_SERVICE\MongoDBConnectivity\bin\Debug\net6.0\DummyDataETL.runtimeconfig.json
+C:\Users\test\Documents\GitHub\MVT_DATA_SERVICE\MongoDBConnectivity\bin\Debug\net6.0\DummyDataETL.exe
 C:\Users\test\Documents\GitHub\MVT_DATA_SERVICE\MongoDBConnectivity\bin\Debug\net6.0\libzstd.dll
 C:\Users\test\Documents\GitHub\MVT_DATA_SERVICE\MongoDBConnectivity\bin\Debug\net6.0\snappy32.dll
 C:\Users\test\Documents\GitHub\MVT_DATA_SERVICE\MongoDBConnectivity\bin\Debug\net6.0\snappy64.dll
@@ -50,9 +53,6 @@ C:\Users\test\Documents\GitHub\MVT_DATA_SERVICE\MongoDBConnectivity\bin\Debug\ne
 C:\Users\test\Documents\GitHub\MVT_DATA_SERVICE\MongoDBConnectivity\bin\Debug\net6.0\libzstd.so
 C:\Users\test\Documents\GitHub\MVT_DATA_SERVICE\MongoDBConnectivity\bin\Debug\net6.0\libsnappy64.dylib
 C:\Users\test\Documents\GitHub\MVT_DATA_SERVICE\MongoDBConnectivity\bin\Debug\net6.0\libzstd.dylib
-C:\Users\test\Documents\GitHub\MVT_DATA_SERVICE\MongoDBConnectivity\bin\Debug\net6.0\DummyDataETL.deps.json
-C:\Users\test\Documents\GitHub\MVT_DATA_SERVICE\MongoDBConnectivity\bin\Debug\net6.0\DummyDataETL.runtimeconfig.json
-C:\Users\test\Documents\GitHub\MVT_DATA_SERVICE\MongoDBConnectivity\bin\Debug\net6.0\DummyDataETL.exe
 C:\Users\test\Documents\GitHub\MVT_DATA_SERVICE\MongoDBConnectivity\bin\Debug\net6.0\MongoDBConnectivity.exe
 C:\Users\test\Documents\GitHub\MVT_DATA_SERVICE\MongoDBConnectivity\bin\Debug\net6.0\MongoDBConnectivity.deps.json
 C:\Users\test\Documents\GitHub\MVT_DATA_SERVICE\MongoDBConnectivity\bin\Debug\net6.0\MongoDBConnectivity.runtimeconfig.json

@@ -10,18 +10,18 @@ namespace PeeringDB_Data_Import.Models
     {
         // Root myDeserializedClass = JsonConvert.DeserializeObject<Root>(myJsonResponse);
 
-        //public int id { get; set; }
-        //public Ixlan ixlan { get; set; }
-        //public int ixlan_id { get; set; }
-        //public string protocol { get; set; }
-        //public string prefix { get; set; }
-        //public bool in_dfz { get; set; }
-        //public DateTime created { get; set; }
-        //public DateTime updated { get; set; }
-        //public string status { get; set; }
+        public int id { get; set; }
+        public Ixlan ixlan { get; set; }
+        public int ixlan_id { get; set; }
+        public string protocol { get; set; }
+        public string prefix { get; set; }
+        public bool in_dfz { get; set; }
+        public DateTime created { get; set; }
+        public DateTime updated { get; set; }
+        public string status { get; set; }
     }
 
-    //public class Ix
+    //public class Ix_pdb_internet_exchange_prefixes
     //{
     //    public int id { get; set; }
     //    public int org_id { get; set; }
@@ -62,7 +62,7 @@ namespace PeeringDB_Data_Import.Models
     //{
     //    public int id { get; set; }
     //    public int ix_id { get; set; }
-    //    public Ix ix { get; set; }
+    //    public Ix_pdb_internet_exchange_prefixes ix { get; set; }
     //    public string name { get; set; }
     //    public string descr { get; set; }
     //    public object mtu { get; set; }
@@ -81,11 +81,11 @@ namespace PeeringDB_Data_Import.Models
     //{
     //}
 
-    //public class Root
-    //{
-    //    public List<pdb_internet_exchange_prefixes> data { get; set; }
-    //    public Meta meta { get; set; }
-    //}
+    public class Root_pdb_internet_exchange_prefixes
+    {
+        public List<pdb_internet_exchange_prefixes> data { get; set; }
+        public Meta meta { get; set; }
+    }
 
 
 }
