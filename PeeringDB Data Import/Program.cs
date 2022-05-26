@@ -36,7 +36,11 @@ foreach (var collectionName in collectionList)
     
     //First Change
     //string collectionName = "pdb_organizations";
-    string idListFilePath = @"G:\LC\Service\idList\" + collectionName + "_idList.txt";
+    //string idListFilePath = @"G:\LC\Service\idList\" + collectionName + "_idList.txt";
+    
+    //saving file to root directory
+    string idListFilePath = AppDomain.CurrentDomain.BaseDirectory + @"\" + collectionName + "_idList.txt";
+    
     List<int> idList = new List<int>();
 
     try
