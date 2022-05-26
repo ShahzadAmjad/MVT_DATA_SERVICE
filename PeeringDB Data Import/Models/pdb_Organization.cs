@@ -151,7 +151,7 @@ namespace PeeringDB_Data_Import.Models
         public string status { get; set; }
     }
 
-    public class Root
+    public class Root_pdb_Organization
     {
         public List<pdb_Organization> data { get; set; }
         public Meta meta { get; set; }
