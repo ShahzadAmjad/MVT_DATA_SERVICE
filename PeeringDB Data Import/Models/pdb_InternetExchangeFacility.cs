@@ -14,15 +14,15 @@ namespace PeeringDB_Data_Import.Models
         public string city { get; set; }
         public string country { get; set; }
         public int ix_id { get; set; }
-        public Ix ix { get; set; }
+        public Ix_pdb_InternetExchangeFacility ix { get; set; }
         public int fac_id { get; set; }
-        public Fac fac { get; set; }
+        public Fac_pdb_InternetExchangeFacility fac { get; set; }
         public DateTime created { get; set; }
         public DateTime updated { get; set; }
         public string status { get; set; }
     }
 
-    public class Fac
+    public class Fac_pdb_InternetExchangeFacility
     {
         public int id { get; set; }
         public int org_id { get; set; }
@@ -62,7 +62,7 @@ namespace PeeringDB_Data_Import.Models
         public double? longitude { get; set; }
     }
 
-    public class Ix
+    public class Ix_pdb_InternetExchangeFacility
     {
         public int id { get; set; }
         public int org_id { get; set; }
