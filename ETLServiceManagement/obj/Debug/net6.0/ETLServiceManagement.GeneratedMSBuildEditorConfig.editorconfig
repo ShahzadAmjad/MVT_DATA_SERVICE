@@ -8,61 +8,61 @@ build_property.PlatformNeutralAssembly =
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = ETLServiceManagement
 build_property.RootNamespace = ETLServiceManagement
-build_property.ProjectDir = C:\Users\test\Documents\GitHub\MVT_DATA_SERVICE\ETLServiceManagement\
+build_property.ProjectDir = c:\Users\test\Documents\GitHub\MVT_DATA_SERVICE\ETLServiceManagement\
 build_property.RazorLangVersion = 6.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
-build_property.MSBuildProjectDirectory = C:\Users\test\Documents\GitHub\MVT_DATA_SERVICE\ETLServiceManagement
+build_property.MSBuildProjectDirectory = c:\Users\test\Documents\GitHub\MVT_DATA_SERVICE\ETLServiceManagement
 build_property._RazorSourceGeneratorDebug = 
 
-[C:/Users/test/Documents/GitHub/MVT_DATA_SERVICE/ETLServiceManagement/Views/Home/Home.cshtml]
+[c:/Users/test/Documents/GitHub/MVT_DATA_SERVICE/ETLServiceManagement/Views/Home/Home.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxIb21lLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/test/Documents/GitHub/MVT_DATA_SERVICE/ETLServiceManagement/Views/Home/Index.cshtml]
+[c:/Users/test/Documents/GitHub/MVT_DATA_SERVICE/ETLServiceManagement/Views/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/test/Documents/GitHub/MVT_DATA_SERVICE/ETLServiceManagement/Views/Home/Privacy.cshtml]
+[c:/Users/test/Documents/GitHub/MVT_DATA_SERVICE/ETLServiceManagement/Views/Home/Privacy.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcml2YWN5LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/test/Documents/GitHub/MVT_DATA_SERVICE/ETLServiceManagement/Views/Service/AllServices.cshtml]
+[c:/Users/test/Documents/GitHub/MVT_DATA_SERVICE/ETLServiceManagement/Views/Service/AllServices.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2VydmljZVxBbGxTZXJ2aWNlcy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/test/Documents/GitHub/MVT_DATA_SERVICE/ETLServiceManagement/Views/Service/EditService.cshtml]
+[c:/Users/test/Documents/GitHub/MVT_DATA_SERVICE/ETLServiceManagement/Views/Service/EditService.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2VydmljZVxFZGl0U2VydmljZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/test/Documents/GitHub/MVT_DATA_SERVICE/ETLServiceManagement/Views/Service/Index.cshtml]
+[c:/Users/test/Documents/GitHub/MVT_DATA_SERVICE/ETLServiceManagement/Views/Service/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2VydmljZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/test/Documents/GitHub/MVT_DATA_SERVICE/ETLServiceManagement/Views/Service/_AddServicePartialView.cshtml]
+[c:/Users/test/Documents/GitHub/MVT_DATA_SERVICE/ETLServiceManagement/Views/Service/_AddServicePartialView.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2VydmljZVxfQWRkU2VydmljZVBhcnRpYWxWaWV3LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/test/Documents/GitHub/MVT_DATA_SERVICE/ETLServiceManagement/Views/Service/_EditServicePartialView.cshtml]
+[c:/Users/test/Documents/GitHub/MVT_DATA_SERVICE/ETLServiceManagement/Views/Service/_EditServicePartialView.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2VydmljZVxfRWRpdFNlcnZpY2VQYXJ0aWFsVmlldy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/test/Documents/GitHub/MVT_DATA_SERVICE/ETLServiceManagement/Views/Shared/Error.cshtml]
+[c:/Users/test/Documents/GitHub/MVT_DATA_SERVICE/ETLServiceManagement/Views/Shared/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/test/Documents/GitHub/MVT_DATA_SERVICE/ETLServiceManagement/Views/Shared/_ValidationScriptsPartial.cshtml]
+[c:/Users/test/Documents/GitHub/MVT_DATA_SERVICE/ETLServiceManagement/Views/Shared/_ValidationScriptsPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/test/Documents/GitHub/MVT_DATA_SERVICE/ETLServiceManagement/Views/_ViewImports.cshtml]
+[c:/Users/test/Documents/GitHub/MVT_DATA_SERVICE/ETLServiceManagement/Views/_ViewImports.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/test/Documents/GitHub/MVT_DATA_SERVICE/ETLServiceManagement/Views/_ViewStart.cshtml]
+[c:/Users/test/Documents/GitHub/MVT_DATA_SERVICE/ETLServiceManagement/Views/_ViewStart.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/test/Documents/GitHub/MVT_DATA_SERVICE/ETLServiceManagement/Views/Shared/_Layout.cshtml]
+[c:/Users/test/Documents/GitHub/MVT_DATA_SERVICE/ETLServiceManagement/Views/Shared/_Layout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = b-zo789y937r
