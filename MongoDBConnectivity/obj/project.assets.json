@@ -706,19 +706,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Administrator\\.nuget\\packages\\": {}
+    "C:\\Users\\test\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Administrator\\Documents\\GitHub\\MVT_DATA_SERVICE\\MongoDBConnectivity\\MongoDBConnectivity.csproj",
+      "projectUniqueName": "C:\\Users\\test\\Documents\\GitHub\\MVT_DATA_SERVICE\\MongoDBConnectivity\\MongoDBConnectivity.csproj",
       "projectName": "MongoDBConnectivity",
-      "projectPath": "C:\\Users\\Administrator\\Documents\\GitHub\\MVT_DATA_SERVICE\\MongoDBConnectivity\\MongoDBConnectivity.csproj",
-      "packagesPath": "C:\\Users\\Administrator\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Administrator\\Documents\\GitHub\\MVT_DATA_SERVICE\\MongoDBConnectivity\\obj\\",
+      "projectPath": "C:\\Users\\test\\Documents\\GitHub\\MVT_DATA_SERVICE\\MongoDBConnectivity\\MongoDBConnectivity.csproj",
+      "packagesPath": "C:\\Users\\test\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\test\\Documents\\GitHub\\MVT_DATA_SERVICE\\MongoDBConnectivity\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\Administrator\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\test\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -732,8 +732,8 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "projectReferences": {
-            "C:\\Users\\Administrator\\Documents\\GitHub\\MVT_DATA_SERVICE\\DummyDataETL\\DummyDataETL.csproj": {
-              "projectPath": "C:\\Users\\Administrator\\Documents\\GitHub\\MVT_DATA_SERVICE\\DummyDataETL\\DummyDataETL.csproj"
+            "C:\\Users\\test\\Documents\\GitHub\\MVT_DATA_SERVICE\\DummyDataETL\\DummyDataETL.csproj": {
+              "projectPath": "C:\\Users\\test\\Documents\\GitHub\\MVT_DATA_SERVICE\\DummyDataETL\\DummyDataETL.csproj"
             }
           }
         }
@@ -780,7 +780,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.202\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.101\\RuntimeIdentifierGraph.json"
       }
     }
   }

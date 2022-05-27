@@ -8,19 +8,20 @@ using System.Net;
 
 Console.WriteLine("MVT Data Service started");
 int insertedBatchCount = 0;
-//to resume operation after restart
+//to resume operation after restart we save the nserted collections
 List<string> InsertedcollectionsList = new List<string>();
-string InsertedcollectionsListFilePath = AppDomain.CurrentDomain.BaseDirectory + @"MetaFiles\inserted_collectionsList.txt";
+string InsertedcollectionsListFilePath = AppDomain.CurrentDomain.BaseDirectory + @"\MetaFiles\inserted_collectionsList.txt";
 if (File.Exists(InsertedcollectionsListFilePath))
 {
     InsertedcollectionsList = File.ReadAllLines(InsertedcollectionsListFilePath).Select(x => (x)).ToList();
 }
-
+//list of all collections 
 List<string> collectionList = new List<string> 
 {"pdb_datacenters","pdb_internet_exchanges","pdb_internet_exchange_facilities",
     "pdb_internet_exchange_networks"," pdb_internet_exchange_prefixes","pdb_networks",
     "pdb_network_pocs","pdb_network_facilities","pdb_network_to_ix_connection","pdb_organizations","pdb_as_set"};
 
+//key value pair for collection vs uri's
 var CollectionvsUri= new List<KeyValuePair<string, string>>();
 CollectionvsUri.Add(new KeyValuePair<string, string>("pdb_datacenters", "https://www.peeringdb.com/api/fac"));
 CollectionvsUri.Add(new KeyValuePair<string, string>("pdb_internet_exchanges", "https://www.peeringdb.com/api/ix"));
@@ -49,7 +50,7 @@ foreach (var collectionName in collectionList)
 
         //This block only get the id's list for each collection
         //saving file to root directory
-        string idListFilePath = AppDomain.CurrentDomain.BaseDirectory + @"MetaFiles\" + collectionName + "_idList.txt";
+        string idListFilePath = AppDomain.CurrentDomain.BaseDirectory + @"\MetaFiles\" + collectionName + "_idList.txt";
         List<int> idList = new List<int>();
         try
         {
@@ -62,8 +63,34 @@ foreach (var collectionName in collectionList)
             else
             {
                 //get data to make an id list for one by one request
-                string requestUri = CollectionvsUri.First(kvp => kvp.Key == collectionName).Value;
-                string responseJson = response.getWebRequestData(requestUri);
+                //string requestUri = CollectionvsUri.First(kvp => kvp.Key == collectionName).Value;
+                //string responseJson = response.getWebRequestData(requestUri);
+                //for testing
+                string requestUri = "";
+                string responseJson = "";
+                if (collectionName != "pdb_as_set")
+                {
+                     requestUri = CollectionvsUri.First(kvp => kvp.Key == collectionName).Value+"/2";
+                     responseJson = response.getWebRequestData(requestUri);
+                }
+                if(collectionName== "pdb_network_pocs")
+                {
+                    requestUri = CollectionvsUri.First(kvp => kvp.Key == collectionName).Value + "/1168";
+                    responseJson = response.getWebRequestData(requestUri);
+                }
+                if (collectionName == "pdb_network_facilities")
+                {
+                    requestUri = CollectionvsUri.First(kvp => kvp.Key == collectionName).Value + "/580";
+                    responseJson = response.getWebRequestData(requestUri);
+                }
+                if (collectionName == "pdb_network_to_ix_connection")
+                {
+                    requestUri = CollectionvsUri.First(kvp => kvp.Key == collectionName).Value + "/589";
+                    responseJson = response.getWebRequestData(requestUri);
+                }
+                
+
+                /////////////////////testing script//////////////////////////////////
                 Console.WriteLine("Deserializing Json Data id's List For: " + collectionName);
 
                 if (collectionName == "pdb_datacenters")
@@ -197,6 +224,7 @@ foreach (var collectionName in collectionList)
                 List<Cpdb_tranformation> new_pdbDatacenters_List = new List<Cpdb_tranformation>();
                 foreach (int id in idList)
                 {
+                    Console.WriteLine(collectionName + ": Getting Data for Id: " + id);
                     string NewrequestUri = CollectionvsUri.First(kvp => kvp.Key == collectionName).Value + "/" + id;
                     string newresponseJson = response.getWebRequestData(NewrequestUri);
                     Root_pdb_datacenters newMyDeserializedClass = JsonConvert.DeserializeObject<Root_pdb_datacenters>(newresponseJson);
@@ -238,6 +266,7 @@ foreach (var collectionName in collectionList)
                 List<pdb_InternetExchange> pdbData_List = new List<pdb_InternetExchange>();
                 foreach (int id in idList)
                 {
+                    Console.WriteLine(collectionName + ": Getting Data for Id: " + id);
                     string NewrequestUri = CollectionvsUri.First(kvp => kvp.Key == collectionName).Value + "/" + id;
                     string newresponseJson = response.getWebRequestData(NewrequestUri);
                     Root_pdb_InternetExchange newMyDeserializedClass = JsonConvert.DeserializeObject<Root_pdb_InternetExchange>(newresponseJson);
@@ -262,6 +291,7 @@ foreach (var collectionName in collectionList)
                 List<pdb_InternetExchangeFacility> pdbData_List = new List<pdb_InternetExchangeFacility>();
                 foreach (int id in idList)
                 {
+                    Console.WriteLine(collectionName + ": Getting Data for Id: " + id);
                     string NewrequestUri = CollectionvsUri.First(kvp => kvp.Key == collectionName).Value + "/" + id;
                     string newresponseJson = response.getWebRequestData(NewrequestUri);
                     Root_pdb_InternetExchangeFacility newMyDeserializedClass = JsonConvert.DeserializeObject<Root_pdb_InternetExchangeFacility>(newresponseJson);
@@ -286,6 +316,7 @@ foreach (var collectionName in collectionList)
                 List<pdb_internet_exchange_networks> pdbData_List = new List<pdb_internet_exchange_networks>();
                 foreach (int id in idList)
                 {
+                    Console.WriteLine(collectionName + ": Getting Data for Id: " + id);
                     string NewrequestUri = CollectionvsUri.First(kvp => kvp.Key == collectionName).Value + "/" + id;
                     string newresponseJson = response.getWebRequestData(NewrequestUri);
                     Root_pdb_internet_exchange_networks newMyDeserializedClass = JsonConvert.DeserializeObject<Root_pdb_internet_exchange_networks>(newresponseJson);
@@ -310,6 +341,7 @@ foreach (var collectionName in collectionList)
                 List<pdb_internet_exchange_prefixes> pdbData_List = new List<pdb_internet_exchange_prefixes>();
                 foreach (int id in idList)
                 {
+                    Console.WriteLine(collectionName + ": Getting Data for Id: " + id);
                     string NewrequestUri = CollectionvsUri.First(kvp => kvp.Key == collectionName).Value + "/" + id;
                     string newresponseJson = response.getWebRequestData(NewrequestUri);
                     Root_pdb_internet_exchange_prefixes newMyDeserializedClass = JsonConvert.DeserializeObject<Root_pdb_internet_exchange_prefixes>(newresponseJson);
@@ -334,6 +366,7 @@ foreach (var collectionName in collectionList)
                 List<pdb_Network> pdbData_List = new List<pdb_Network>();
                 foreach (int id in idList)
                 {
+                    Console.WriteLine(collectionName + ": Getting Data for Id: " + id);
                     string NewrequestUri = CollectionvsUri.First(kvp => kvp.Key == collectionName).Value + "/" + id;
                     string newresponseJson = response.getWebRequestData(NewrequestUri);
                     Root_pdb_Network newMyDeserializedClass = JsonConvert.DeserializeObject<Root_pdb_Network>(newresponseJson);
@@ -358,6 +391,7 @@ foreach (var collectionName in collectionList)
                 List<pdb_NetworkPOC> pdbData_List = new List<pdb_NetworkPOC>();
                 foreach (int id in idList)
                 {
+                    Console.WriteLine(collectionName + ": Getting Data for Id: " + id);
                     string NewrequestUri = CollectionvsUri.First(kvp => kvp.Key == collectionName).Value + "/" + id;
                     string newresponseJson = response.getWebRequestData(NewrequestUri);
                     Root_pdb_NetworkPOC newMyDeserializedClass = JsonConvert.DeserializeObject<Root_pdb_NetworkPOC>(newresponseJson);
@@ -382,6 +416,7 @@ foreach (var collectionName in collectionList)
                 List<pdb_NetworkFacility> pdbData_List = new List<pdb_NetworkFacility>();
                 foreach (int id in idList)
                 {
+                    Console.WriteLine(collectionName + ": Getting Data for Id: " + id);
                     string NewrequestUri = CollectionvsUri.First(kvp => kvp.Key == collectionName).Value + "/" + id;
                     string newresponseJson = response.getWebRequestData(NewrequestUri);
                     Root_pdb_NetworkFacility newMyDeserializedClass = JsonConvert.DeserializeObject<Root_pdb_NetworkFacility>(newresponseJson);
@@ -406,6 +441,7 @@ foreach (var collectionName in collectionList)
                 List<pdb_NetworkToIXConnection> pdbData_List = new List<pdb_NetworkToIXConnection>();
                 foreach (int id in idList)
                 {
+                    Console.WriteLine(collectionName + ": Getting Data for Id: " + id);
                     string NewrequestUri = CollectionvsUri.First(kvp => kvp.Key == collectionName).Value + "/" + id;
                     string newresponseJson = response.getWebRequestData(NewrequestUri);
                     Root_pdb_NetworkToIXConnection newMyDeserializedClass = JsonConvert.DeserializeObject<Root_pdb_NetworkToIXConnection>(newresponseJson);
@@ -430,6 +466,7 @@ foreach (var collectionName in collectionList)
                 List<pdb_Organization> pdbData_List = new List<pdb_Organization>();
                 foreach (int id in idList)
                 {
+                    Console.WriteLine(collectionName + ": Getting Data for Id: " + id);
                     string NewrequestUri = CollectionvsUri.First(kvp => kvp.Key == collectionName).Value + "/" + id;
                     string newresponseJson = response.getWebRequestData(NewrequestUri);
                     Root_pdb_Organization newMyDeserializedClass = JsonConvert.DeserializeObject<Root_pdb_Organization>(newresponseJson);
@@ -458,7 +495,7 @@ foreach (var collectionName in collectionList)
                 //Only for as set data deserialization
                 string data = (responseJson.Split("[{"))[1];
                 string[] dataList = data.Split(",");
-
+                Console.WriteLine(collectionName + ": Parsing Data");
                 foreach (string item in dataList)
                 {
                     string[] itemList = item.Split(":");

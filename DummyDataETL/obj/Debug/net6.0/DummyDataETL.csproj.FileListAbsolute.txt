@@ -27,4 +27,3 @@ C:\Users\test\Documents\GitHub\MVT_DATA_SERVICE\DummyDataETL\obj\Debug\net6.0\Du
 C:\Users\test\Documents\GitHub\MVT_DATA_SERVICE\DummyDataETL\obj\Debug\net6.0\ref\DummyDataETL.dll
 C:\Users\test\Documents\GitHub\MVT_DATA_SERVICE\DummyDataETL\obj\Debug\net6.0\DummyDataETL.pdb
 C:\Users\test\Documents\GitHub\MVT_DATA_SERVICE\DummyDataETL\obj\Debug\net6.0\DummyDataETL.genruntimeconfig.cache
-C:\Users\test\Documents\GitHub\MVT_DATA_SERVICE\DummyDataETL\obj\Debug\net6.0\DummyDataETL.csproj.AssemblyReference.cache
