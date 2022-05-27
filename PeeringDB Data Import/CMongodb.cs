@@ -79,6 +79,30 @@ namespace PeeringDB_Data_Import
                     collection.InsertMany((IEnumerable<pdb_internet_exchange_prefixes>)batch);
                     status = true;
                 }
+                else if (list is List<pdb_Network>)
+                {
+                    List<pdb_Network> batch = list as List<pdb_Network>;
+                    //to empty previous records if any
+                    if (insertedBatchCount == 0)
+                    {
+                        database.DropCollection(collectionName);
+                    }
+                    var collection = database.GetCollection<pdb_Network>(collectionName);
+                    collection.InsertMany((IEnumerable<pdb_Network>)batch);
+                    status = true;
+                }
+                else if (list is List<pdb_NetworkPOC>)
+                {
+                    List<pdb_NetworkPOC> batch = list as List<pdb_NetworkPOC>;
+                    //to empty previous records if any
+                    if (insertedBatchCount == 0)
+                    {
+                        database.DropCollection(collectionName);
+                    }
+                    var collection = database.GetCollection<pdb_NetworkPOC>(collectionName);
+                    collection.InsertMany((IEnumerable<pdb_NetworkPOC>)batch);
+                    status = true;
+                }
                 else if (list is List<pdb_NetworkFacility>)
                 {
                     List<pdb_NetworkFacility> batch = list as List<pdb_NetworkFacility>;
@@ -138,7 +162,6 @@ namespace PeeringDB_Data_Import
             }
             return status;
         }
-
         MongoClient OpenDBConn()
         {
             Console.WriteLine("opening connection to Mongodb");

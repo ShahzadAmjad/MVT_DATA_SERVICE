@@ -13,7 +13,7 @@ namespace PeeringDB_Data_Import.Models
         public Geometry geometry { get; set; }
 
         //6th change
-        public pdb_Network properties { get; set; }
+        public pdb_datacenters properties { get; set; }
 
     }
     public class Geometry

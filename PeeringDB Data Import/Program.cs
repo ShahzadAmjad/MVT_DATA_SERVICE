@@ -8,6 +8,10 @@ using System.Net;
 
 Console.WriteLine("MVT Data Service started");
 int insertedBatchCount = 0;
+List<string> Insertedcollections = new List<string>();
+
+
+
 List<string> collectionList = new List<string> 
 {"pdb_datacenters","pdb_internet_exchanges","pdb_internet_exchange_facilities",
     "pdb_internet_exchange_networks"," pdb_internet_exchange_prefixes","pdb_networks",
@@ -111,7 +115,7 @@ foreach (var collectionName in collectionList)
                 }
                 //to empty memory
                 myDeserializedClass = new Root_pdb_internet_exchange_prefixes();
-            }
+            }           
             else if (collectionName == "pdb_networks")
             {
                 Root_pdb_Network myDeserializedClass = JsonConvert.DeserializeObject<Root_pdb_Network>(responseJson);
@@ -122,6 +126,17 @@ foreach (var collectionName in collectionList)
                 }
                 //to empty memory
                 myDeserializedClass = new Root_pdb_Network();
+            }
+            else if (collectionName == "pdb_network_pocs")
+            {
+                Root_pdb_NetworkPOC myDeserializedClass = JsonConvert.DeserializeObject<Root_pdb_NetworkPOC>(responseJson);
+                //Getting the List of ids
+                foreach (var pdb in myDeserializedClass.data)
+                {
+                    idList.Add(pdb.id);
+                }
+                //to empty memory
+                myDeserializedClass = new Root_pdb_NetworkPOC();
             }
             else if (collectionName == "pdb_network_facilities")
             {
@@ -158,7 +173,7 @@ foreach (var collectionName in collectionList)
             } 
             else if (collectionName == "pdb_as_set")
             {
-                //no need for id list/just to parse the response as a whole
+                //no need for id list: just to parse the response as a whole
             }
 
             //Write to File//saving to avoid block 
@@ -179,13 +194,26 @@ foreach (var collectionName in collectionList)
             {
                 string NewrequestUri = CollectionvsUri.First(kvp => kvp.Key == collectionName).Value + "/" + id;
                 string newresponseJson = response.getWebRequestData(NewrequestUri);
-                Root_pdb_InternetExchange newMyDeserializedClass = JsonConvert.DeserializeObject<Root_pdb_InternetExchange>(newresponseJson);
-                
-                
-                
-                pdbData_List.Add(newMyDeserializedClass.data[0]);
+                Root_pdb_datacenters newMyDeserializedClass = JsonConvert.DeserializeObject<Root_pdb_datacenters>(newresponseJson);
+
+                pdb_datacenters pdbDatacenterObj = new pdb_datacenters();
+                pdbDatacenterObj = newMyDeserializedClass.data[0];
+
+                //tranforming object to new modal class
+                Cpdb_tranformation new_pdbDatacenterObj = new Cpdb_tranformation();
+                new_pdbDatacenterObj._id = (id).ToString();
+                new_pdbDatacenterObj.type = "Feature";
+                new_pdbDatacenterObj.geometry = new Geometry();
+                new_pdbDatacenterObj.geometry.type = "Point";
+                new_pdbDatacenterObj.geometry.coordinates = new List<double?>();
+                new_pdbDatacenterObj.geometry.coordinates.Add(pdbDatacenterObj.longitude);
+                new_pdbDatacenterObj.geometry.coordinates.Add(pdbDatacenterObj.latitude);
+                new_pdbDatacenterObj.properties = new pdb_datacenters();
+                new_pdbDatacenterObj.properties = pdbDatacenterObj;
+
+                new_pdbDatacenters_List.Add(new_pdbDatacenterObj);
             }
-            bool status = mongodb.InsertBatch(pdbData_List, collectionName, insertedBatchCount);
+            bool status = mongodb.InsertBatch(new_pdbDatacenters_List, collectionName, insertedBatchCount);
 
             if (status)
             {
@@ -301,6 +329,27 @@ foreach (var collectionName in collectionList)
                 Console.WriteLine(collectionName + ": Exception occured while Inserting Data to Mongodb");
             }
         }
+        else if (collectionName == "pdb_network_pocs")
+        {
+            List<pdb_NetworkPOC> pdbData_List = new List<pdb_NetworkPOC>();
+            foreach (int id in idList)
+            {
+                string NewrequestUri = CollectionvsUri.First(kvp => kvp.Key == collectionName).Value + "/" + id;
+                string newresponseJson = response.getWebRequestData(NewrequestUri);
+                Root_pdb_NetworkPOC newMyDeserializedClass = JsonConvert.DeserializeObject<Root_pdb_NetworkPOC>(newresponseJson);
+                pdbData_List.Add(newMyDeserializedClass.data[0]);
+            }
+            bool status = mongodb.InsertBatch(pdbData_List, collectionName, insertedBatchCount);
+
+            if (status)
+            {
+                Console.WriteLine(collectionName + ": Inserted to Mongodb Successfully");
+            }
+            else
+            {
+                Console.WriteLine(collectionName + ": Exception occured while Inserting Data to Mongodb");
+            }
+        }
         else if (collectionName == "pdb_network_facilities")
         {
             List<pdb_NetworkFacility> pdbData_List = new List<pdb_NetworkFacility>();
@@ -366,7 +415,49 @@ foreach (var collectionName in collectionList)
         }
         else if (collectionName == "pdb_as_set")
         {
-            //to be handled differently
+            List<pdb_AS_SET> pdb_List = new List<pdb_AS_SET>();
+            string NewrequestUri = CollectionvsUri.First(kvp => kvp.Key == collectionName).Value ;
+            string responseJson = response.getWebRequestData(NewrequestUri);
+
+            //Only for as set data deserialization
+            string data = (responseJson.Split("[{"))[1];
+            string[] dataList = data.Split(",");
+
+            foreach (string item in dataList)
+            {
+                string[] itemList = item.Split(":");
+                if (itemList.Length >= 2)
+                {
+                    string[] newitemList = new string[2];
+                    Array.Copy(itemList, 0, newitemList, 0, 2);
+                    pdb_AS_SET pdb_AS_SET = new pdb_AS_SET();
+
+
+                    int n;
+                    bool isNumeric = int.TryParse((newitemList[0].Replace('"', ' ').Trim()), out n);
+
+                    if (isNumeric)
+                    {
+                        pdb_AS_SET.id = Convert.ToInt32(newitemList[0].Replace('"', ' ').Trim());
+                        pdb_AS_SET.value = newitemList[1].Replace('"', ' ').Trim();
+                        pdb_List.Add(pdb_AS_SET);
+                    }
+
+                }
+
+            }
+
+            bool status = mongodb.InsertBatch(pdb_List, collectionName, insertedBatchCount);
+
+            if (status)
+            {
+                Console.WriteLine(collectionName + ": Inserted to Mongodb Successfully");
+            }
+            else
+            {
+                Console.WriteLine(collectionName + ": Exception occured while Inserting Data to Mongodb");
+            }
+
         }
 
     }

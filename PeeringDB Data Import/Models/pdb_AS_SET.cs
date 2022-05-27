@@ -15,9 +15,9 @@ namespace PeeringDB_Data_Import.Models
     //{
     //}
 
-    public class Root_pdb_AS_SET
-    {
-        public List<pdb_AS_SET> data { get; set; }
-        public Meta meta { get; set; }
-    }
+    //public class Root_pdb_AS_SET
+    //{
+    //    public List<pdb_AS_SET> data { get; set; }
+    //    public Meta meta { get; set; }
+    //}
 }
