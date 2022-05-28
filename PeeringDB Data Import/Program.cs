@@ -7,8 +7,9 @@ using PeeringDB_Data_Import.Models;
 using System.Net;
 
 Console.WriteLine("MVT Data Service started");
+//variable reserved for batching
 int insertedBatchCount = 0;
-//to resume operation after restart we save the nserted collections
+//to resume operation after restart we save the inserted collections
 List<string> InsertedcollectionsList = new List<string>();
 string InsertedcollectionsListFilePath = AppDomain.CurrentDomain.BaseDirectory + @"\MetaFiles\inserted_collectionsList.txt";
 if (File.Exists(InsertedcollectionsListFilePath))
@@ -18,7 +19,7 @@ if (File.Exists(InsertedcollectionsListFilePath))
 //list of all collections 
 List<string> collectionList = new List<string> 
 {"pdb_datacenters","pdb_internet_exchanges","pdb_internet_exchange_facilities",
-    "pdb_internet_exchange_networks"," pdb_internet_exchange_prefixes","pdb_networks",
+    "pdb_internet_exchange_networks","pdb_internet_exchange_prefixes","pdb_networks",
     "pdb_network_pocs","pdb_network_facilities","pdb_network_to_ix_connection","pdb_organizations","pdb_as_set"};
 
 //key value pair for collection vs uri's
@@ -32,7 +33,7 @@ CollectionvsUri.Add(new KeyValuePair<string, string>("pdb_networks", "https://ww
 CollectionvsUri.Add(new KeyValuePair<string, string>("pdb_network_pocs", "https://www.peeringdb.com/api/poc"));
 CollectionvsUri.Add(new KeyValuePair<string, string>("pdb_network_facilities", "https://www.peeringdb.com/api/netfac"));
 CollectionvsUri.Add(new KeyValuePair<string, string>("pdb_network_to_ix_connection", "https://www.peeringdb.com/api/netixlan"));
-CollectionvsUri.Add(new KeyValuePair<string, string>(" pdb_organizations", "https://www.peeringdb.com/api/org"));
+CollectionvsUri.Add(new KeyValuePair<string, string>("pdb_organizations", "https://www.peeringdb.com/api/org"));
 CollectionvsUri.Add(new KeyValuePair<string, string>("pdb_as_set", "https://www.peeringdb.com/api/as_set"));
 
 
@@ -41,7 +42,7 @@ foreach (var collectionName in collectionList)
     //check if already updated or not
     if(InsertedcollectionsList.Contains(collectionName))
     {
-        Console.WriteLine(collectionName+ "Recently updated");
+        Console.WriteLine(collectionName+ ": Recently updated");
     }
     else
     {
@@ -63,31 +64,28 @@ foreach (var collectionName in collectionList)
             else
             {
                 //get data to make an id list for one by one request
-                //string requestUri = CollectionvsUri.First(kvp => kvp.Key == collectionName).Value;
-                //string responseJson = response.getWebRequestData(requestUri);
-                //for testing
-                string requestUri = "";
-                string responseJson = "";
-                if (collectionName != "pdb_as_set")
-                {
-                     requestUri = CollectionvsUri.First(kvp => kvp.Key == collectionName).Value+"/2";
-                     responseJson = response.getWebRequestData(requestUri);
-                }
-                if(collectionName== "pdb_network_pocs")
-                {
-                    requestUri = CollectionvsUri.First(kvp => kvp.Key == collectionName).Value + "/1168";
-                    responseJson = response.getWebRequestData(requestUri);
-                }
-                if (collectionName == "pdb_network_facilities")
-                {
-                    requestUri = CollectionvsUri.First(kvp => kvp.Key == collectionName).Value + "/580";
-                    responseJson = response.getWebRequestData(requestUri);
-                }
-                if (collectionName == "pdb_network_to_ix_connection")
-                {
-                    requestUri = CollectionvsUri.First(kvp => kvp.Key == collectionName).Value + "/589";
-                    responseJson = response.getWebRequestData(requestUri);
-                }
+                string requestUri = CollectionvsUri.First(kvp => kvp.Key == collectionName).Value;
+                string responseJson = response.getWebRequestData(requestUri);
+                
+                ////for testing
+                //string requestUri = "";
+                //string responseJson = "";
+                   
+                //if(collectionName== "pdb_network_pocs")
+                //{
+                //    requestUri = CollectionvsUri.First(kvp => kvp.Key == collectionName).Value + "/1168";
+                //    responseJson = response.getWebRequestData(requestUri);
+                //}
+                //if (collectionName == "pdb_network_facilities")
+                //{
+                //    requestUri = CollectionvsUri.First(kvp => kvp.Key == collectionName).Value + "/580";
+                //    responseJson = response.getWebRequestData(requestUri);
+                //}
+                //if (collectionName == "pdb_network_to_ix_connection")
+                //{
+                //    requestUri = CollectionvsUri.First(kvp => kvp.Key == collectionName).Value + "/589";
+                //    responseJson = response.getWebRequestData(requestUri);
+                //}
                 
 
                 /////////////////////testing script//////////////////////////////////
@@ -192,7 +190,7 @@ foreach (var collectionName in collectionList)
                     //to empty memory
                     myDeserializedClass = new Root_pdb_InternetExchangeFacility();
                 }
-                else if (collectionName == "pdb_Organization")
+                else if (collectionName == "pdb_organizations")
                 {
                     Root_pdb_NetworkToIXConnection myDeserializedClass = JsonConvert.DeserializeObject<Root_pdb_NetworkToIXConnection>(responseJson);
                     //Getting the List of ids
@@ -461,7 +459,7 @@ foreach (var collectionName in collectionList)
                     Console.WriteLine(collectionName + ": Exception occured while Inserting Data to Mongodb");
                 }
             }
-            else if (collectionName == "pdb_Organization")
+            else if (collectionName == "pdb_organizations")
             {
                 List<pdb_Organization> pdbData_List = new List<pdb_Organization>();
                 foreach (int id in idList)
