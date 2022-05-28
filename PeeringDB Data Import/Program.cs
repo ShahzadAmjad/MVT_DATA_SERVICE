@@ -10,6 +10,12 @@ Console.WriteLine("MVT Data Service started");
 //variable reserved for batching
 int insertedBatchCount = 0;
 //to resume operation after restart we save the inserted collections
+string MetafilesDirectoryPath = AppDomain.CurrentDomain.BaseDirectory + @"\MetaFiles";
+bool exists = System.IO.Directory.Exists(MetafilesDirectoryPath);
+
+if (!exists)
+    System.IO.Directory.CreateDirectory(MetafilesDirectoryPath);
+
 List<string> InsertedcollectionsList = new List<string>();
 string InsertedcollectionsListFilePath = AppDomain.CurrentDomain.BaseDirectory + @"\MetaFiles\inserted_collectionsList.txt";
 if (File.Exists(InsertedcollectionsListFilePath))
