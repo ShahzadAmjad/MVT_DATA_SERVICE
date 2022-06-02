@@ -57,7 +57,11 @@ foreach (var collectionName in collectionList)
 
         //This block only get the id's list for each collection
         //saving file to root directory
-        string idListFilePath = AppDomain.CurrentDomain.BaseDirectory + @"\MetaFiles\" + collectionName + "_idList.txt";
+        string dd = (DateTime.Now).Day.ToString();
+        string mm = (DateTime.Now).Month.ToString();
+        string yyyy = (DateTime.Now).Year.ToString();
+        //file name format is CollectionName_idList_dd_mm_yyyy
+        string idListFilePath = AppDomain.CurrentDomain.BaseDirectory + @"\MetaFiles\" + collectionName + "_idList_"+dd+"_"+mm+"_"+yyyy+".txt";
         List<int> idList = new List<int>();
         try
         {
@@ -532,6 +536,13 @@ foreach (var collectionName in collectionList)
                     InsertedcollectionsList.Add(collectionName);
                     File.WriteAllLines(InsertedcollectionsListFilePath, InsertedcollectionsList.Select(x => x.ToString()));
                     Console.WriteLine(collectionName + ": Inserted to Mongodb Successfully");
+
+                    //Delete Inserted collections File after all collections inserted
+
+                    if(File.Exists(InsertedcollectionsListFilePath))
+                    {
+                        File.Delete(InsertedcollectionsListFilePath);
+                    }
                 }
                 else
                 {
