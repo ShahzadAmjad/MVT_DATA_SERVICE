@@ -265,16 +265,6 @@
             "rid": "win"
           }
         }
-      },
-      "DummyDataETL/1.0.0": {
-        "type": "project",
-        "framework": ".NETCoreApp,Version=v6.0",
-        "compile": {
-          "bin/placeholder/DummyDataETL.dll": {}
-        },
-        "runtime": {
-          "bin/placeholder/DummyDataETL.dll": {}
-        }
       }
     }
   },
@@ -689,16 +679,10 @@
         "useSharedDesignerContext.txt",
         "version.txt"
       ]
-    },
-    "DummyDataETL/1.0.0": {
-      "type": "project",
-      "path": "../DummyDataETL/DummyDataETL.csproj",
-      "msbuildProject": "../DummyDataETL/DummyDataETL.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net6.0": [
-      "DummyDataETL >= 1.0.0",
       "MongoDB.Bson >= 2.15.0",
       "MongoDB.Driver >= 2.15.0",
       "MongoDB.Driver.Core >= 2.15.0",
@@ -731,11 +715,7 @@
       "frameworks": {
         "net6.0": {
           "targetAlias": "net6.0",
-          "projectReferences": {
-            "C:\\Users\\Administrator\\Documents\\GitHub\\MVT_DATA_SERVICE\\DummyDataETL\\DummyDataETL.csproj": {
-              "projectPath": "C:\\Users\\Administrator\\Documents\\GitHub\\MVT_DATA_SERVICE\\DummyDataETL\\DummyDataETL.csproj"
-            }
-          }
+          "projectReferences": {}
         }
       },
       "warningProperties": {

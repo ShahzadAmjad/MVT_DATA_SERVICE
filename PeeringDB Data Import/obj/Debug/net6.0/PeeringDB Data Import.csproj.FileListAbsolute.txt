@@ -16,11 +16,6 @@ C:\Users\Administrator\Documents\GitHub\MVT_DATA_SERVICE\PeeringDB Data Import\o
 C:\Users\Administrator\Documents\GitHub\MVT_DATA_SERVICE\PeeringDB Data Import\bin\Debug\net6.0\PeeringDB Data Import.dll.config
 C:\Users\Administrator\Documents\GitHub\MVT_DATA_SERVICE\PeeringDB Data Import\bin\Debug\net6.0\Newtonsoft.Json.dll
 C:\Users\Administrator\Documents\GitHub\MVT_DATA_SERVICE\PeeringDB Data Import\obj\Debug\net6.0\PeeringDB Data Import.csproj.CopyComplete
-C:\Users\Administrator\Documents\GitHub\MVT_DATA_SERVICE\PeeringDB Data Import\bin\Debug\net6.0\MongoDBConnectivity.deps.json
-C:\Users\Administrator\Documents\GitHub\MVT_DATA_SERVICE\PeeringDB Data Import\bin\Debug\net6.0\MongoDBConnectivity.runtimeconfig.json
-C:\Users\Administrator\Documents\GitHub\MVT_DATA_SERVICE\PeeringDB Data Import\bin\Debug\net6.0\DummyDataETL.deps.json
-C:\Users\Administrator\Documents\GitHub\MVT_DATA_SERVICE\PeeringDB Data Import\bin\Debug\net6.0\DummyDataETL.runtimeconfig.json
-C:\Users\Administrator\Documents\GitHub\MVT_DATA_SERVICE\PeeringDB Data Import\bin\Debug\net6.0\DummyDataETL.exe
 C:\Users\Administrator\Documents\GitHub\MVT_DATA_SERVICE\PeeringDB Data Import\bin\Debug\net6.0\libzstd.dll
 C:\Users\Administrator\Documents\GitHub\MVT_DATA_SERVICE\PeeringDB Data Import\bin\Debug\net6.0\snappy32.dll
 C:\Users\Administrator\Documents\GitHub\MVT_DATA_SERVICE\PeeringDB Data Import\bin\Debug\net6.0\snappy64.dll
@@ -28,12 +23,10 @@ C:\Users\Administrator\Documents\GitHub\MVT_DATA_SERVICE\PeeringDB Data Import\b
 C:\Users\Administrator\Documents\GitHub\MVT_DATA_SERVICE\PeeringDB Data Import\bin\Debug\net6.0\libzstd.so
 C:\Users\Administrator\Documents\GitHub\MVT_DATA_SERVICE\PeeringDB Data Import\bin\Debug\net6.0\libsnappy64.dylib
 C:\Users\Administrator\Documents\GitHub\MVT_DATA_SERVICE\PeeringDB Data Import\bin\Debug\net6.0\libzstd.dylib
-C:\Users\Administrator\Documents\GitHub\MVT_DATA_SERVICE\PeeringDB Data Import\bin\Debug\net6.0\MongoDBConnectivity.exe
 C:\Users\Administrator\Documents\GitHub\MVT_DATA_SERVICE\PeeringDB Data Import\bin\Debug\net6.0\DnsClient.dll
 C:\Users\Administrator\Documents\GitHub\MVT_DATA_SERVICE\PeeringDB Data Import\bin\Debug\net6.0\MongoDB.Bson.dll
 C:\Users\Administrator\Documents\GitHub\MVT_DATA_SERVICE\PeeringDB Data Import\bin\Debug\net6.0\MongoDB.Driver.dll
 C:\Users\Administrator\Documents\GitHub\MVT_DATA_SERVICE\PeeringDB Data Import\bin\Debug\net6.0\MongoDB.Driver.Core.dll
-C:\Users\Administrator\Documents\GitHub\MVT_DATA_SERVICE\PeeringDB Data Import\bin\Debug\net6.0\MongoDB.Driver.GridFS.dll
 C:\Users\Administrator\Documents\GitHub\MVT_DATA_SERVICE\PeeringDB Data Import\bin\Debug\net6.0\MongoDB.Libmongocrypt.dll
 C:\Users\Administrator\Documents\GitHub\MVT_DATA_SERVICE\PeeringDB Data Import\bin\Debug\net6.0\SharpCompress.dll
 C:\Users\Administrator\Documents\GitHub\MVT_DATA_SERVICE\PeeringDB Data Import\bin\Debug\net6.0\runtimes\linux\native\libsnappy64.so
@@ -46,10 +39,6 @@ C:\Users\Administrator\Documents\GitHub\MVT_DATA_SERVICE\PeeringDB Data Import\b
 C:\Users\Administrator\Documents\GitHub\MVT_DATA_SERVICE\PeeringDB Data Import\bin\Debug\net6.0\runtimes\linux\native\libmongocrypt.so
 C:\Users\Administrator\Documents\GitHub\MVT_DATA_SERVICE\PeeringDB Data Import\bin\Debug\net6.0\runtimes\osx\native\libmongocrypt.dylib
 C:\Users\Administrator\Documents\GitHub\MVT_DATA_SERVICE\PeeringDB Data Import\bin\Debug\net6.0\runtimes\win\native\mongocrypt.dll
-C:\Users\Administrator\Documents\GitHub\MVT_DATA_SERVICE\PeeringDB Data Import\bin\Debug\net6.0\DummyDataETL.dll
-C:\Users\Administrator\Documents\GitHub\MVT_DATA_SERVICE\PeeringDB Data Import\bin\Debug\net6.0\MongoDBConnectivity.dll
-C:\Users\Administrator\Documents\GitHub\MVT_DATA_SERVICE\PeeringDB Data Import\bin\Debug\net6.0\MongoDBConnectivity.pdb
-C:\Users\Administrator\Documents\GitHub\MVT_DATA_SERVICE\PeeringDB Data Import\bin\Debug\net6.0\DummyDataETL.pdb
 C:\Users\test\Documents\GitHub\MVT_DATA_SERVICE\PeeringDB Data Import\obj\Debug\net6.0\PeeringDB Data Import.csproj.AssemblyReference.cache
 C:\Users\test\Documents\GitHub\MVT_DATA_SERVICE\PeeringDB Data Import\obj\Debug\net6.0\PeeringDB Data Import.GeneratedMSBuildEditorConfig.editorconfig
 C:\Users\test\Documents\GitHub\MVT_DATA_SERVICE\PeeringDB Data Import\obj\Debug\net6.0\PeeringDB Data Import.AssemblyInfoInputs.cache
