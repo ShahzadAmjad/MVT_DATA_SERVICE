@@ -56,11 +56,11 @@ foreach (var collectionName in collectionList)
 
         //This block only get the id's list for each collection
         //saving file to root directory
-        string dd = (DateTime.Now).Day.ToString();
-        string mm = (DateTime.Now).Month.ToString();
+        string dd = (DateTime.Now).Day.ToString("00");
+        string mm = (DateTime.Now).Month.ToString("00");
         string yyyy = (DateTime.Now).Year.ToString();
         //file name format is CollectionName_idList_dd_mm_yyyy
-        string idListFilePath = AppDomain.CurrentDomain.BaseDirectory + @"\MetaFiles\" + collectionName + "_idList_"+dd+"_"+mm+"_"+yyyy+".txt";
+        string idListFilePath = AppDomain.CurrentDomain.BaseDirectory + @"\MetaFiles\" + collectionName + "_idList_"+yyyy+mm+dd+".txt";
         List<int> idList = new List<int>();
         try
         {
