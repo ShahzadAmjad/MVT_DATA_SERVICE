@@ -231,27 +231,33 @@ foreach (var collectionName in collectionList)
                 List<Cpdb_tranformation> new_pdbDatacenters_List = new List<Cpdb_tranformation>();
                 foreach (int id in idList)
                 {
-                    Console.WriteLine(collectionName + ": Getting Data for Id: " + id);
-                    string NewrequestUri = CollectionvsUri.First(kvp => kvp.Key == collectionName).Value + "/" + id;
-                    string newresponseJson = response.getWebRequestData(NewrequestUri);
-                    Root_pdb_datacenters newMyDeserializedClass = JsonConvert.DeserializeObject<Root_pdb_datacenters>(newresponseJson);
+                    try
+                    {
+                        Console.WriteLine(collectionName + ": Getting Data for Id: " + id);
+                        string NewrequestUri = CollectionvsUri.First(kvp => kvp.Key == collectionName).Value + "/" + id;
+                        string newresponseJson = response.getWebRequestData(NewrequestUri);
+                        Root_pdb_datacenters newMyDeserializedClass = JsonConvert.DeserializeObject<Root_pdb_datacenters>(newresponseJson);
 
-                    pdb_datacenters pdbDatacenterObj = new pdb_datacenters();
-                    pdbDatacenterObj = newMyDeserializedClass.data[0];
+                        pdb_datacenters pdbDatacenterObj = new pdb_datacenters();
+                        pdbDatacenterObj = newMyDeserializedClass.data[0];
 
-                    //tranforming object to new modal class
-                    Cpdb_tranformation new_pdbDatacenterObj = new Cpdb_tranformation();
-                    new_pdbDatacenterObj._id = (id).ToString();
-                    new_pdbDatacenterObj.type = "Feature";
-                    new_pdbDatacenterObj.geometry = new Geometry();
-                    new_pdbDatacenterObj.geometry.type = "Point";
-                    new_pdbDatacenterObj.geometry.coordinates = new List<double?>();
-                    new_pdbDatacenterObj.geometry.coordinates.Add(pdbDatacenterObj.longitude);
-                    new_pdbDatacenterObj.geometry.coordinates.Add(pdbDatacenterObj.latitude);
-                    new_pdbDatacenterObj.properties = new pdb_datacenters();
-                    new_pdbDatacenterObj.properties = pdbDatacenterObj;
+                        //tranforming object to new modal class
+                        Cpdb_tranformation new_pdbDatacenterObj = new Cpdb_tranformation();
+                        new_pdbDatacenterObj._id = (id).ToString();
+                        new_pdbDatacenterObj.type = "Feature";
+                        new_pdbDatacenterObj.geometry = new Geometry();
+                        new_pdbDatacenterObj.geometry.type = "Point";
+                        new_pdbDatacenterObj.geometry.coordinates = new List<double?>();
+                        new_pdbDatacenterObj.geometry.coordinates.Add(pdbDatacenterObj.longitude);
+                        new_pdbDatacenterObj.geometry.coordinates.Add(pdbDatacenterObj.latitude);
+                        new_pdbDatacenterObj.properties = new pdb_datacenters();
+                        new_pdbDatacenterObj.properties = pdbDatacenterObj;
 
-                    new_pdbDatacenters_List.Add(new_pdbDatacenterObj);
+                        new_pdbDatacenters_List.Add(new_pdbDatacenterObj);
+                    }
+                    catch (Exception ex)
+                    { Console.WriteLine(ex.Message); }
+                    
                 }
                 bool status = mongodb.InsertBatch(new_pdbDatacenters_List, collectionName, insertedBatchCount);
 
@@ -273,11 +279,17 @@ foreach (var collectionName in collectionList)
                 List<pdb_InternetExchange> pdbData_List = new List<pdb_InternetExchange>();
                 foreach (int id in idList)
                 {
-                    Console.WriteLine(collectionName + ": Getting Data for Id: " + id);
-                    string NewrequestUri = CollectionvsUri.First(kvp => kvp.Key == collectionName).Value + "/" + id;
-                    string newresponseJson = response.getWebRequestData(NewrequestUri);
-                    Root_pdb_InternetExchange newMyDeserializedClass = JsonConvert.DeserializeObject<Root_pdb_InternetExchange>(newresponseJson);
-                    pdbData_List.Add(newMyDeserializedClass.data[0]);
+                    try
+                    {
+                        Console.WriteLine(collectionName + ": Getting Data for Id: " + id);
+                        string NewrequestUri = CollectionvsUri.First(kvp => kvp.Key == collectionName).Value + "/" + id;
+                        string newresponseJson = response.getWebRequestData(NewrequestUri);
+                        Root_pdb_InternetExchange newMyDeserializedClass = JsonConvert.DeserializeObject<Root_pdb_InternetExchange>(newresponseJson);
+                        pdbData_List.Add(newMyDeserializedClass.data[0]);
+                    }
+                    catch (Exception ex)
+                    { Console.WriteLine(ex.Message); }
+                    
                 }
                 bool status = mongodb.InsertBatch(pdbData_List, collectionName, insertedBatchCount);
 
@@ -298,11 +310,17 @@ foreach (var collectionName in collectionList)
                 List<pdb_InternetExchangeFacility> pdbData_List = new List<pdb_InternetExchangeFacility>();
                 foreach (int id in idList)
                 {
-                    Console.WriteLine(collectionName + ": Getting Data for Id: " + id);
-                    string NewrequestUri = CollectionvsUri.First(kvp => kvp.Key == collectionName).Value + "/" + id;
-                    string newresponseJson = response.getWebRequestData(NewrequestUri);
-                    Root_pdb_InternetExchangeFacility newMyDeserializedClass = JsonConvert.DeserializeObject<Root_pdb_InternetExchangeFacility>(newresponseJson);
-                    pdbData_List.Add(newMyDeserializedClass.data[0]);
+                    try
+                    {
+                        Console.WriteLine(collectionName + ": Getting Data for Id: " + id);
+                        string NewrequestUri = CollectionvsUri.First(kvp => kvp.Key == collectionName).Value + "/" + id;
+                        string newresponseJson = response.getWebRequestData(NewrequestUri);
+                        Root_pdb_InternetExchangeFacility newMyDeserializedClass = JsonConvert.DeserializeObject<Root_pdb_InternetExchangeFacility>(newresponseJson);
+                        pdbData_List.Add(newMyDeserializedClass.data[0]);
+                    }
+                    catch (Exception ex)
+                    { Console.WriteLine(ex.Message); }
+                    
                 }
                 bool status = mongodb.InsertBatch(pdbData_List, collectionName, insertedBatchCount);
 
@@ -323,11 +341,17 @@ foreach (var collectionName in collectionList)
                 List<pdb_internet_exchange_networks> pdbData_List = new List<pdb_internet_exchange_networks>();
                 foreach (int id in idList)
                 {
-                    Console.WriteLine(collectionName + ": Getting Data for Id: " + id);
-                    string NewrequestUri = CollectionvsUri.First(kvp => kvp.Key == collectionName).Value + "/" + id;
-                    string newresponseJson = response.getWebRequestData(NewrequestUri);
-                    Root_pdb_internet_exchange_networks newMyDeserializedClass = JsonConvert.DeserializeObject<Root_pdb_internet_exchange_networks>(newresponseJson);
-                    pdbData_List.Add(newMyDeserializedClass.data[0]);
+                    try
+                    {
+                        Console.WriteLine(collectionName + ": Getting Data for Id: " + id);
+                        string NewrequestUri = CollectionvsUri.First(kvp => kvp.Key == collectionName).Value + "/" + id;
+                        string newresponseJson = response.getWebRequestData(NewrequestUri);
+                        Root_pdb_internet_exchange_networks newMyDeserializedClass = JsonConvert.DeserializeObject<Root_pdb_internet_exchange_networks>(newresponseJson);
+                        pdbData_List.Add(newMyDeserializedClass.data[0]);
+                    }
+                    catch (Exception ex)
+                    { Console.WriteLine(ex.Message); }
+                    
                 }
                 bool status = mongodb.InsertBatch(pdbData_List, collectionName, insertedBatchCount);
 
@@ -348,11 +372,17 @@ foreach (var collectionName in collectionList)
                 List<pdb_internet_exchange_prefixes> pdbData_List = new List<pdb_internet_exchange_prefixes>();
                 foreach (int id in idList)
                 {
-                    Console.WriteLine(collectionName + ": Getting Data for Id: " + id);
-                    string NewrequestUri = CollectionvsUri.First(kvp => kvp.Key == collectionName).Value + "/" + id;
-                    string newresponseJson = response.getWebRequestData(NewrequestUri);
-                    Root_pdb_internet_exchange_prefixes newMyDeserializedClass = JsonConvert.DeserializeObject<Root_pdb_internet_exchange_prefixes>(newresponseJson);
-                    pdbData_List.Add(newMyDeserializedClass.data[0]);
+                    try
+                    {
+                        Console.WriteLine(collectionName + ": Getting Data for Id: " + id);
+                        string NewrequestUri = CollectionvsUri.First(kvp => kvp.Key == collectionName).Value + "/" + id;
+                        string newresponseJson = response.getWebRequestData(NewrequestUri);
+                        Root_pdb_internet_exchange_prefixes newMyDeserializedClass = JsonConvert.DeserializeObject<Root_pdb_internet_exchange_prefixes>(newresponseJson);
+                        pdbData_List.Add(newMyDeserializedClass.data[0]);
+                    }
+                    catch (Exception ex)
+                    { Console.WriteLine(ex.Message); }
+                    
                 }
                 bool status = mongodb.InsertBatch(pdbData_List, collectionName, insertedBatchCount);
 
@@ -373,11 +403,17 @@ foreach (var collectionName in collectionList)
                 List<pdb_Network> pdbData_List = new List<pdb_Network>();
                 foreach (int id in idList)
                 {
-                    Console.WriteLine(collectionName + ": Getting Data for Id: " + id);
-                    string NewrequestUri = CollectionvsUri.First(kvp => kvp.Key == collectionName).Value + "/" + id;
-                    string newresponseJson = response.getWebRequestData(NewrequestUri);
-                    Root_pdb_Network newMyDeserializedClass = JsonConvert.DeserializeObject<Root_pdb_Network>(newresponseJson);
-                    pdbData_List.Add(newMyDeserializedClass.data[0]);
+                    try
+                    {
+                        Console.WriteLine(collectionName + ": Getting Data for Id: " + id);
+                        string NewrequestUri = CollectionvsUri.First(kvp => kvp.Key == collectionName).Value + "/" + id;
+                        string newresponseJson = response.getWebRequestData(NewrequestUri);
+                        Root_pdb_Network newMyDeserializedClass = JsonConvert.DeserializeObject<Root_pdb_Network>(newresponseJson);
+                        pdbData_List.Add(newMyDeserializedClass.data[0]);
+                    }
+                    catch (Exception ex)
+                    { Console.WriteLine(ex.Message); }
+                    
                 }
                 bool status = mongodb.InsertBatch(pdbData_List, collectionName, insertedBatchCount);
 
@@ -398,11 +434,17 @@ foreach (var collectionName in collectionList)
                 List<pdb_NetworkPOC> pdbData_List = new List<pdb_NetworkPOC>();
                 foreach (int id in idList)
                 {
-                    Console.WriteLine(collectionName + ": Getting Data for Id: " + id);
-                    string NewrequestUri = CollectionvsUri.First(kvp => kvp.Key == collectionName).Value + "/" + id;
-                    string newresponseJson = response.getWebRequestData(NewrequestUri);
-                    Root_pdb_NetworkPOC newMyDeserializedClass = JsonConvert.DeserializeObject<Root_pdb_NetworkPOC>(newresponseJson);
-                    pdbData_List.Add(newMyDeserializedClass.data[0]);
+                    try
+                    {
+                        Console.WriteLine(collectionName + ": Getting Data for Id: " + id);
+                        string NewrequestUri = CollectionvsUri.First(kvp => kvp.Key == collectionName).Value + "/" + id;
+                        string newresponseJson = response.getWebRequestData(NewrequestUri);
+                        Root_pdb_NetworkPOC newMyDeserializedClass = JsonConvert.DeserializeObject<Root_pdb_NetworkPOC>(newresponseJson);
+                        pdbData_List.Add(newMyDeserializedClass.data[0]);
+                    }
+                    catch (Exception ex)
+                    { Console.WriteLine(ex.Message); }
+                    
                 }
                 bool status = mongodb.InsertBatch(pdbData_List, collectionName, insertedBatchCount);
 
@@ -423,11 +465,17 @@ foreach (var collectionName in collectionList)
                 List<pdb_NetworkFacility> pdbData_List = new List<pdb_NetworkFacility>();
                 foreach (int id in idList)
                 {
-                    Console.WriteLine(collectionName + ": Getting Data for Id: " + id);
-                    string NewrequestUri = CollectionvsUri.First(kvp => kvp.Key == collectionName).Value + "/" + id;
-                    string newresponseJson = response.getWebRequestData(NewrequestUri);
-                    Root_pdb_NetworkFacility newMyDeserializedClass = JsonConvert.DeserializeObject<Root_pdb_NetworkFacility>(newresponseJson);
-                    pdbData_List.Add(newMyDeserializedClass.data[0]);
+                    try
+                    {
+                        Console.WriteLine(collectionName + ": Getting Data for Id: " + id);
+                        string NewrequestUri = CollectionvsUri.First(kvp => kvp.Key == collectionName).Value + "/" + id;
+                        string newresponseJson = response.getWebRequestData(NewrequestUri);
+                        Root_pdb_NetworkFacility newMyDeserializedClass = JsonConvert.DeserializeObject<Root_pdb_NetworkFacility>(newresponseJson);
+                        pdbData_List.Add(newMyDeserializedClass.data[0]);
+                    }
+                    catch (Exception ex)
+                    { Console.WriteLine(ex.Message); }
+                    
                 }
                 bool status = mongodb.InsertBatch(pdbData_List, collectionName, insertedBatchCount);
 
