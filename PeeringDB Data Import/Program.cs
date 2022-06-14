@@ -8,12 +8,22 @@ using System.Net;
 Console.WriteLine("MVT Data Service started");
 //variable reserved for batching
 int insertedBatchCount = 0;
-//to resume operation after restart we save the inserted collections
+//to resume operation after restart we save the inserted collections(and save problamatic ids as well as successfull id's)
 string MetafilesDirectoryPath = AppDomain.CurrentDomain.BaseDirectory + @"\MetaFiles";
-bool exists = System.IO.Directory.Exists(MetafilesDirectoryPath);
+string Inserted_IdList_DirectoryPath = AppDomain.CurrentDomain.BaseDirectory + @"\MetaFiles\Inserted_IdList";
+string Problamatic_IdList_DirectoryPath = AppDomain.CurrentDomain.BaseDirectory + @"\MetaFiles\Problamatic_IdList";
+bool existsMetafilesDirectoryPath = System.IO.Directory.Exists(MetafilesDirectoryPath);
+bool existsInserted_IdList_DirectoryPath = System.IO.Directory.Exists(Inserted_IdList_DirectoryPath);
+bool existsProblamatic_IdList_DirectoryPath = System.IO.Directory.Exists(Problamatic_IdList_DirectoryPath);
 
-if (!exists)
+if (!existsMetafilesDirectoryPath)
     System.IO.Directory.CreateDirectory(MetafilesDirectoryPath);
+
+if (!existsInserted_IdList_DirectoryPath)
+    System.IO.Directory.CreateDirectory(Inserted_IdList_DirectoryPath);
+
+if (!existsProblamatic_IdList_DirectoryPath)
+    System.IO.Directory.CreateDirectory(Problamatic_IdList_DirectoryPath);
 
 List<string> InsertedcollectionsList = new List<string>();
 string InsertedcollectionsListFilePath = AppDomain.CurrentDomain.BaseDirectory + @"\MetaFiles\inserted_collectionsList.txt";
@@ -59,9 +69,14 @@ foreach (var collectionName in collectionList)
         string dd = (DateTime.Now).Day.ToString("00");
         string mm = (DateTime.Now).Month.ToString("00");
         string yyyy = (DateTime.Now).Year.ToString();
-        //file name format is CollectionName_idList_dd_mm_yyyy
+        //file name format is CollectionName_idList_yyyymmdd
         string idListFilePath = AppDomain.CurrentDomain.BaseDirectory + @"\MetaFiles\" + collectionName + "_idList_"+yyyy+mm+dd+".txt";
+        string inserted_idListFilePath = AppDomain.CurrentDomain.BaseDirectory + @"\MetaFiles\Inserted_IdList\" + collectionName + "_Inserted_idList_" + yyyy + mm + dd + ".txt";
+        string problamatic_idListFilePath = AppDomain.CurrentDomain.BaseDirectory + @"\MetaFiles\Problamatic_IdList" + collectionName + "_Problamatic_idList_" + yyyy + mm + dd + ".txt";
+        
         List<int> idList = new List<int>();
+        List<int> inserted_idList = new List<int>();
+        List<int> problamatic_idList = new List<int>();
         try
         {
             //load the list of ids for collection if already exist
@@ -69,9 +84,20 @@ foreach (var collectionName in collectionList)
             {
                 idList = File.ReadAllLines(idListFilePath).Select(x => Convert.ToInt32(x)).ToList();
             }
+            //load the list of ids that are already inserted for collection if exist
+            if (File.Exists(inserted_idListFilePath))
+            {
+                inserted_idList = File.ReadAllLines(inserted_idListFilePath).Select(x => Convert.ToInt32(x)).ToList();
+            }
+            //load the list of ids for collection if already exist
+            if (File.Exists(problamatic_idListFilePath))
+            {
+                problamatic_idList = File.ReadAllLines(problamatic_idListFilePath).Select(x => Convert.ToInt32(x)).ToList();
+            }
             //else create the idlist 
             else
             {
+                Console.WriteLine(collectionName+": Server Request for all Data for id's List" );
                 //get data to make an id list for one by one request
                 string requestUri = CollectionvsUri.First(kvp => kvp.Key == collectionName).Value;
                 string responseJson = response.getWebRequestData(requestUri);
@@ -254,9 +280,12 @@ foreach (var collectionName in collectionList)
                         new_pdbDatacenterObj.properties = pdbDatacenterObj;
 
                         new_pdbDatacenters_List.Add(new_pdbDatacenterObj);
+
                     }
                     catch (Exception ex)
-                    { Console.WriteLine(ex.Message); }
+                    {
+                        Console.WriteLine(ex.Message); 
+                    }
                     
                 }
                 bool status = mongodb.InsertBatch(new_pdbDatacenters_List, collectionName, insertedBatchCount);
@@ -595,11 +624,14 @@ foreach (var collectionName in collectionList)
                     Console.WriteLine(collectionName + ": Inserted to Mongodb Successfully");
 
                     //Delete Inserted collections File after all collections inserted
-
-                    if(File.Exists(InsertedcollectionsListFilePath))
+                    if(InsertedcollectionsList.Count >= 11)
                     {
-                        File.Delete(InsertedcollectionsListFilePath);
+                        if (File.Exists(InsertedcollectionsListFilePath))
+                        {
+                            File.Delete(InsertedcollectionsListFilePath);
+                        }
                     }
+                    
                 }
                 else
                 {
