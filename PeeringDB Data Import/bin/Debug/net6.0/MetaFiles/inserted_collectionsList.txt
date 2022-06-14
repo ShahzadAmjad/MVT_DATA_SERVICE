@@ -6,4 +6,3 @@ pdb_internet_exchange_prefixes
 pdb_networks
 pdb_network_pocs
 pdb_network_facilities
-pdb_as_set
