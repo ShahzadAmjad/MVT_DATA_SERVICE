@@ -323,6 +323,7 @@ foreach (var collectionName in collectionList)
                     }
                     catch (Exception ex)
                     {
+                        problamatic_idList.Add(id);
                         Console.WriteLine(ex.Message); 
                     }
                     
@@ -382,7 +383,10 @@ foreach (var collectionName in collectionList)
                         }
                     }
                     catch (Exception ex)
-                    { Console.WriteLine(ex.Message); }
+                    {
+                        problamatic_idList.Add(id);
+                        Console.WriteLine(ex.Message);
+                    }
                     
                 }
                  status = mongodb.InsertBatch(pdbData_List, collectionName, insertedBatchCount);
@@ -439,7 +443,10 @@ foreach (var collectionName in collectionList)
                         }
                     }
                     catch (Exception ex)
-                    { Console.WriteLine(ex.Message); }
+                    {
+                        problamatic_idList.Add(id);
+                        Console.WriteLine(ex.Message);
+                    }
                     
                 }
                 status = mongodb.InsertBatch(pdbData_List, collectionName, insertedBatchCount);
@@ -496,7 +503,10 @@ foreach (var collectionName in collectionList)
                         }
                     }
                     catch (Exception ex)
-                    { Console.WriteLine(ex.Message); }
+                    {
+                        problamatic_idList.Add(id);
+                        Console.WriteLine(ex.Message);
+                    }
                     
                 }
                  status = mongodb.InsertBatch(pdbData_List, collectionName, insertedBatchCount);
@@ -553,7 +563,10 @@ foreach (var collectionName in collectionList)
                         }
                     }
                     catch (Exception ex)
-                    { Console.WriteLine(ex.Message); }
+                    {
+                        problamatic_idList.Add(id);
+                        Console.WriteLine(ex.Message); 
+                    }
                     
                 }
                  status = mongodb.InsertBatch(pdbData_List, collectionName, insertedBatchCount);
@@ -610,7 +623,10 @@ foreach (var collectionName in collectionList)
                         }
                     }
                     catch (Exception ex)
-                    { Console.WriteLine(ex.Message); }
+                    {
+                        problamatic_idList.Add(id);
+                        Console.WriteLine(ex.Message);
+                    }
                     
                 }
                  status = mongodb.InsertBatch(pdbData_List, collectionName, insertedBatchCount);
@@ -667,7 +683,10 @@ foreach (var collectionName in collectionList)
                         }
                     }
                     catch (Exception ex)
-                    { Console.WriteLine(ex.Message); }
+                    {
+                        problamatic_idList.Add(id);
+                        Console.WriteLine(ex.Message); 
+                    }
                     
                 }
                 status = mongodb.InsertBatch(pdbData_List, collectionName, insertedBatchCount);
@@ -724,7 +743,10 @@ foreach (var collectionName in collectionList)
                         }
                     }
                     catch (Exception ex)
-                    { Console.WriteLine(ex.Message); }
+                    {
+                        problamatic_idList.Add(id);
+                        Console.WriteLine(ex.Message); 
+                    }
                     
                 }
                 status = mongodb.InsertBatch(pdbData_List, collectionName, insertedBatchCount);
@@ -814,6 +836,7 @@ foreach (var collectionName in collectionList)
                 }
                 else
                 {
+                    //To tackle case if records are divisble by 500
                     //write down the inserted collection name to file
                     InsertedcollectionsList.Add(collectionName);
                     File.WriteAllLines(InsertedcollectionsListFilePath, InsertedcollectionsList.Select(x => x.ToString()));
@@ -872,21 +895,54 @@ foreach (var collectionName in collectionList)
 
                     }
                     catch(Exception ex)
-                    { Console.WriteLine(ex.Message); }                  
+                    {
+                        problamatic_idList.Add(id);
+                        Console.WriteLine(ex.Message);
+                    }                  
                 }
-                status = mongodb.InsertBatch(pdbData_List, collectionName, insertedBatchCount);
 
-                if (status)
+                //Insertion for last batch 
+                if (pdbData_List.Count > 0)
                 {
-                    //Write InsertedcollectionsList to file
-                    InsertedcollectionsList.Add(collectionName);
-                    File.WriteAllLines(InsertedcollectionsListFilePath, InsertedcollectionsList.Select(x => x.ToString()));
-                    Console.WriteLine(collectionName + ": Inserted to Mongodb Successfully");
+                    status = mongodb.InsertBatch(pdbData_List, collectionName, insertedBatchCount);
+
+                    if (status)
+                    {
+                        //Write InsertedcollectionsList to file
+                        InsertedcollectionsList.Add(collectionName);
+                        File.WriteAllLines(InsertedcollectionsListFilePath, InsertedcollectionsList.Select(x => x.ToString()));
+                        Console.WriteLine(collectionName + ": Inserted to Mongodb Successfully");
+
+                        pdbData_List = new List<pdb_Organization>();
+                        insertedBatchCount++;
+                        inserted_idList.AddRange(temp_inserted_idList);
+                        temp_inserted_idList = new List<int>();
+                    }
+                    else
+                    {
+                        problamatic_idList.AddRange(temp_inserted_idList);
+                        Console.WriteLine(collectionName + ": Exception occured while Inserting Data to Mongodb");
+                    }
                 }
                 else
                 {
-                    Console.WriteLine(collectionName + ": Exception occured while Inserting Data to Mongodb");
+                    //To tackle case if records are divisble by 500
+                    //write down the inserted collection name to file
+                    InsertedcollectionsList.Add(collectionName);
+                    File.WriteAllLines(InsertedcollectionsListFilePath, InsertedcollectionsList.Select(x => x.ToString()));
                 }
+
+                //after all process we will save the list of all successfull and unsuccessfull id's List
+                if (inserted_idList.Count > 0)
+                    File.WriteAllLines(inserted_idListFilePath, inserted_idList.Select(x => x.ToString()));
+
+                if (problamatic_idList != null)
+                    File.WriteAllLines(problamatic_idListFilePath, problamatic_idList.Select(x => x.ToString()));
+
+                if (insertedBatchCount > 0)
+                    File.WriteAllText(insertedBatchCountFilePath, insertedBatchCount.ToString());
+
+                insertedBatchCount = 0;
             }
             else if (collectionName == "pdb_as_set")
             {
