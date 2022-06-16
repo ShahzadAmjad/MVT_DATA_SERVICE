@@ -6,6 +6,8 @@ using PeeringDB_Data_Import.Models;
 using System.Net;
 
 Console.WriteLine("MVT Data Service started");
+
+//used for different type of filenames
 string dd = (DateTime.Now).Day.ToString("00");
 string mm = (DateTime.Now).Month.ToString("00");
 string yyyy = (DateTime.Now).Year.ToString();
@@ -13,23 +15,39 @@ string yyyy = (DateTime.Now).Year.ToString();
 int insertedBatchCount = 0;
 //to resume operation after restart we save the inserted collections(and save problamatic ids as well as successfull id's)
 string MetafilesDirectoryPath = AppDomain.CurrentDomain.BaseDirectory + @"\MetaFiles";
+string InsertedcollectionsList_DirectoryPath = AppDomain.CurrentDomain.BaseDirectory + @"\MetaFiles\InsertedcollectionsList";
+string InsertedBatchCount_DirectoryPath = AppDomain.CurrentDomain.BaseDirectory + @"\MetaFiles\InsertedBatchCount";
+string IdList_DirectoryPath = AppDomain.CurrentDomain.BaseDirectory + @"\MetaFiles\IdList";
 string Inserted_IdList_DirectoryPath = AppDomain.CurrentDomain.BaseDirectory + @"\MetaFiles\Inserted_IdList";
 string Problamatic_IdList_DirectoryPath = AppDomain.CurrentDomain.BaseDirectory + @"\MetaFiles\Problamatic_IdList";
-bool existsMetafilesDirectoryPath = System.IO.Directory.Exists(MetafilesDirectoryPath);
-bool existsInserted_IdList_DirectoryPath = System.IO.Directory.Exists(Inserted_IdList_DirectoryPath);
-bool existsProblamatic_IdList_DirectoryPath = System.IO.Directory.Exists(Problamatic_IdList_DirectoryPath);
 
-if (!existsMetafilesDirectoryPath)
+bool exists_MetafilesDirectoryPath = System.IO.Directory.Exists(MetafilesDirectoryPath);
+bool exists_InsertedcollectionsList_DirectoryPath = System.IO.Directory.Exists(InsertedcollectionsList_DirectoryPath);
+bool exists_InsertedBatchCount_DirectoryPath = System.IO.Directory.Exists(InsertedBatchCount_DirectoryPath);
+bool exists_IdList_DirectoryPath = System.IO.Directory.Exists(IdList_DirectoryPath);
+bool exists_Inserted_IdList_DirectoryPath = System.IO.Directory.Exists(Inserted_IdList_DirectoryPath);
+bool exists_Problamatic_IdList_DirectoryPath = System.IO.Directory.Exists(Problamatic_IdList_DirectoryPath);
+
+if (!exists_MetafilesDirectoryPath)
     System.IO.Directory.CreateDirectory(MetafilesDirectoryPath);
 
-if (!existsInserted_IdList_DirectoryPath)
+if (!exists_InsertedcollectionsList_DirectoryPath)
+    System.IO.Directory.CreateDirectory(InsertedcollectionsList_DirectoryPath);
+
+if (!exists_InsertedBatchCount_DirectoryPath)
+    System.IO.Directory.CreateDirectory(InsertedBatchCount_DirectoryPath);
+
+if (!exists_IdList_DirectoryPath)
+    System.IO.Directory.CreateDirectory(IdList_DirectoryPath);
+
+if (!exists_Inserted_IdList_DirectoryPath)
     System.IO.Directory.CreateDirectory(Inserted_IdList_DirectoryPath);
 
-if (!existsProblamatic_IdList_DirectoryPath)
+if (!exists_Problamatic_IdList_DirectoryPath)
     System.IO.Directory.CreateDirectory(Problamatic_IdList_DirectoryPath);
 
 List<string> InsertedcollectionsList = new List<string>();
-string InsertedcollectionsListFilePath = AppDomain.CurrentDomain.BaseDirectory + @"\MetaFiles\inserted_collectionsList"+yyyy+mm+dd+".txt";
+string InsertedcollectionsListFilePath = AppDomain.CurrentDomain.BaseDirectory + @"\MetaFiles\InsertedcollectionsList\inserted_collectionsList" + yyyy+mm+dd+".txt";
 if (File.Exists(InsertedcollectionsListFilePath))
 {
     InsertedcollectionsList = File.ReadAllLines(InsertedcollectionsListFilePath).Select(x => (x)).ToList();
@@ -73,16 +91,16 @@ foreach (var collectionName in collectionList)
 
 
         //inserted batch count
-        string insertedBatchCountFilePath = AppDomain.CurrentDomain.BaseDirectory + @"\MetaFiles\" + collectionName + "_insertedBatchCount_" + yyyy + mm + dd + ".txt";
+        string insertedBatchCountFilePath = AppDomain.CurrentDomain.BaseDirectory + @"\MetaFiles\InsertedBatchCount\" + collectionName + "_insertedBatchCount_" + yyyy + mm + dd + ".txt";
         if(File.Exists(insertedBatchCountFilePath))
         {
             insertedBatchCount =Int32.Parse( File.ReadLines(insertedBatchCountFilePath).ToString());
         }
 
         //file name format is CollectionName_idList_yyyymmdd
-        string idListFilePath = AppDomain.CurrentDomain.BaseDirectory + @"\MetaFiles\" + collectionName + "_idList_"+yyyy+mm+dd+".txt";
+        string idListFilePath = AppDomain.CurrentDomain.BaseDirectory + @"\MetaFiles\IdList\" + collectionName + "_idList_"+yyyy+mm+dd+".txt";
         string inserted_idListFilePath = AppDomain.CurrentDomain.BaseDirectory + @"\MetaFiles\Inserted_IdList\" + collectionName + "_Inserted_idList_" + yyyy + mm + dd + ".txt";
-        string problamatic_idListFilePath = AppDomain.CurrentDomain.BaseDirectory + @"\MetaFiles\Problamatic_IdList" + collectionName + "_Problamatic_idList_" + yyyy + mm + dd + ".txt";
+        string problamatic_idListFilePath = AppDomain.CurrentDomain.BaseDirectory + @"\MetaFiles\Problamatic_IdList\" + collectionName + "_Problamatic_idList_" + yyyy + mm + dd + ".txt";
         
         List<int> idList = new List<int>();
         List<int> inserted_idList = new List<int>();
