@@ -6,6 +6,9 @@ using PeeringDB_Data_Import.Models;
 using System.Net;
 
 Console.WriteLine("MVT Data Service started");
+string dd = (DateTime.Now).Day.ToString("00");
+string mm = (DateTime.Now).Month.ToString("00");
+string yyyy = (DateTime.Now).Year.ToString();
 //variable reserved for batching
 int insertedBatchCount = 0;
 //to resume operation after restart we save the inserted collections(and save problamatic ids as well as successfull id's)
@@ -26,7 +29,7 @@ if (!existsProblamatic_IdList_DirectoryPath)
     System.IO.Directory.CreateDirectory(Problamatic_IdList_DirectoryPath);
 
 List<string> InsertedcollectionsList = new List<string>();
-string InsertedcollectionsListFilePath = AppDomain.CurrentDomain.BaseDirectory + @"\MetaFiles\inserted_collectionsList.txt";
+string InsertedcollectionsListFilePath = AppDomain.CurrentDomain.BaseDirectory + @"\MetaFiles\inserted_collectionsList"+yyyy+mm+dd+".txt";
 if (File.Exists(InsertedcollectionsListFilePath))
 {
     InsertedcollectionsList = File.ReadAllLines(InsertedcollectionsListFilePath).Select(x => (x)).ToList();
@@ -67,9 +70,7 @@ foreach (var collectionName in collectionList)
         
 
         //This block only get the id's list for each collection
-        string dd = (DateTime.Now).Day.ToString("00");
-        string mm = (DateTime.Now).Month.ToString("00");
-        string yyyy = (DateTime.Now).Year.ToString();
+
 
         //inserted batch count
         string insertedBatchCountFilePath = AppDomain.CurrentDomain.BaseDirectory + @"\MetaFiles\" + collectionName + "_insertedBatchCount_" + yyyy + mm + dd + ".txt";
@@ -328,20 +329,48 @@ foreach (var collectionName in collectionList)
                     }
                     
                 }
-                 status = mongodb.InsertBatch(new_pdbDatacenters_List, collectionName, insertedBatchCount);
-
-                if (status)
+                //Insertion for last batch 
+                if (new_pdbDatacenters_List.Count > 0)
                 {
-                    Console.WriteLine(collectionName + ": Inserted to Mongodb Successfully");
-                    //Write InsertedcollectionsList to file
-                    InsertedcollectionsList.Add(collectionName);
-                    File.WriteAllLines(InsertedcollectionsListFilePath, InsertedcollectionsList.Select(x => x.ToString()));
+                    status = mongodb.InsertBatch(new_pdbDatacenters_List, collectionName, insertedBatchCount);
 
+                    if (status)
+                    {
+                        //Write InsertedcollectionsList to file
+                        InsertedcollectionsList.Add(collectionName);
+                        File.WriteAllLines(InsertedcollectionsListFilePath, InsertedcollectionsList.Select(x => x.ToString()));
+                        Console.WriteLine(collectionName + ": Inserted to Mongodb Successfully");
+
+                        new_pdbDatacenters_List = new List<Cpdb_tranformation>();
+                        insertedBatchCount++;
+                        inserted_idList.AddRange(temp_inserted_idList);
+                        temp_inserted_idList = new List<int>();
+                    }
+                    else
+                    {
+                        problamatic_idList.AddRange(temp_inserted_idList);
+                        Console.WriteLine(collectionName + ": Exception occured while Inserting Data to Mongodb");
+                    }
                 }
                 else
                 {
-                    Console.WriteLine(collectionName + ": Exception occured while Inserting Data to Mongodb");
+                    //To tackle case if records are divisble by 500
+                    //write down the inserted collection name to file
+                    InsertedcollectionsList.Add(collectionName);
+                    File.WriteAllLines(InsertedcollectionsListFilePath, InsertedcollectionsList.Select(x => x.ToString()));
                 }
+
+                //after all process we will save the list of all successfull and unsuccessfull id's List
+                if (inserted_idList.Count > 0)
+                    File.WriteAllLines(inserted_idListFilePath, inserted_idList.Select(x => x.ToString()));
+
+                if (problamatic_idList != null)
+                    File.WriteAllLines(problamatic_idListFilePath, problamatic_idList.Select(x => x.ToString()));
+
+                if (insertedBatchCount > 0)
+                    File.WriteAllText(insertedBatchCountFilePath, insertedBatchCount.ToString());
+
+                insertedBatchCount = 0;
             }
             else if (collectionName == "pdb_internet_exchanges")
             {
@@ -389,19 +418,48 @@ foreach (var collectionName in collectionList)
                     }
                     
                 }
-                 status = mongodb.InsertBatch(pdbData_List, collectionName, insertedBatchCount);
-
-                if (status)
+                //Insertion for last batch 
+                if (pdbData_List.Count > 0)
                 {
-                    Console.WriteLine(collectionName + ": Inserted to Mongodb Successfully");
-                    //Write InsertedcollectionsList to file
-                    InsertedcollectionsList.Add(collectionName);
-                    File.WriteAllLines(InsertedcollectionsListFilePath, InsertedcollectionsList.Select(x => x.ToString()));
+                    status = mongodb.InsertBatch(pdbData_List, collectionName, insertedBatchCount);
+
+                    if (status)
+                    {
+                        //Write InsertedcollectionsList to file
+                        InsertedcollectionsList.Add(collectionName);
+                        File.WriteAllLines(InsertedcollectionsListFilePath, InsertedcollectionsList.Select(x => x.ToString()));
+                        Console.WriteLine(collectionName + ": Inserted to Mongodb Successfully");
+
+                        pdbData_List = new List<pdb_InternetExchange>();
+                        insertedBatchCount++;
+                        inserted_idList.AddRange(temp_inserted_idList);
+                        temp_inserted_idList = new List<int>();
+                    }
+                    else
+                    {
+                        problamatic_idList.AddRange(temp_inserted_idList);
+                        Console.WriteLine(collectionName + ": Exception occured while Inserting Data to Mongodb");
+                    }
                 }
                 else
                 {
-                    Console.WriteLine(collectionName + ": Exception occured while Inserting Data to Mongodb");
+                    //To tackle case if records are divisble by 500
+                    //write down the inserted collection name to file
+                    InsertedcollectionsList.Add(collectionName);
+                    File.WriteAllLines(InsertedcollectionsListFilePath, InsertedcollectionsList.Select(x => x.ToString()));
                 }
+
+                //after all process we will save the list of all successfull and unsuccessfull id's List
+                if (inserted_idList.Count > 0)
+                    File.WriteAllLines(inserted_idListFilePath, inserted_idList.Select(x => x.ToString()));
+
+                if (problamatic_idList != null)
+                    File.WriteAllLines(problamatic_idListFilePath, problamatic_idList.Select(x => x.ToString()));
+
+                if (insertedBatchCount > 0)
+                    File.WriteAllText(insertedBatchCountFilePath, insertedBatchCount.ToString());
+
+                insertedBatchCount = 0;
             }
             else if (collectionName == "pdb_internet_exchange_facilities")
             {
@@ -449,19 +507,48 @@ foreach (var collectionName in collectionList)
                     }
                     
                 }
-                status = mongodb.InsertBatch(pdbData_List, collectionName, insertedBatchCount);
-
-                if (status)
+                //Insertion for last batch 
+                if (pdbData_List.Count > 0)
                 {
-                    //Write InsertedcollectionsList to file
-                    InsertedcollectionsList.Add(collectionName);
-                    File.WriteAllLines(InsertedcollectionsListFilePath, InsertedcollectionsList.Select(x => x.ToString()));
-                    Console.WriteLine(collectionName + ": Inserted to Mongodb Successfully");
+                    status = mongodb.InsertBatch(pdbData_List, collectionName, insertedBatchCount);
+
+                    if (status)
+                    {
+                        //Write InsertedcollectionsList to file
+                        InsertedcollectionsList.Add(collectionName);
+                        File.WriteAllLines(InsertedcollectionsListFilePath, InsertedcollectionsList.Select(x => x.ToString()));
+                        Console.WriteLine(collectionName + ": Inserted to Mongodb Successfully");
+
+                        pdbData_List = new List<pdb_InternetExchangeFacility>();
+                        insertedBatchCount++;
+                        inserted_idList.AddRange(temp_inserted_idList);
+                        temp_inserted_idList = new List<int>();
+                    }
+                    else
+                    {
+                        problamatic_idList.AddRange(temp_inserted_idList);
+                        Console.WriteLine(collectionName + ": Exception occured while Inserting Data to Mongodb");
+                    }
                 }
                 else
                 {
-                    Console.WriteLine(collectionName + ": Exception occured while Inserting Data to Mongodb");
+                    //To tackle case if records are divisble by 500
+                    //write down the inserted collection name to file
+                    InsertedcollectionsList.Add(collectionName);
+                    File.WriteAllLines(InsertedcollectionsListFilePath, InsertedcollectionsList.Select(x => x.ToString()));
                 }
+
+                //after all process we will save the list of all successfull and unsuccessfull id's List
+                if (inserted_idList.Count > 0)
+                    File.WriteAllLines(inserted_idListFilePath, inserted_idList.Select(x => x.ToString()));
+
+                if (problamatic_idList != null)
+                    File.WriteAllLines(problamatic_idListFilePath, problamatic_idList.Select(x => x.ToString()));
+
+                if (insertedBatchCount > 0)
+                    File.WriteAllText(insertedBatchCountFilePath, insertedBatchCount.ToString());
+
+                insertedBatchCount = 0;
             }
             else if (collectionName == "pdb_internet_exchange_networks")
             {
@@ -509,19 +596,48 @@ foreach (var collectionName in collectionList)
                     }
                     
                 }
-                 status = mongodb.InsertBatch(pdbData_List, collectionName, insertedBatchCount);
-
-                if (status)
+                //Insertion for last batch 
+                if (pdbData_List.Count > 0)
                 {
-                    //Write InsertedcollectionsList to file
-                    InsertedcollectionsList.Add(collectionName);
-                    File.WriteAllLines(InsertedcollectionsListFilePath, InsertedcollectionsList.Select(x => x.ToString()));
-                    Console.WriteLine(collectionName + ": Inserted to Mongodb Successfully");
+                    status = mongodb.InsertBatch(pdbData_List, collectionName, insertedBatchCount);
+
+                    if (status)
+                    {
+                        //Write InsertedcollectionsList to file
+                        InsertedcollectionsList.Add(collectionName);
+                        File.WriteAllLines(InsertedcollectionsListFilePath, InsertedcollectionsList.Select(x => x.ToString()));
+                        Console.WriteLine(collectionName + ": Inserted to Mongodb Successfully");
+
+                        pdbData_List = new List<pdb_internet_exchange_networks>();
+                        insertedBatchCount++;
+                        inserted_idList.AddRange(temp_inserted_idList);
+                        temp_inserted_idList = new List<int>();
+                    }
+                    else
+                    {
+                        problamatic_idList.AddRange(temp_inserted_idList);
+                        Console.WriteLine(collectionName + ": Exception occured while Inserting Data to Mongodb");
+                    }
                 }
                 else
                 {
-                    Console.WriteLine(collectionName + ": Exception occured while Inserting Data to Mongodb");
+                    //To tackle case if records are divisble by 500
+                    //write down the inserted collection name to file
+                    InsertedcollectionsList.Add(collectionName);
+                    File.WriteAllLines(InsertedcollectionsListFilePath, InsertedcollectionsList.Select(x => x.ToString()));
                 }
+
+                //after all process we will save the list of all successfull and unsuccessfull id's List
+                if (inserted_idList.Count > 0)
+                    File.WriteAllLines(inserted_idListFilePath, inserted_idList.Select(x => x.ToString()));
+
+                if (problamatic_idList != null)
+                    File.WriteAllLines(problamatic_idListFilePath, problamatic_idList.Select(x => x.ToString()));
+
+                if (insertedBatchCount > 0)
+                    File.WriteAllText(insertedBatchCountFilePath, insertedBatchCount.ToString());
+
+                insertedBatchCount = 0;
             }
             else if (collectionName == "pdb_internet_exchange_prefixes")
             {
@@ -569,19 +685,48 @@ foreach (var collectionName in collectionList)
                     }
                     
                 }
-                 status = mongodb.InsertBatch(pdbData_List, collectionName, insertedBatchCount);
-
-                if (status)
+                //Insertion for last batch 
+                if (pdbData_List.Count > 0)
                 {
-                    //Write InsertedcollectionsList to file
-                    InsertedcollectionsList.Add(collectionName);
-                    File.WriteAllLines(InsertedcollectionsListFilePath, InsertedcollectionsList.Select(x => x.ToString()));
-                    Console.WriteLine(collectionName + ": Inserted to Mongodb Successfully");
+                    status = mongodb.InsertBatch(pdbData_List, collectionName, insertedBatchCount);
+
+                    if (status)
+                    {
+                        //Write InsertedcollectionsList to file
+                        InsertedcollectionsList.Add(collectionName);
+                        File.WriteAllLines(InsertedcollectionsListFilePath, InsertedcollectionsList.Select(x => x.ToString()));
+                        Console.WriteLine(collectionName + ": Inserted to Mongodb Successfully");
+
+                        pdbData_List = new List<pdb_internet_exchange_prefixes>();
+                        insertedBatchCount++;
+                        inserted_idList.AddRange(temp_inserted_idList);
+                        temp_inserted_idList = new List<int>();
+                    }
+                    else
+                    {
+                        problamatic_idList.AddRange(temp_inserted_idList);
+                        Console.WriteLine(collectionName + ": Exception occured while Inserting Data to Mongodb");
+                    }
                 }
                 else
                 {
-                    Console.WriteLine(collectionName + ": Exception occured while Inserting Data to Mongodb");
+                    //To tackle case if records are divisble by 500
+                    //write down the inserted collection name to file
+                    InsertedcollectionsList.Add(collectionName);
+                    File.WriteAllLines(InsertedcollectionsListFilePath, InsertedcollectionsList.Select(x => x.ToString()));
                 }
+
+                //after all process we will save the list of all successfull and unsuccessfull id's List
+                if (inserted_idList.Count > 0)
+                    File.WriteAllLines(inserted_idListFilePath, inserted_idList.Select(x => x.ToString()));
+
+                if (problamatic_idList != null)
+                    File.WriteAllLines(problamatic_idListFilePath, problamatic_idList.Select(x => x.ToString()));
+
+                if (insertedBatchCount > 0)
+                    File.WriteAllText(insertedBatchCountFilePath, insertedBatchCount.ToString());
+
+                insertedBatchCount = 0;
             }
             else if (collectionName == "pdb_networks")
             {
@@ -629,19 +774,48 @@ foreach (var collectionName in collectionList)
                     }
                     
                 }
-                 status = mongodb.InsertBatch(pdbData_List, collectionName, insertedBatchCount);
-
-                if (status)
+                //Insertion for last batch 
+                if (pdbData_List.Count > 0)
                 {
-                    //Write InsertedcollectionsList to file
-                    InsertedcollectionsList.Add(collectionName);
-                    File.WriteAllLines(InsertedcollectionsListFilePath, InsertedcollectionsList.Select(x => x.ToString()));
-                    Console.WriteLine(collectionName + ": Inserted to Mongodb Successfully");
+                    status = mongodb.InsertBatch(pdbData_List, collectionName, insertedBatchCount);
+
+                    if (status)
+                    {
+                        //Write InsertedcollectionsList to file
+                        InsertedcollectionsList.Add(collectionName);
+                        File.WriteAllLines(InsertedcollectionsListFilePath, InsertedcollectionsList.Select(x => x.ToString()));
+                        Console.WriteLine(collectionName + ": Inserted to Mongodb Successfully");
+
+                        pdbData_List = new List<pdb_Network>();
+                        insertedBatchCount++;
+                        inserted_idList.AddRange(temp_inserted_idList);
+                        temp_inserted_idList = new List<int>();
+                    }
+                    else
+                    {
+                        problamatic_idList.AddRange(temp_inserted_idList);
+                        Console.WriteLine(collectionName + ": Exception occured while Inserting Data to Mongodb");
+                    }
                 }
                 else
                 {
-                    Console.WriteLine(collectionName + ": Exception occured while Inserting Data to Mongodb");
+                    //To tackle case if records are divisble by 500
+                    //write down the inserted collection name to file
+                    InsertedcollectionsList.Add(collectionName);
+                    File.WriteAllLines(InsertedcollectionsListFilePath, InsertedcollectionsList.Select(x => x.ToString()));
                 }
+
+                //after all process we will save the list of all successfull and unsuccessfull id's List
+                if (inserted_idList.Count > 0)
+                    File.WriteAllLines(inserted_idListFilePath, inserted_idList.Select(x => x.ToString()));
+
+                if (problamatic_idList != null)
+                    File.WriteAllLines(problamatic_idListFilePath, problamatic_idList.Select(x => x.ToString()));
+
+                if (insertedBatchCount > 0)
+                    File.WriteAllText(insertedBatchCountFilePath, insertedBatchCount.ToString());
+
+                insertedBatchCount = 0;
             }
             else if (collectionName == "pdb_network_pocs")
             {
@@ -689,19 +863,48 @@ foreach (var collectionName in collectionList)
                     }
                     
                 }
-                status = mongodb.InsertBatch(pdbData_List, collectionName, insertedBatchCount);
-
-                if (status)
+                //Insertion for last batch 
+                if (pdbData_List.Count > 0)
                 {
-                    //Write InsertedcollectionsList to file
-                    InsertedcollectionsList.Add(collectionName);
-                    File.WriteAllLines(InsertedcollectionsListFilePath, InsertedcollectionsList.Select(x => x.ToString()));
-                    Console.WriteLine(collectionName + ": Inserted to Mongodb Successfully");
+                    status = mongodb.InsertBatch(pdbData_List, collectionName, insertedBatchCount);
+
+                    if (status)
+                    {
+                        //Write InsertedcollectionsList to file
+                        InsertedcollectionsList.Add(collectionName);
+                        File.WriteAllLines(InsertedcollectionsListFilePath, InsertedcollectionsList.Select(x => x.ToString()));
+                        Console.WriteLine(collectionName + ": Inserted to Mongodb Successfully");
+
+                        pdbData_List = new List<pdb_NetworkPOC>();
+                        insertedBatchCount++;
+                        inserted_idList.AddRange(temp_inserted_idList);
+                        temp_inserted_idList = new List<int>();
+                    }
+                    else
+                    {
+                        problamatic_idList.AddRange(temp_inserted_idList);
+                        Console.WriteLine(collectionName + ": Exception occured while Inserting Data to Mongodb");
+                    }
                 }
                 else
                 {
-                    Console.WriteLine(collectionName + ": Exception occured while Inserting Data to Mongodb");
+                    //To tackle case if records are divisble by 500
+                    //write down the inserted collection name to file
+                    InsertedcollectionsList.Add(collectionName);
+                    File.WriteAllLines(InsertedcollectionsListFilePath, InsertedcollectionsList.Select(x => x.ToString()));
                 }
+
+                //after all process we will save the list of all successfull and unsuccessfull id's List
+                if (inserted_idList.Count > 0)
+                    File.WriteAllLines(inserted_idListFilePath, inserted_idList.Select(x => x.ToString()));
+
+                if (problamatic_idList != null)
+                    File.WriteAllLines(problamatic_idListFilePath, problamatic_idList.Select(x => x.ToString()));
+
+                if (insertedBatchCount > 0)
+                    File.WriteAllText(insertedBatchCountFilePath, insertedBatchCount.ToString());
+
+                insertedBatchCount = 0;
             }
             else if (collectionName == "pdb_network_facilities")
             {
@@ -749,19 +952,48 @@ foreach (var collectionName in collectionList)
                     }
                     
                 }
-                status = mongodb.InsertBatch(pdbData_List, collectionName, insertedBatchCount);
-
-                if (status)
+                //Insertion for last batch 
+                if (pdbData_List.Count > 0)
                 {
-                    //Write InsertedcollectionsList to file
-                    InsertedcollectionsList.Add(collectionName);
-                    File.WriteAllLines(InsertedcollectionsListFilePath, InsertedcollectionsList.Select(x => x.ToString()));
-                    Console.WriteLine(collectionName + ": Inserted to Mongodb Successfully");
+                    status = mongodb.InsertBatch(pdbData_List, collectionName, insertedBatchCount);
+
+                    if (status)
+                    {
+                        //Write InsertedcollectionsList to file
+                        InsertedcollectionsList.Add(collectionName);
+                        File.WriteAllLines(InsertedcollectionsListFilePath, InsertedcollectionsList.Select(x => x.ToString()));
+                        Console.WriteLine(collectionName + ": Inserted to Mongodb Successfully");
+
+                        pdbData_List = new List<pdb_NetworkFacility>();
+                        insertedBatchCount++;
+                        inserted_idList.AddRange(temp_inserted_idList);
+                        temp_inserted_idList = new List<int>();
+                    }
+                    else
+                    {
+                        problamatic_idList.AddRange(temp_inserted_idList);
+                        Console.WriteLine(collectionName + ": Exception occured while Inserting Data to Mongodb");
+                    }
                 }
                 else
                 {
-                    Console.WriteLine(collectionName + ": Exception occured while Inserting Data to Mongodb");
+                    //To tackle case if records are divisble by 500
+                    //write down the inserted collection name to file
+                    InsertedcollectionsList.Add(collectionName);
+                    File.WriteAllLines(InsertedcollectionsListFilePath, InsertedcollectionsList.Select(x => x.ToString()));
                 }
+
+                //after all process we will save the list of all successfull and unsuccessfull id's List
+                if (inserted_idList.Count > 0)
+                    File.WriteAllLines(inserted_idListFilePath, inserted_idList.Select(x => x.ToString()));
+
+                if (problamatic_idList != null)
+                    File.WriteAllLines(problamatic_idListFilePath, problamatic_idList.Select(x => x.ToString()));
+
+                if (insertedBatchCount > 0)
+                    File.WriteAllText(insertedBatchCountFilePath, insertedBatchCount.ToString());
+
+                insertedBatchCount = 0;
             }
             else if (collectionName == "pdb_network_to_ix_connection")
             {
@@ -988,14 +1220,14 @@ foreach (var collectionName in collectionList)
                     File.WriteAllLines(InsertedcollectionsListFilePath, InsertedcollectionsList.Select(x => x.ToString()));
                     Console.WriteLine(collectionName + ": Inserted to Mongodb Successfully");
 
-                    //Delete Inserted collections File after all collections inserted
-                    if(InsertedcollectionsList.Count >= 11)
-                    {
-                        if (File.Exists(InsertedcollectionsListFilePath))
-                        {
-                            File.Delete(InsertedcollectionsListFilePath);
-                        }
-                    }
+                    ////Delete Inserted collections File after all collections inserted
+                    //if(InsertedcollectionsList.Count >= 11)
+                    //{
+                    //    if (File.Exists(InsertedcollectionsListFilePath))
+                    //    {
+                    //        File.Delete(InsertedcollectionsListFilePath);
+                    //    }
+                    //}
                     
                 }
                 else
