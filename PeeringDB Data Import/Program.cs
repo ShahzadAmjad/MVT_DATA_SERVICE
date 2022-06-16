@@ -47,7 +47,7 @@ if (!exists_Problamatic_IdList_DirectoryPath)
     System.IO.Directory.CreateDirectory(Problamatic_IdList_DirectoryPath);
 
 List<string> InsertedcollectionsList = new List<string>();
-string InsertedcollectionsListFilePath = AppDomain.CurrentDomain.BaseDirectory + @"\MetaFiles\InsertedcollectionsList\inserted_collectionsList" + yyyy+mm+dd+".txt";
+string InsertedcollectionsListFilePath = AppDomain.CurrentDomain.BaseDirectory + @"\MetaFiles\InsertedcollectionsList\inserted_collectionsList_" + yyyy+mm+dd+".txt";
 if (File.Exists(InsertedcollectionsListFilePath))
 {
     InsertedcollectionsList = File.ReadAllLines(InsertedcollectionsListFilePath).Select(x => (x)).ToList();
@@ -1279,7 +1279,7 @@ while(Problamatic_files_Count > 0)
     {
         string filename = Path.GetFileName(file);
 
-        //AppDomain.CurrentDomain.BaseDirectory + @"\MetaFiles\Inserted_IdList\" + collectionName + "_Inserted_idList_" + yyyy + mm + dd + ".txt";
+        //AppDomain.CurrentDomain.BaseDirectory + @"\MetaFiles\Inserted_IdList\" + collectionName + "-Inserted_idList_" + yyyy + mm + dd + ".txt";
         string[] arrcollectionName = filename.Split('\\');
         string collectionName = arrcollectionName[arrcollectionName.Length-1].Split("-")[0];
         Console.WriteLine("Collection Name: " + collectionName);
