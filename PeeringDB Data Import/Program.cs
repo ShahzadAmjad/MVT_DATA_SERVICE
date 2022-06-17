@@ -94,7 +94,8 @@ foreach (var collectionName in collectionList)
         string insertedBatchCountFilePath = AppDomain.CurrentDomain.BaseDirectory + @"\MetaFiles\InsertedBatchCount\" + collectionName + "_insertedBatchCount_" + yyyy + mm + dd + ".txt";
         if(File.Exists(insertedBatchCountFilePath))
         {
-            insertedBatchCount =Int32.Parse( File.ReadLines(insertedBatchCountFilePath).ToString());
+
+            insertedBatchCount =Int32.Parse(File.ReadAllLines(insertedBatchCountFilePath).Select(x => (x)).ToList()[0]);
         }
 
         //file name format is CollectionName_idList_yyyymmdd
@@ -328,6 +329,14 @@ foreach (var collectionName in collectionList)
                                     insertedBatchCount++;
                                     inserted_idList.AddRange(temp_inserted_idList);
                                     temp_inserted_idList = new List<int>();
+                                    if (inserted_idList.Count > 0)
+                                        File.WriteAllLines(inserted_idListFilePath, inserted_idList.Select(x => x.ToString()));
+
+                                    if (problamatic_idList.Count > 0)
+                                        File.WriteAllLines(problamatic_idListFilePath, problamatic_idList.Select(x => x.ToString()));
+
+                                    if (insertedBatchCount > 0)
+                                        File.WriteAllText(insertedBatchCountFilePath, insertedBatchCount.ToString());
                                 }
 
                             }
@@ -335,6 +344,14 @@ foreach (var collectionName in collectionList)
                             {
                                 problamatic_idList.AddRange(temp_inserted_idList);
                                 Console.WriteLine(ex.ToString());
+                                if (inserted_idList.Count > 0)
+                                    File.WriteAllLines(inserted_idListFilePath, inserted_idList.Select(x => x.ToString()));
+
+                                if (problamatic_idList.Count > 0)
+                                    File.WriteAllLines(problamatic_idListFilePath, problamatic_idList.Select(x => x.ToString()));
+
+                                if (insertedBatchCount > 0)
+                                    File.WriteAllText(insertedBatchCountFilePath, insertedBatchCount.ToString());
                             }
 
                         }
@@ -382,7 +399,7 @@ foreach (var collectionName in collectionList)
                 if (inserted_idList.Count > 0)
                     File.WriteAllLines(inserted_idListFilePath, inserted_idList.Select(x => x.ToString()));
 
-                if (problamatic_idList != null)
+                if (problamatic_idList.Count>0)
                     File.WriteAllLines(problamatic_idListFilePath, problamatic_idList.Select(x => x.ToString()));
 
                 if (insertedBatchCount > 0)
@@ -418,6 +435,14 @@ foreach (var collectionName in collectionList)
                                     insertedBatchCount++;
                                     inserted_idList.AddRange(temp_inserted_idList);
                                     temp_inserted_idList = new List<int>();
+                                    if (inserted_idList.Count > 0)
+                                        File.WriteAllLines(inserted_idListFilePath, inserted_idList.Select(x => x.ToString()));
+
+                                    if (problamatic_idList.Count > 0)
+                                        File.WriteAllLines(problamatic_idListFilePath, problamatic_idList.Select(x => x.ToString()));
+
+                                    if (insertedBatchCount > 0)
+                                        File.WriteAllText(insertedBatchCountFilePath, insertedBatchCount.ToString());
                                 }
 
                             }
@@ -425,6 +450,14 @@ foreach (var collectionName in collectionList)
                             {
                                 problamatic_idList.AddRange(temp_inserted_idList);
                                 Console.WriteLine(ex.ToString());
+                                if (inserted_idList.Count > 0)
+                                    File.WriteAllLines(inserted_idListFilePath, inserted_idList.Select(x => x.ToString()));
+
+                                if (problamatic_idList.Count > 0)
+                                    File.WriteAllLines(problamatic_idListFilePath, problamatic_idList.Select(x => x.ToString()));
+
+                                if (insertedBatchCount > 0)
+                                    File.WriteAllText(insertedBatchCountFilePath, insertedBatchCount.ToString());
                             }
 
                         }
@@ -471,7 +504,7 @@ foreach (var collectionName in collectionList)
                 if (inserted_idList.Count > 0)
                     File.WriteAllLines(inserted_idListFilePath, inserted_idList.Select(x => x.ToString()));
 
-                if (problamatic_idList != null)
+                if (problamatic_idList.Count>0)
                     File.WriteAllLines(problamatic_idListFilePath, problamatic_idList.Select(x => x.ToString()));
 
                 if (insertedBatchCount > 0)
@@ -507,6 +540,14 @@ foreach (var collectionName in collectionList)
                                     insertedBatchCount++;
                                     inserted_idList.AddRange(temp_inserted_idList);
                                     temp_inserted_idList = new List<int>();
+                                    if (inserted_idList.Count > 0)
+                                        File.WriteAllLines(inserted_idListFilePath, inserted_idList.Select(x => x.ToString()));
+
+                                    if (problamatic_idList.Count > 0)
+                                        File.WriteAllLines(problamatic_idListFilePath, problamatic_idList.Select(x => x.ToString()));
+
+                                    if (insertedBatchCount > 0)
+                                        File.WriteAllText(insertedBatchCountFilePath, insertedBatchCount.ToString());
                                 }
 
                             }
@@ -514,6 +555,14 @@ foreach (var collectionName in collectionList)
                             {
                                 problamatic_idList.AddRange(temp_inserted_idList);
                                 Console.WriteLine(ex.ToString());
+                                if (inserted_idList.Count > 0)
+                                    File.WriteAllLines(inserted_idListFilePath, inserted_idList.Select(x => x.ToString()));
+
+                                if (problamatic_idList.Count > 0)
+                                    File.WriteAllLines(problamatic_idListFilePath, problamatic_idList.Select(x => x.ToString()));
+
+                                if (insertedBatchCount > 0)
+                                    File.WriteAllText(insertedBatchCountFilePath, insertedBatchCount.ToString());
                             }
 
                         }
@@ -560,7 +609,7 @@ foreach (var collectionName in collectionList)
                 if (inserted_idList.Count > 0)
                     File.WriteAllLines(inserted_idListFilePath, inserted_idList.Select(x => x.ToString()));
 
-                if (problamatic_idList != null)
+                if (problamatic_idList.Count>0)
                     File.WriteAllLines(problamatic_idListFilePath, problamatic_idList.Select(x => x.ToString()));
 
                 if (insertedBatchCount > 0)
@@ -596,6 +645,14 @@ foreach (var collectionName in collectionList)
                                     insertedBatchCount++;
                                     inserted_idList.AddRange(temp_inserted_idList);
                                     temp_inserted_idList = new List<int>();
+                                    if (inserted_idList.Count > 0)
+                                        File.WriteAllLines(inserted_idListFilePath, inserted_idList.Select(x => x.ToString()));
+
+                                    if (problamatic_idList.Count > 0)
+                                        File.WriteAllLines(problamatic_idListFilePath, problamatic_idList.Select(x => x.ToString()));
+
+                                    if (insertedBatchCount > 0)
+                                        File.WriteAllText(insertedBatchCountFilePath, insertedBatchCount.ToString());
                                 }
 
                             }
@@ -603,6 +660,14 @@ foreach (var collectionName in collectionList)
                             {
                                 problamatic_idList.AddRange(temp_inserted_idList);
                                 Console.WriteLine(ex.ToString());
+                                if (inserted_idList.Count > 0)
+                                    File.WriteAllLines(inserted_idListFilePath, inserted_idList.Select(x => x.ToString()));
+
+                                if (problamatic_idList.Count > 0)
+                                    File.WriteAllLines(problamatic_idListFilePath, problamatic_idList.Select(x => x.ToString()));
+
+                                if (insertedBatchCount > 0)
+                                    File.WriteAllText(insertedBatchCountFilePath, insertedBatchCount.ToString());
                             }
 
                         }
@@ -649,7 +714,7 @@ foreach (var collectionName in collectionList)
                 if (inserted_idList.Count > 0)
                     File.WriteAllLines(inserted_idListFilePath, inserted_idList.Select(x => x.ToString()));
 
-                if (problamatic_idList != null)
+                if (problamatic_idList .Count>0)
                     File.WriteAllLines(problamatic_idListFilePath, problamatic_idList.Select(x => x.ToString()));
 
                 if (insertedBatchCount > 0)
@@ -685,6 +750,14 @@ foreach (var collectionName in collectionList)
                                     insertedBatchCount++;
                                     inserted_idList.AddRange(temp_inserted_idList);
                                     temp_inserted_idList = new List<int>();
+                                    if (inserted_idList.Count > 0)
+                                        File.WriteAllLines(inserted_idListFilePath, inserted_idList.Select(x => x.ToString()));
+
+                                    if (problamatic_idList.Count > 0)
+                                        File.WriteAllLines(problamatic_idListFilePath, problamatic_idList.Select(x => x.ToString()));
+
+                                    if (insertedBatchCount > 0)
+                                        File.WriteAllText(insertedBatchCountFilePath, insertedBatchCount.ToString());
                                 }
 
                             }
@@ -692,6 +765,14 @@ foreach (var collectionName in collectionList)
                             {
                                 problamatic_idList.AddRange(temp_inserted_idList);
                                 Console.WriteLine(ex.ToString());
+                                if (inserted_idList.Count > 0)
+                                    File.WriteAllLines(inserted_idListFilePath, inserted_idList.Select(x => x.ToString()));
+
+                                if (problamatic_idList.Count > 0)
+                                    File.WriteAllLines(problamatic_idListFilePath, problamatic_idList.Select(x => x.ToString()));
+
+                                if (insertedBatchCount > 0)
+                                    File.WriteAllText(insertedBatchCountFilePath, insertedBatchCount.ToString());
                             }
 
                         }
@@ -738,7 +819,7 @@ foreach (var collectionName in collectionList)
                 if (inserted_idList.Count > 0)
                     File.WriteAllLines(inserted_idListFilePath, inserted_idList.Select(x => x.ToString()));
 
-                if (problamatic_idList != null)
+                if (problamatic_idList.Count>0)
                     File.WriteAllLines(problamatic_idListFilePath, problamatic_idList.Select(x => x.ToString()));
 
                 if (insertedBatchCount > 0)
@@ -774,6 +855,14 @@ foreach (var collectionName in collectionList)
                                     insertedBatchCount++;
                                     inserted_idList.AddRange(temp_inserted_idList);
                                     temp_inserted_idList = new List<int>();
+                                    if (inserted_idList.Count > 0)
+                                        File.WriteAllLines(inserted_idListFilePath, inserted_idList.Select(x => x.ToString()));
+
+                                    if (problamatic_idList.Count > 0)
+                                        File.WriteAllLines(problamatic_idListFilePath, problamatic_idList.Select(x => x.ToString()));
+
+                                    if (insertedBatchCount > 0)
+                                        File.WriteAllText(insertedBatchCountFilePath, insertedBatchCount.ToString());
                                 }
 
                             }
@@ -781,6 +870,14 @@ foreach (var collectionName in collectionList)
                             {
                                 problamatic_idList.AddRange(temp_inserted_idList);
                                 Console.WriteLine(ex.ToString());
+                                if (inserted_idList.Count > 0)
+                                    File.WriteAllLines(inserted_idListFilePath, inserted_idList.Select(x => x.ToString()));
+
+                                if (problamatic_idList.Count > 0)
+                                    File.WriteAllLines(problamatic_idListFilePath, problamatic_idList.Select(x => x.ToString()));
+
+                                if (insertedBatchCount > 0)
+                                    File.WriteAllText(insertedBatchCountFilePath, insertedBatchCount.ToString());
                             }
 
                         }
@@ -827,7 +924,7 @@ foreach (var collectionName in collectionList)
                 if (inserted_idList.Count > 0)
                     File.WriteAllLines(inserted_idListFilePath, inserted_idList.Select(x => x.ToString()));
 
-                if (problamatic_idList != null)
+                if (problamatic_idList.Count>0)
                     File.WriteAllLines(problamatic_idListFilePath, problamatic_idList.Select(x => x.ToString()));
 
                 if (insertedBatchCount > 0)
@@ -863,6 +960,14 @@ foreach (var collectionName in collectionList)
                                     insertedBatchCount++;
                                     inserted_idList.AddRange(temp_inserted_idList);
                                     temp_inserted_idList = new List<int>();
+                                    if (inserted_idList.Count > 0)
+                                        File.WriteAllLines(inserted_idListFilePath, inserted_idList.Select(x => x.ToString()));
+
+                                    if (problamatic_idList.Count > 0)
+                                        File.WriteAllLines(problamatic_idListFilePath, problamatic_idList.Select(x => x.ToString()));
+
+                                    if (insertedBatchCount > 0)
+                                        File.WriteAllText(insertedBatchCountFilePath, insertedBatchCount.ToString());
                                 }
 
                             }
@@ -870,6 +975,14 @@ foreach (var collectionName in collectionList)
                             {
                                 problamatic_idList.AddRange(temp_inserted_idList);
                                 Console.WriteLine(ex.ToString());
+                                if (inserted_idList.Count > 0)
+                                    File.WriteAllLines(inserted_idListFilePath, inserted_idList.Select(x => x.ToString()));
+
+                                if (problamatic_idList.Count > 0)
+                                    File.WriteAllLines(problamatic_idListFilePath, problamatic_idList.Select(x => x.ToString()));
+
+                                if (insertedBatchCount > 0)
+                                    File.WriteAllText(insertedBatchCountFilePath, insertedBatchCount.ToString());
                             }
 
                         }
@@ -916,7 +1029,7 @@ foreach (var collectionName in collectionList)
                 if (inserted_idList.Count > 0)
                     File.WriteAllLines(inserted_idListFilePath, inserted_idList.Select(x => x.ToString()));
 
-                if (problamatic_idList != null)
+                if (problamatic_idList.Count>0)
                     File.WriteAllLines(problamatic_idListFilePath, problamatic_idList.Select(x => x.ToString()));
 
                 if (insertedBatchCount > 0)
@@ -952,6 +1065,14 @@ foreach (var collectionName in collectionList)
                                     insertedBatchCount++;
                                     inserted_idList.AddRange(temp_inserted_idList);
                                     temp_inserted_idList = new List<int>();
+                                    if (inserted_idList.Count > 0)
+                                        File.WriteAllLines(inserted_idListFilePath, inserted_idList.Select(x => x.ToString()));
+
+                                    if (problamatic_idList.Count > 0)
+                                        File.WriteAllLines(problamatic_idListFilePath, problamatic_idList.Select(x => x.ToString()));
+
+                                    if (insertedBatchCount > 0)
+                                        File.WriteAllText(insertedBatchCountFilePath, insertedBatchCount.ToString());
                                 }
 
                             }
@@ -959,6 +1080,14 @@ foreach (var collectionName in collectionList)
                             {
                                 problamatic_idList.AddRange(temp_inserted_idList);
                                 Console.WriteLine(ex.ToString());
+                                if (inserted_idList.Count > 0)
+                                    File.WriteAllLines(inserted_idListFilePath, inserted_idList.Select(x => x.ToString()));
+
+                                if (problamatic_idList.Count > 0)
+                                    File.WriteAllLines(problamatic_idListFilePath, problamatic_idList.Select(x => x.ToString()));
+
+                                if (insertedBatchCount > 0)
+                                    File.WriteAllText(insertedBatchCountFilePath, insertedBatchCount.ToString());
                             }
 
                         }
@@ -1005,7 +1134,7 @@ foreach (var collectionName in collectionList)
                 if (inserted_idList.Count > 0)
                     File.WriteAllLines(inserted_idListFilePath, inserted_idList.Select(x => x.ToString()));
 
-                if (problamatic_idList != null)
+                if (problamatic_idList.Count>0)
                     File.WriteAllLines(problamatic_idListFilePath, problamatic_idList.Select(x => x.ToString()));
 
                 if (insertedBatchCount > 0)
@@ -1042,13 +1171,30 @@ foreach (var collectionName in collectionList)
                                     insertedBatchCount++;
                                     inserted_idList.AddRange(temp_inserted_idList);
                                     temp_inserted_idList= new List<int> ();
+
+                                    if (inserted_idList.Count > 0)
+                                        File.WriteAllLines(inserted_idListFilePath, inserted_idList.Select(x => x.ToString()));
+
+                                    if (problamatic_idList.Count>0)
+                                        File.WriteAllLines(problamatic_idListFilePath, problamatic_idList.Select(x => x.ToString()));
+
+                                    if (insertedBatchCount > 0)
+                                        File.WriteAllText(insertedBatchCountFilePath, insertedBatchCount.ToString());
                                 }
                                 
                             }
                             catch (Exception ex)
                             {
                                 problamatic_idList.AddRange(temp_inserted_idList);
-                                Console.WriteLine(ex.ToString()); 
+                                Console.WriteLine(ex.ToString());
+                                if (inserted_idList.Count > 0)
+                                    File.WriteAllLines(inserted_idListFilePath, inserted_idList.Select(x => x.ToString()));
+
+                                if (problamatic_idList.Count > 0)
+                                    File.WriteAllLines(problamatic_idListFilePath, problamatic_idList.Select(x => x.ToString()));
+
+                                if (insertedBatchCount > 0)
+                                    File.WriteAllText(insertedBatchCountFilePath, insertedBatchCount.ToString());
                             }
                             
                         }
@@ -1096,7 +1242,7 @@ foreach (var collectionName in collectionList)
                 if(inserted_idList.Count>0)
                     File.WriteAllLines(inserted_idListFilePath, inserted_idList.Select(x => x.ToString()));
 
-                if(problamatic_idList != null)
+                if(problamatic_idList.Count > 0)
                     File.WriteAllLines(problamatic_idListFilePath, problamatic_idList.Select(x => x.ToString()));
                 
                 if(insertedBatchCount> 0)
@@ -1132,6 +1278,15 @@ foreach (var collectionName in collectionList)
                                     insertedBatchCount++;
                                     inserted_idList.AddRange(temp_inserted_idList);
                                     temp_inserted_idList = new List<int>();
+
+                                    if (inserted_idList.Count > 0)
+                                        File.WriteAllLines(inserted_idListFilePath, inserted_idList.Select(x => x.ToString()));
+
+                                    if (problamatic_idList.Count > 0)
+                                        File.WriteAllLines(problamatic_idListFilePath, problamatic_idList.Select(x => x.ToString()));
+
+                                    if (insertedBatchCount > 0)
+                                        File.WriteAllText(insertedBatchCountFilePath, insertedBatchCount.ToString());
                                 }
 
                             }
@@ -1139,10 +1294,16 @@ foreach (var collectionName in collectionList)
                             {
                                 problamatic_idList.AddRange(temp_inserted_idList);
                                 Console.WriteLine(ex.ToString());
+                                if (inserted_idList.Count > 0)
+                                    File.WriteAllLines(inserted_idListFilePath, inserted_idList.Select(x => x.ToString()));
+
+                                if (problamatic_idList.Count > 0)
+                                    File.WriteAllLines(problamatic_idListFilePath, problamatic_idList.Select(x => x.ToString()));
+
+                                if (insertedBatchCount > 0)
+                                    File.WriteAllText(insertedBatchCountFilePath, insertedBatchCount.ToString());
                             }
-
                         }
-
                     }
                     catch(Exception ex)
                     {
@@ -1186,7 +1347,7 @@ foreach (var collectionName in collectionList)
                 if (inserted_idList.Count > 0)
                     File.WriteAllLines(inserted_idListFilePath, inserted_idList.Select(x => x.ToString()));
 
-                if (problamatic_idList != null)
+                if (problamatic_idList.Count>0)
                     File.WriteAllLines(problamatic_idListFilePath, problamatic_idList.Select(x => x.ToString()));
 
                 if (insertedBatchCount > 0)
@@ -1254,17 +1415,12 @@ foreach (var collectionName in collectionList)
                 }
 
             }
-
         }
         catch (Exception ex)
         {
             Console.WriteLine(ex.Message);
         }
-
-
     }
-
-
 }
 
 
@@ -1274,7 +1430,7 @@ int Problamatic_files_Count = Directory.GetFiles(Problamatic_IdList_DirectoryPat
 while(Problamatic_files_Count > 0)
 {
     Console.WriteLine("Dealing with Problamatic Id's Retry after 10 mins");
-    Thread.Sleep(600000);
+    Thread.Sleep(6000);
     foreach (string file in Directory.GetFiles(Problamatic_IdList_DirectoryPath))
     {
         string filename = Path.GetFileName(file);
@@ -1306,7 +1462,7 @@ while(Problamatic_files_Count > 0)
         string insertedBatchCountFilePath = AppDomain.CurrentDomain.BaseDirectory + @"\MetaFiles\InsertedBatchCount\" + collectionName + "_insertedBatchCount_" + yyyy + mm + dd + ".txt";
         if (File.Exists(insertedBatchCountFilePath))
         {
-            insertedBatchCount = Int32.Parse(File.ReadLines(insertedBatchCountFilePath).ToString());
+            insertedBatchCount = Int32.Parse(File.ReadAllLines(insertedBatchCountFilePath).Select(x => (x)).ToList()[0]);
         }
 
         //getting data one by one for problamatic id's 
@@ -1355,6 +1511,15 @@ while(Problamatic_files_Count > 0)
                                 insertedBatchCount++;
                                 inserted_idList.AddRange(temp_inserted_idList);
                                 temp_inserted_idList = new List<int>();
+
+                                if (inserted_idList.Count > 0)
+                                    File.WriteAllLines(inserted_idListFilePath, inserted_idList.Select(x => x.ToString()));
+
+                                if (problamatic_idList.Count > 0)
+                                    File.WriteAllLines(problamatic_idListFilePath, problamatic_idList.Select(x => x.ToString()));
+
+                                if (insertedBatchCount > 0)
+                                    File.WriteAllText(insertedBatchCountFilePath, insertedBatchCount.ToString());
                             }
 
                         }
@@ -1362,6 +1527,14 @@ while(Problamatic_files_Count > 0)
                         {
                             problamatic_idList.AddRange(temp_inserted_idList);
                             Console.WriteLine(ex.ToString());
+                            if (inserted_idList.Count > 0)
+                                File.WriteAllLines(inserted_idListFilePath, inserted_idList.Select(x => x.ToString()));
+
+                            if (problamatic_idList.Count > 0)
+                                File.WriteAllLines(problamatic_idListFilePath, problamatic_idList.Select(x => x.ToString()));
+
+                            if (insertedBatchCount > 0)
+                                File.WriteAllText(insertedBatchCountFilePath, insertedBatchCount.ToString());
                         }
 
                     }
@@ -1409,7 +1582,7 @@ while(Problamatic_files_Count > 0)
             if (inserted_idList.Count > 0)
                 File.WriteAllLines(inserted_idListFilePath, inserted_idList.Select(x => x.ToString()));
 
-            if (problamatic_idList != null)
+            if (problamatic_idList.Count>0)
                 File.WriteAllLines(problamatic_idListFilePath, problamatic_idList.Select(x => x.ToString()));
 
             if (insertedBatchCount > 0)
@@ -1445,6 +1618,15 @@ while(Problamatic_files_Count > 0)
                                 insertedBatchCount++;
                                 inserted_idList.AddRange(temp_inserted_idList);
                                 temp_inserted_idList = new List<int>();
+
+                                if (inserted_idList.Count > 0)
+                                    File.WriteAllLines(inserted_idListFilePath, inserted_idList.Select(x => x.ToString()));
+
+                                if (problamatic_idList.Count > 0)
+                                    File.WriteAllLines(problamatic_idListFilePath, problamatic_idList.Select(x => x.ToString()));
+
+                                if (insertedBatchCount > 0)
+                                    File.WriteAllText(insertedBatchCountFilePath, insertedBatchCount.ToString());
                             }
 
                         }
@@ -1452,6 +1634,15 @@ while(Problamatic_files_Count > 0)
                         {
                             problamatic_idList.AddRange(temp_inserted_idList);
                             Console.WriteLine(ex.ToString());
+
+                            if (inserted_idList.Count > 0)
+                                File.WriteAllLines(inserted_idListFilePath, inserted_idList.Select(x => x.ToString()));
+
+                            if (problamatic_idList.Count > 0)
+                                File.WriteAllLines(problamatic_idListFilePath, problamatic_idList.Select(x => x.ToString()));
+
+                            if (insertedBatchCount > 0)
+                                File.WriteAllText(insertedBatchCountFilePath, insertedBatchCount.ToString());
                         }
 
                     }
@@ -1498,7 +1689,7 @@ while(Problamatic_files_Count > 0)
             if (inserted_idList.Count > 0)
                 File.WriteAllLines(inserted_idListFilePath, inserted_idList.Select(x => x.ToString()));
 
-            if (problamatic_idList != null)
+            if (problamatic_idList.Count>0)
                 File.WriteAllLines(problamatic_idListFilePath, problamatic_idList.Select(x => x.ToString()));
 
             if (insertedBatchCount > 0)
@@ -1534,6 +1725,15 @@ while(Problamatic_files_Count > 0)
                                 insertedBatchCount++;
                                 inserted_idList.AddRange(temp_inserted_idList);
                                 temp_inserted_idList = new List<int>();
+
+                                if (inserted_idList.Count > 0)
+                                    File.WriteAllLines(inserted_idListFilePath, inserted_idList.Select(x => x.ToString()));
+
+                                if (problamatic_idList.Count > 0)
+                                    File.WriteAllLines(problamatic_idListFilePath, problamatic_idList.Select(x => x.ToString()));
+
+                                if (insertedBatchCount > 0)
+                                    File.WriteAllText(insertedBatchCountFilePath, insertedBatchCount.ToString());
                             }
 
                         }
@@ -1541,6 +1741,15 @@ while(Problamatic_files_Count > 0)
                         {
                             problamatic_idList.AddRange(temp_inserted_idList);
                             Console.WriteLine(ex.ToString());
+
+                            if (inserted_idList.Count > 0)
+                                File.WriteAllLines(inserted_idListFilePath, inserted_idList.Select(x => x.ToString()));
+
+                            if (problamatic_idList.Count > 0)
+                                File.WriteAllLines(problamatic_idListFilePath, problamatic_idList.Select(x => x.ToString()));
+
+                            if (insertedBatchCount > 0)
+                                File.WriteAllText(insertedBatchCountFilePath, insertedBatchCount.ToString());
                         }
 
                     }
@@ -1587,7 +1796,7 @@ while(Problamatic_files_Count > 0)
             if (inserted_idList.Count > 0)
                 File.WriteAllLines(inserted_idListFilePath, inserted_idList.Select(x => x.ToString()));
 
-            if (problamatic_idList != null)
+            if (problamatic_idList.Count>0)
                 File.WriteAllLines(problamatic_idListFilePath, problamatic_idList.Select(x => x.ToString()));
 
             if (insertedBatchCount > 0)
@@ -1623,6 +1832,15 @@ while(Problamatic_files_Count > 0)
                                 insertedBatchCount++;
                                 inserted_idList.AddRange(temp_inserted_idList);
                                 temp_inserted_idList = new List<int>();
+
+                                if (inserted_idList.Count > 0)
+                                    File.WriteAllLines(inserted_idListFilePath, inserted_idList.Select(x => x.ToString()));
+
+                                if (problamatic_idList.Count > 0)
+                                    File.WriteAllLines(problamatic_idListFilePath, problamatic_idList.Select(x => x.ToString()));
+
+                                if (insertedBatchCount > 0)
+                                    File.WriteAllText(insertedBatchCountFilePath, insertedBatchCount.ToString());
                             }
 
                         }
@@ -1630,6 +1848,14 @@ while(Problamatic_files_Count > 0)
                         {
                             problamatic_idList.AddRange(temp_inserted_idList);
                             Console.WriteLine(ex.ToString());
+                            if (inserted_idList.Count > 0)
+                                File.WriteAllLines(inserted_idListFilePath, inserted_idList.Select(x => x.ToString()));
+
+                            if (problamatic_idList.Count > 0)
+                                File.WriteAllLines(problamatic_idListFilePath, problamatic_idList.Select(x => x.ToString()));
+
+                            if (insertedBatchCount > 0)
+                                File.WriteAllText(insertedBatchCountFilePath, insertedBatchCount.ToString());
                         }
 
                     }
@@ -1676,7 +1902,7 @@ while(Problamatic_files_Count > 0)
             if (inserted_idList.Count > 0)
                 File.WriteAllLines(inserted_idListFilePath, inserted_idList.Select(x => x.ToString()));
 
-            if (problamatic_idList != null)
+            if (problamatic_idList.Count>0)
                 File.WriteAllLines(problamatic_idListFilePath, problamatic_idList.Select(x => x.ToString()));
 
             if (insertedBatchCount > 0)
@@ -1712,6 +1938,14 @@ while(Problamatic_files_Count > 0)
                                 insertedBatchCount++;
                                 inserted_idList.AddRange(temp_inserted_idList);
                                 temp_inserted_idList = new List<int>();
+                                if (inserted_idList.Count > 0)
+                                    File.WriteAllLines(inserted_idListFilePath, inserted_idList.Select(x => x.ToString()));
+
+                                if (problamatic_idList.Count > 0)
+                                    File.WriteAllLines(problamatic_idListFilePath, problamatic_idList.Select(x => x.ToString()));
+
+                                if (insertedBatchCount > 0)
+                                    File.WriteAllText(insertedBatchCountFilePath, insertedBatchCount.ToString());
                             }
 
                         }
@@ -1719,6 +1953,14 @@ while(Problamatic_files_Count > 0)
                         {
                             problamatic_idList.AddRange(temp_inserted_idList);
                             Console.WriteLine(ex.ToString());
+                            if (inserted_idList.Count > 0)
+                                File.WriteAllLines(inserted_idListFilePath, inserted_idList.Select(x => x.ToString()));
+
+                            if (problamatic_idList.Count > 0)
+                                File.WriteAllLines(problamatic_idListFilePath, problamatic_idList.Select(x => x.ToString()));
+
+                            if (insertedBatchCount > 0)
+                                File.WriteAllText(insertedBatchCountFilePath, insertedBatchCount.ToString());
                         }
 
                     }
@@ -1765,7 +2007,7 @@ while(Problamatic_files_Count > 0)
             if (inserted_idList.Count > 0)
                 File.WriteAllLines(inserted_idListFilePath, inserted_idList.Select(x => x.ToString()));
 
-            if (problamatic_idList != null)
+            if (problamatic_idList.Count>0)
                 File.WriteAllLines(problamatic_idListFilePath, problamatic_idList.Select(x => x.ToString()));
 
             if (insertedBatchCount > 0)
@@ -1801,6 +2043,14 @@ while(Problamatic_files_Count > 0)
                                 insertedBatchCount++;
                                 inserted_idList.AddRange(temp_inserted_idList);
                                 temp_inserted_idList = new List<int>();
+                                if (inserted_idList.Count > 0)
+                                    File.WriteAllLines(inserted_idListFilePath, inserted_idList.Select(x => x.ToString()));
+
+                                if (problamatic_idList.Count > 0)
+                                    File.WriteAllLines(problamatic_idListFilePath, problamatic_idList.Select(x => x.ToString()));
+
+                                if (insertedBatchCount > 0)
+                                    File.WriteAllText(insertedBatchCountFilePath, insertedBatchCount.ToString());
                             }
 
                         }
@@ -1808,6 +2058,14 @@ while(Problamatic_files_Count > 0)
                         {
                             problamatic_idList.AddRange(temp_inserted_idList);
                             Console.WriteLine(ex.ToString());
+                            if (inserted_idList.Count > 0)
+                                File.WriteAllLines(inserted_idListFilePath, inserted_idList.Select(x => x.ToString()));
+
+                            if (problamatic_idList.Count > 0)
+                                File.WriteAllLines(problamatic_idListFilePath, problamatic_idList.Select(x => x.ToString()));
+
+                            if (insertedBatchCount > 0)
+                                File.WriteAllText(insertedBatchCountFilePath, insertedBatchCount.ToString());
                         }
 
                     }
@@ -1854,7 +2112,7 @@ while(Problamatic_files_Count > 0)
             if (inserted_idList.Count > 0)
                 File.WriteAllLines(inserted_idListFilePath, inserted_idList.Select(x => x.ToString()));
 
-            if (problamatic_idList != null)
+            if (problamatic_idList.Count > 0)
                 File.WriteAllLines(problamatic_idListFilePath, problamatic_idList.Select(x => x.ToString()));
 
             if (insertedBatchCount > 0)
@@ -1890,6 +2148,14 @@ while(Problamatic_files_Count > 0)
                                 insertedBatchCount++;
                                 inserted_idList.AddRange(temp_inserted_idList);
                                 temp_inserted_idList = new List<int>();
+                                if (inserted_idList.Count > 0)
+                                    File.WriteAllLines(inserted_idListFilePath, inserted_idList.Select(x => x.ToString()));
+
+                                if (problamatic_idList.Count > 0)
+                                    File.WriteAllLines(problamatic_idListFilePath, problamatic_idList.Select(x => x.ToString()));
+
+                                if (insertedBatchCount > 0)
+                                    File.WriteAllText(insertedBatchCountFilePath, insertedBatchCount.ToString());
                             }
 
                         }
@@ -1897,6 +2163,14 @@ while(Problamatic_files_Count > 0)
                         {
                             problamatic_idList.AddRange(temp_inserted_idList);
                             Console.WriteLine(ex.ToString());
+                            if (inserted_idList.Count > 0)
+                                File.WriteAllLines(inserted_idListFilePath, inserted_idList.Select(x => x.ToString()));
+
+                            if (problamatic_idList.Count > 0)
+                                File.WriteAllLines(problamatic_idListFilePath, problamatic_idList.Select(x => x.ToString()));
+
+                            if (insertedBatchCount > 0)
+                                File.WriteAllText(insertedBatchCountFilePath, insertedBatchCount.ToString());
                         }
 
                     }
@@ -1943,7 +2217,7 @@ while(Problamatic_files_Count > 0)
             if (inserted_idList.Count > 0)
                 File.WriteAllLines(inserted_idListFilePath, inserted_idList.Select(x => x.ToString()));
 
-            if (problamatic_idList != null)
+            if (problamatic_idList.Count > 0)
                 File.WriteAllLines(problamatic_idListFilePath, problamatic_idList.Select(x => x.ToString()));
 
             if (insertedBatchCount > 0)
@@ -1979,6 +2253,14 @@ while(Problamatic_files_Count > 0)
                                 insertedBatchCount++;
                                 inserted_idList.AddRange(temp_inserted_idList);
                                 temp_inserted_idList = new List<int>();
+                                if (inserted_idList.Count > 0)
+                                    File.WriteAllLines(inserted_idListFilePath, inserted_idList.Select(x => x.ToString()));
+
+                                if (problamatic_idList.Count > 0)
+                                    File.WriteAllLines(problamatic_idListFilePath, problamatic_idList.Select(x => x.ToString()));
+
+                                if (insertedBatchCount > 0)
+                                    File.WriteAllText(insertedBatchCountFilePath, insertedBatchCount.ToString());
                             }
 
                         }
@@ -1986,6 +2268,14 @@ while(Problamatic_files_Count > 0)
                         {
                             problamatic_idList.AddRange(temp_inserted_idList);
                             Console.WriteLine(ex.ToString());
+                            if (inserted_idList.Count > 0)
+                                File.WriteAllLines(inserted_idListFilePath, inserted_idList.Select(x => x.ToString()));
+
+                            if (problamatic_idList.Count > 0)
+                                File.WriteAllLines(problamatic_idListFilePath, problamatic_idList.Select(x => x.ToString()));
+
+                            if (insertedBatchCount > 0)
+                                File.WriteAllText(insertedBatchCountFilePath, insertedBatchCount.ToString());
                         }
 
                     }
@@ -2032,7 +2322,7 @@ while(Problamatic_files_Count > 0)
             if (inserted_idList.Count > 0)
                 File.WriteAllLines(inserted_idListFilePath, inserted_idList.Select(x => x.ToString()));
 
-            if (problamatic_idList != null)
+            if (problamatic_idList.Count > 0)
                 File.WriteAllLines(problamatic_idListFilePath, problamatic_idList.Select(x => x.ToString()));
 
             if (insertedBatchCount > 0)
@@ -2069,6 +2359,14 @@ while(Problamatic_files_Count > 0)
                                 insertedBatchCount++;
                                 inserted_idList.AddRange(temp_inserted_idList);
                                 temp_inserted_idList = new List<int>();
+                                if (inserted_idList.Count > 0)
+                                    File.WriteAllLines(inserted_idListFilePath, inserted_idList.Select(x => x.ToString()));
+
+                                if (problamatic_idList.Count > 0)
+                                    File.WriteAllLines(problamatic_idListFilePath, problamatic_idList.Select(x => x.ToString()));
+
+                                if (insertedBatchCount > 0)
+                                    File.WriteAllText(insertedBatchCountFilePath, insertedBatchCount.ToString());
                             }
 
                         }
@@ -2076,6 +2374,14 @@ while(Problamatic_files_Count > 0)
                         {
                             problamatic_idList.AddRange(temp_inserted_idList);
                             Console.WriteLine(ex.ToString());
+                            if (inserted_idList.Count > 0)
+                                File.WriteAllLines(inserted_idListFilePath, inserted_idList.Select(x => x.ToString()));
+
+                            if (problamatic_idList.Count > 0)
+                                File.WriteAllLines(problamatic_idListFilePath, problamatic_idList.Select(x => x.ToString()));
+
+                            if (insertedBatchCount > 0)
+                                File.WriteAllText(insertedBatchCountFilePath, insertedBatchCount.ToString());
                         }
 
                     }
@@ -2123,7 +2429,7 @@ while(Problamatic_files_Count > 0)
             if (inserted_idList.Count > 0)
                 File.WriteAllLines(inserted_idListFilePath, inserted_idList.Select(x => x.ToString()));
 
-            if (problamatic_idList != null)
+            if (problamatic_idList.Count > 0)
                 File.WriteAllLines(problamatic_idListFilePath, problamatic_idList.Select(x => x.ToString()));
 
             if (insertedBatchCount > 0)
@@ -2159,6 +2465,14 @@ while(Problamatic_files_Count > 0)
                                 insertedBatchCount++;
                                 inserted_idList.AddRange(temp_inserted_idList);
                                 temp_inserted_idList = new List<int>();
+                                if (inserted_idList.Count > 0)
+                                    File.WriteAllLines(inserted_idListFilePath, inserted_idList.Select(x => x.ToString()));
+
+                                if (problamatic_idList.Count > 0)
+                                    File.WriteAllLines(problamatic_idListFilePath, problamatic_idList.Select(x => x.ToString()));
+
+                                if (insertedBatchCount > 0)
+                                    File.WriteAllText(insertedBatchCountFilePath, insertedBatchCount.ToString());
                             }
 
                         }
@@ -2166,6 +2480,14 @@ while(Problamatic_files_Count > 0)
                         {
                             problamatic_idList.AddRange(temp_inserted_idList);
                             Console.WriteLine(ex.ToString());
+                            if (inserted_idList.Count > 0)
+                                File.WriteAllLines(inserted_idListFilePath, inserted_idList.Select(x => x.ToString()));
+
+                            if (problamatic_idList.Count > 0)
+                                File.WriteAllLines(problamatic_idListFilePath, problamatic_idList.Select(x => x.ToString()));
+
+                            if (insertedBatchCount > 0)
+                                File.WriteAllText(insertedBatchCountFilePath, insertedBatchCount.ToString());
                         }
 
                     }
@@ -2213,7 +2535,7 @@ while(Problamatic_files_Count > 0)
             if (inserted_idList.Count > 0)
                 File.WriteAllLines(inserted_idListFilePath, inserted_idList.Select(x => x.ToString()));
 
-            if (problamatic_idList != null)
+            if (problamatic_idList.Count > 0)
                 File.WriteAllLines(problamatic_idListFilePath, problamatic_idList.Select(x => x.ToString()));
 
             if (insertedBatchCount > 0)
@@ -2281,8 +2603,6 @@ while(Problamatic_files_Count > 0)
             }
 
         }
-
-
     }
 
     
