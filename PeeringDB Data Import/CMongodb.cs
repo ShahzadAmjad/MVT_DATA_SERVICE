@@ -10,6 +10,77 @@ namespace PeeringDB_Data_Import
 {
     public class CMongodb
     {
+        public dynamic GetCollection(string collectionName)
+        {
+            var client = OpenDBConn();
+            IMongoDatabase database = client.GetDatabase("mvt");
+
+            if (collectionName == "pdb_datacenters")
+            {
+                try
+                {
+                    var collection = database.GetCollection<Cpdb_tranformation>(collectionName);
+                    var documents = collection.Find(Builders<Cpdb_tranformation>.Filter.Empty).ToListAsync();
+                    return documents;
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }
+                
+            }
+            else if (collectionName == "pdb_internet_exchanges")
+            {
+                var collection = database.GetCollection<pdb_InternetExchange>(collectionName);
+                return collection.Find(Builders<pdb_InternetExchange>.Filter.Empty).ToListAsync();
+            }
+            else if (collectionName == "pdb_internet_exchange_facilities")
+            {
+                var collection = database.GetCollection<pdb_InternetExchangeFacility>(collectionName);
+                return collection.Find(Builders<pdb_InternetExchangeFacility>.Filter.Empty).ToListAsync();
+            }
+            else if (collectionName == "pdb_internet_exchange_networks")
+            {
+                var collection = database.GetCollection<pdb_internet_exchange_networks>(collectionName);
+                return collection.Find(Builders<pdb_internet_exchange_networks>.Filter.Empty).ToListAsync();
+            }
+            else if (collectionName == "pdb_internet_exchange_prefixes")
+            {
+                var collection = database.GetCollection<pdb_internet_exchange_prefixes>(collectionName);
+                return collection.Find(Builders<pdb_internet_exchange_prefixes>.Filter.Empty).ToListAsync();
+            }
+            else if (collectionName == "pdb_networks")
+            {
+                var collection = database.GetCollection<pdb_Network>(collectionName);
+                return collection.Find(Builders<pdb_Network>.Filter.Empty).ToListAsync();
+            }
+            else if (collectionName == "pdb_network_pocs")
+            {
+                var collection = database.GetCollection<pdb_NetworkPOC>(collectionName);
+                return collection.Find(Builders<pdb_NetworkPOC>.Filter.Empty).ToListAsync();
+            }
+            else if (collectionName == "pdb_network_facilities")
+            {
+                var collection = database.GetCollection<pdb_NetworkFacility>(collectionName);
+                return collection.Find(Builders<pdb_NetworkFacility>.Filter.Empty).ToListAsync();
+            }
+            else if (collectionName == "pdb_network_to_ix_connection")
+            {
+                var collection = database.GetCollection<pdb_NetworkToIXConnection>(collectionName);
+                return collection.Find(Builders<pdb_NetworkToIXConnection>.Filter.Empty).ToListAsync();
+            }
+            else if (collectionName == "pdb_organizations")
+            {
+                var collection = database.GetCollection<pdb_Organization>(collectionName);
+                return collection.Find(Builders<pdb_Organization>.Filter.Empty).ToListAsync();
+            }
+            else if (collectionName == "pdb_as_set")
+            {
+                var collection = database.GetCollection<pdb_AS_SET>(collectionName);
+                return collection.Find(Builders<pdb_AS_SET>.Filter.Empty).ToListAsync();
+            }
+            return null;
+        }
         public bool InsertBatch<T>(List<T> list, string collectionName, int insertedBatchCount)
         {
             bool status = false;
@@ -129,15 +200,12 @@ namespace PeeringDB_Data_Import
                 }
                 else if (list is List<pdb_Organization>)
                 {
-                    //6th change
                     List<pdb_Organization> batch = list as List<pdb_Organization>;
                     //to empty previous records if any
                     if (insertedBatchCount == 0)
                     {
                         database.DropCollection(collectionName);
                     }
-
-                    //7th change
                     var collection = database.GetCollection<pdb_Organization>(collectionName);
                     collection.InsertMany((IEnumerable<pdb_Organization>)batch);
 

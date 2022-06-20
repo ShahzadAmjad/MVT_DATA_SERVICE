@@ -5,7 +5,7 @@ using PeeringDB_Data_Import;
 using PeeringDB_Data_Import.Models;
 using System.Net;
 
-Console.WriteLine("MVT Data Service started");
+Console.WriteLine("MVT Data Import Service started");
 
 //used for different type of filenames
 string dd = (DateTime.Now).Day.ToString("00");
