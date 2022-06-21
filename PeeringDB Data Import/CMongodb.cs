@@ -10,10 +10,24 @@ namespace PeeringDB_Data_Import
 {
     public class CMongodb
     {
-        //public async dynamic GetCollectionasync(string collectionName)
+        //public  dynamic GetCollectionasync(string collectionName)
         //{
-
+        //    var client = OpenDBConn();
+        //    IMongoDatabase database = client.GetDatabase("mvt");
+        //    var collection = database.GetCollection<Cpdb_tranformation>(collectionName);
+        //    var doc =await collection.Find(Builders<Cpdb_tranformation>.Filter.Empty).ToListAsync();
+        //    return doc;
         //}
+
+        public async Task<List<Cpdb_tranformation>> getListAsync(string collectionName)
+        {
+            var client = OpenDBConn();
+            IMongoDatabase database = client.GetDatabase("mvt");
+            var collection = database.GetCollection<Cpdb_tranformation>(collectionName);
+
+            var list = await collection.Find(Builders<Cpdb_tranformation>.Filter.Empty).ToListAsync();
+            return list;
+        }
         public  dynamic GetCollection(string collectionName)
         {
             try
@@ -31,15 +45,18 @@ namespace PeeringDB_Data_Import
                     }
                     catch (Exception ex)
                     {
-
+                        Console.WriteLine(ex.Message);
                     }
 
                 }
                 else if (collectionName == "pdb_internet_exchanges")
                 {
+                    //FindOptions options = new FindOptions {  NoCursorTimeout=true};
                     var collection = database.GetCollection<pdb_InternetExchange>(collectionName);
-                    //var doc = await collection.Find(Builders<pdb_InternetExchange>.Filter.Empty);
                     return collection.Find(Builders<pdb_InternetExchange>.Filter.Empty).ToList();
+                    //var cursor= collection.FindAsync(Builders<pdb_InternetExchange>.Filter.Empty);
+                    //return cursor;
+                    //return doc;
                 }
                 else if (collectionName == "pdb_internet_exchange_facilities")
                 {
@@ -68,8 +85,12 @@ namespace PeeringDB_Data_Import
                 }
                 else if (collectionName == "pdb_network_facilities")
                 {
+                    FindOptions options = new FindOptions();
+                    TimeSpan span = TimeSpan.FromSeconds(500);
+                    options.MaxAwaitTime = span;
+                    options.NoCursorTimeout = true;
                     var collection = database.GetCollection<pdb_NetworkFacility>(collectionName);
-                    return collection.Find(Builders<pdb_NetworkFacility>.Filter.Empty).ToList();
+                    return collection.Find(Builders<pdb_NetworkFacility>.Filter.Empty, options).Limit(200).ToListAsync();
                 }
                 else if (collectionName == "pdb_network_to_ix_connection")
                 {

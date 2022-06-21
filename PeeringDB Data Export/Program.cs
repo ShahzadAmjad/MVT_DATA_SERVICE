@@ -18,9 +18,9 @@ foreach (var collectionName in collectionList)
     
     if (collectionName == "pdb_datacenters")
     {
-        Console.WriteLine("Getting all data for: " + collectionName);
+        Console.WriteLine("Getting all data for: " + collectionName); 
         //List<Cpdb_tranformation> pdbData_List = new List<Cpdb_tranformation>();
-        //pdbData_List = mongodb.GetCollection( collectionName);
+        //pdbData_List = mongodb.GetCollection(collectionName);
         //foreach (var doc in pdbData_List)
         //{
         //    //TO DO
@@ -28,9 +28,10 @@ foreach (var collectionName in collectionList)
     }
     else if (collectionName == "pdb_internet_exchanges")
     {
-        Console.WriteLine("Getting all data for: " + collectionName);
+        //Console.WriteLine("Getting all data for: " + collectionName);
         //List<pdb_InternetExchange> pdbData_List = new List<pdb_InternetExchange>();
-        //pdbData_List = mongodb.GetCollection(collectionName);
+        //pdbData_List =  mongodb.GetCollection("pdb_organizations");
+
         //foreach (var doc in pdbData_List)
         //{
         //    //TO DO
@@ -90,7 +91,7 @@ foreach (var collectionName in collectionList)
     {
         Console.WriteLine("Getting all data for: " + collectionName);
         List<pdb_NetworkFacility> pdbData_List = new List<pdb_NetworkFacility>();
-        pdbData_List = mongodb.GetCollection(collectionName);
+        pdbData_List = await mongodb.GetCollection(collectionName);
         foreach (var doc in pdbData_List)
         {
             //TO DO
@@ -119,11 +120,11 @@ foreach (var collectionName in collectionList)
     else if (collectionName == "pdb_as_set")
     {
         Console.WriteLine("Getting all data for: " + collectionName);
-        //List<pdb_AS_SET> pdbData_List = new List<pdb_AS_SET>();
-        //pdbData_List = mongodb.GetCollection(collectionName);
-        //foreach (var doc in pdbData_List)
-        //{
-        //    //TO DO
-        //}
+        List<pdb_AS_SET> pdbData_List = new List<pdb_AS_SET>();
+        pdbData_List = mongodb.GetCollection(collectionName);
+        foreach (var doc in pdbData_List)
+        {
+            //TO DO
+        }
     }
 }
