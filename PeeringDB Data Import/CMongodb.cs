@@ -19,13 +19,13 @@ namespace PeeringDB_Data_Import
         //    return doc;
         //}
 
-        public async Task<List<Cpdb_tranformation>> getListAsync(string collectionName)
+        public async Task<dynamic> getListAsync(string collectionName)
         {
             var client = OpenDBConn();
             IMongoDatabase database = client.GetDatabase("mvt");
             var collection = database.GetCollection<Cpdb_tranformation>(collectionName);
 
-            var list = await collection.Find(Builders<Cpdb_tranformation>.Filter.Empty).ToListAsync();
+            var list = await collection.Find(Builders<Cpdb_tranformation>.Filter.Empty).Limit(5000).ToListAsync();
             return list;
         }
         public  dynamic GetCollection(string collectionName)
@@ -269,8 +269,18 @@ namespace PeeringDB_Data_Import
         MongoClient OpenDBConn()
         {
             Console.WriteLine("opening connection to Mongodb");
-            string ConnectionStringCompass = "mongodb://mvtdev:-B7Q7acF9%3FK%40KptN@dev.geomentary.com:27017/?authMechanism=SCRAM-SHA-256&authSource=mvt";
+           
+            //MongoCollectionSettings settings= new MongoCollectionSettings();
+            
+            // settings.ReadConcern = ReadConcern.Available;
+            //MongoUrl url = new MongoUrl("mongodb://mvtdev:-B7Q7acF9%3FK%40KptN@dev.geomentary.com:27017/?authMechanism=SCRAM-SHA-256&authSource=mvt&maxPoolSize=200");
+            //url.MaxConnectionPoolSize = 5000;
+            
+            //string ConnectionStringCompass = "mongodb://mvtdev:-B7Q7acF9%3FK%40KptN@dev.geomentary.com:27017/?authMechanism=SCRAM-SHA-256&authSource=mvt";
+            
+            string ConnectionStringCompass = "mongodb://mvtdev:-B7Q7acF9%3FK%40KptN@dev.geomentary.com:27017/?connectTimeoutMS=3000&authMechanism=SCRAM-SHA-256&authSource=mvt&maxPoolSize=2000";
             var client = new MongoClient(ConnectionStringCompass);
+            
             return client;
         }
     }

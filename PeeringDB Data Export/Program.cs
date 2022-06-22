@@ -18,13 +18,14 @@ foreach (var collectionName in collectionList)
     
     if (collectionName == "pdb_datacenters")
     {
-        Console.WriteLine("Getting all data for: " + collectionName); 
-        //List<Cpdb_tranformation> pdbData_List = new List<Cpdb_tranformation>();
+        Console.WriteLine("Getting all data for: " + collectionName);
+        List<Cpdb_tranformation> pdbData_List = new List<Cpdb_tranformation>();
         //pdbData_List = mongodb.GetCollection(collectionName);
-        //foreach (var doc in pdbData_List)
-        //{
-        //    //TO DO
-        //}
+        var list=await mongodb.getListAsync(collectionName);
+        foreach (var doc in pdbData_List)
+        {
+            //TO DO
+        }
     }
     else if (collectionName == "pdb_internet_exchanges")
     {
@@ -120,11 +121,11 @@ foreach (var collectionName in collectionList)
     else if (collectionName == "pdb_as_set")
     {
         Console.WriteLine("Getting all data for: " + collectionName);
-        List<pdb_AS_SET> pdbData_List = new List<pdb_AS_SET>();
-        pdbData_List = mongodb.GetCollection(collectionName);
-        foreach (var doc in pdbData_List)
-        {
-            //TO DO
-        }
+        //List<pdb_AS_SET> pdbData_List = new List<pdb_AS_SET>();
+        //pdbData_List = mongodb.GetCollection(collectionName);
+        //foreach (var doc in pdbData_List)
+        //{
+        //    //TO DO
+        //}
     }
 }
