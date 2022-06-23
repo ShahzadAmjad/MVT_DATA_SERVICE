@@ -91,12 +91,12 @@ foreach (var collectionName in collectionList)
     else if (collectionName == "pdb_network_facilities")
     {
         Console.WriteLine("Getting all data for: " + collectionName);
-        List<pdb_NetworkFacility> pdbData_List = new List<pdb_NetworkFacility>();
-        pdbData_List = await mongodb.GetCollection(collectionName);
-        foreach (var doc in pdbData_List)
-        {
-            //TO DO
-        }
+        //List<pdb_NetworkFacility> pdbData_List = new List<pdb_NetworkFacility>();
+        //pdbData_List = await mongodb.GetCollection(collectionName);
+        //foreach (var doc in pdbData_List)
+        //{
+        //    //TO DO
+        //}
     }
     else if (collectionName == "pdb_network_to_ix_connection")
     {
