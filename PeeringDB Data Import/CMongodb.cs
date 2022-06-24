@@ -18,7 +18,25 @@ namespace PeeringDB_Data_Import
         //    var doc =await collection.Find(Builders<Cpdb_tranformation>.Filter.Empty).ToListAsync();
         //    return doc;
         //}
+        //public IEnumerable<IReadOnlyList<Cpdb_tranformation>> LoadAll(string collectionName)
+        //{
+        //    var client = OpenDBConn();
+        //    IMongoDatabase database = client.GetDatabase("mvt");
+        //    var _mongoCollection = database.GetCollection<Cpdb_tranformation>(collectionName);
 
+        //    using (var cursor = _mongoCollection.FindSync(Builders<Cpdb_tranformation>.Filter.Empty))
+        //    {
+        //        cursor.MoveNextAsync().Wait();
+        //        Task<bool> cursorTask;
+        //        do
+        //        {
+        //            var events = cursor.Current;
+        //            cursorTask = cursor.MoveNextAsync();
+
+        //            yield return events.AsParallel().Select(e => e.properties).ToList(); 
+        //        } while (cursorTask.Result);
+        //    }
+        //}
         public async Task<dynamic> getListAsync(string collectionName)
         {
             var client = OpenDBConn();
