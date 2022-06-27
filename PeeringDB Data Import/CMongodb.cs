@@ -18,25 +18,82 @@ namespace PeeringDB_Data_Import
         //    var doc =await collection.Find(Builders<Cpdb_tranformation>.Filter.Empty).ToListAsync();
         //    return doc;
         //}
-        //public IEnumerable<IReadOnlyList<Cpdb_tranformation>> LoadAll(string collectionName)
-        //{
-        //    var client = OpenDBConn();
-        //    IMongoDatabase database = client.GetDatabase("mvt");
-        //    var _mongoCollection = database.GetCollection<Cpdb_tranformation>(collectionName);
+        public List<Cpdb_tranformation> LoadAll_pdb_datacenters(string collectionName)
+        {
+            
+            List<Cpdb_tranformation> mylist = new List<Cpdb_tranformation>();
+            var client = OpenDBConn();
+            IMongoDatabase database = client.GetDatabase("mvt");
+            var _mongoCollection = database.GetCollection<Cpdb_tranformation>(collectionName);
 
-        //    using (var cursor = _mongoCollection.FindSync(Builders<Cpdb_tranformation>.Filter.Empty))
-        //    {
-        //        cursor.MoveNextAsync().Wait();
-        //        Task<bool> cursorTask;
-        //        do
-        //        {
-        //            var events = cursor.Current;
-        //            cursorTask = cursor.MoveNextAsync();
+            using (var cursor = _mongoCollection.FindSync(Builders<Cpdb_tranformation>.Filter.Empty))
+            {
+                cursor.MoveNextAsync().Wait();
+                Task<bool> cursorTask;
+                do
+                {
+                    
+                    var events = cursor.Current;
+                    cursorTask = cursor.MoveNextAsync();                   
+                    mylist.AddRange(events);
+                    cursorTask.Wait(2000);
+                    //yield return events.AsParallel().Select(e => e).ToList();
+                } while (cursorTask.Result);
+            }
 
-        //            yield return events.AsParallel().Select(e => e.properties).ToList(); 
-        //        } while (cursorTask.Result);
-        //    }
-        //}
+            return mylist;
+        }
+
+        public List<pdb_InternetExchange> LoadAll_pdb_internet_exchanges(string collectionName)
+        {
+
+            List<pdb_InternetExchange> mylist = new List<pdb_InternetExchange>();
+            var client = OpenDBConn();
+            IMongoDatabase database = client.GetDatabase("mvt");
+            var _mongoCollection = database.GetCollection<pdb_InternetExchange>(collectionName);
+
+            using (var cursor = _mongoCollection.FindSync(Builders<pdb_InternetExchange>.Filter.Empty))
+            {
+                cursor.MoveNextAsync().Wait();
+                Task<bool> cursorTask;
+                do
+                {
+
+                    var events = cursor.Current;
+                    cursorTask = cursor.MoveNextAsync();
+                    mylist.AddRange(events);
+                    cursorTask.Wait(2000);
+                    //yield return events.AsParallel().Select(e => e).ToList();
+                } while (cursorTask.Result);
+            }
+
+            return mylist;
+        }
+        public List<pdb_InternetExchangeFacility> LoadAll_pdb_internet_exchange_facilities(string collectionName)
+        {
+
+            List<pdb_InternetExchangeFacility> mylist = new List<pdb_InternetExchangeFacility>();
+            var client = OpenDBConn();
+            IMongoDatabase database = client.GetDatabase("mvt");
+            var _mongoCollection = database.GetCollection<pdb_InternetExchangeFacility>(collectionName);
+
+            using (var cursor = _mongoCollection.FindSync(Builders<pdb_InternetExchangeFacility>.Filter.Empty))
+            {
+                cursor.MoveNextAsync().Wait();
+                Task<bool> cursorTask;
+                do
+                {
+
+                    var events = cursor.Current;
+                    cursorTask = cursor.MoveNextAsync();
+                    mylist.AddRange(events);
+                    cursorTask.Wait(2000);
+                    //yield return events.AsParallel().Select(e => e).ToList();
+                } while (cursorTask.Result);
+            }
+
+            return mylist;
+        }
         public async Task<dynamic> getListAsync(string collectionName)
         {
             var client = OpenDBConn();

@@ -19,20 +19,21 @@ foreach (var collectionName in collectionList)
     if (collectionName == "pdb_datacenters")
     {
         Console.WriteLine("Getting all data for: " + collectionName);
-        List<Cpdb_tranformation> pdbData_List = new List<Cpdb_tranformation>();
-        //pdbData_List = mongodb.GetCollection(collectionName);
-        var list=await mongodb.getListAsync(collectionName);
-        foreach (var doc in pdbData_List)
-        {
-            //TO DO
-        }
+        //List<Cpdb_tranformation> pdbData_List = new List<Cpdb_tranformation>();
+        ////pdbData_List = mongodb.GetCollection(collectionName);
+        //var list2=  mongodb.LoadAll_pdb_datacenters(collectionName);
+        ////var list=await mongodb.getListAsync(collectionName);
+        //foreach (var doc in pdbData_List)
+        //{
+        //    //TO DO
+        //}
     }
     else if (collectionName == "pdb_internet_exchanges")
     {
-        //Console.WriteLine("Getting all data for: " + collectionName);
+        Console.WriteLine("Getting all data for: " + collectionName);
         //List<pdb_InternetExchange> pdbData_List = new List<pdb_InternetExchange>();
-        //pdbData_List =  mongodb.GetCollection("pdb_organizations");
-
+        ////pdbData_List =  mongodb.GetCollection("pdb_organizations");
+        //var list2 = mongodb.LoadAll_pdb_internet_exchanges(collectionName);
         //foreach (var doc in pdbData_List)
         //{
         //    //TO DO
@@ -42,11 +43,11 @@ foreach (var collectionName in collectionList)
     {
         Console.WriteLine("Getting all data for: " + collectionName);
         //List<pdb_InternetExchangeFacility> pdbData_List = new List<pdb_InternetExchangeFacility>();
-        //pdbData_List = mongodb.GetCollection(collectionName);
-        //foreach (var doc in pdbData_List)
-        //{
-        //    //TO DO
-        //}
+        var pdbData_List = mongodb.LoadAll_pdb_internet_exchange_facilities(collectionName);
+        foreach (var doc in pdbData_List)
+        {
+            //TO DO
+        }
     }
     else if (collectionName == "pdb_internet_exchange_networks")
     {
