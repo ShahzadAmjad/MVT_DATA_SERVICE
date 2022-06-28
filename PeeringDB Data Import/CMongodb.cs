@@ -71,29 +71,84 @@ namespace PeeringDB_Data_Import
         }
         public List<pdb_InternetExchangeFacility> LoadAll_pdb_internet_exchange_facilities(string collectionName)
         {
-
             List<pdb_InternetExchangeFacility> mylist = new List<pdb_InternetExchangeFacility>();
+            try
+            {
+                
+                var client = OpenDBConn();
+                IMongoDatabase database = client.GetDatabase("mvt");
+                var _mongoCollection = database.GetCollection<pdb_InternetExchangeFacility>(collectionName);
+                
+                var options = new FindOptions<pdb_InternetExchangeFacility>
+                {
+                    // Get 10 docs at a time
+                    BatchSize = 100
+                };
+                
+                AggregateOptions aggregateOptions = new AggregateOptions();
+                aggregateOptions.BatchSize = 50;
+
+                using (var cursor =  _mongoCollection.FindSync(Builders<pdb_InternetExchangeFacility>.Filter.Empty))
+                {
+                    //cursor.batchSize(10);
+                    cursor.MoveNextAsync().Wait();
+                    Task<bool> cursorTask;
+                    do
+                    {
+
+                        var events = cursor.Current;
+                        cursorTask = cursor.MoveNextAsync();
+                        mylist.AddRange(events);
+                        cursorTask.Wait(2000);
+                        //yield return events.AsParallel().Select(e => e).ToList();
+                    } while (cursorTask.Result);
+                }
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+
+            
+
+            return mylist;
+        }
+
+        public async Task<List<pdb_internet_exchange_networks>> AsyncLoadAll_pdb_internet_exchange_networks(string collectionName)
+        {
+            List<pdb_internet_exchange_networks> mylist = new List<pdb_internet_exchange_networks>();
             var client = OpenDBConn();
             IMongoDatabase database = client.GetDatabase("mvt");
-            var _mongoCollection = database.GetCollection<pdb_InternetExchangeFacility>(collectionName);
+            var _mongoCollection = database.GetCollection<pdb_internet_exchange_networks>(collectionName);
+            var filter = Builders<pdb_internet_exchange_networks>.Filter.Empty;
+            var options = new FindOptions<pdb_internet_exchange_networks>
+            {
+                // Get 10 docs at a time
+                BatchSize = 10,
+                //AllowPartialResults = true,
+                //Limit =10
 
-            using (var cursor = _mongoCollection.FindSync(Builders<pdb_InternetExchangeFacility>.Filter.Empty))
+            };
+
+
+            using (var cursor = _mongoCollection.FindSync(filter))
             {
                 cursor.MoveNextAsync().Wait();
                 Task<bool> cursorTask;
                 do
                 {
-
                     var events = cursor.Current;
                     cursorTask = cursor.MoveNextAsync();
                     mylist.AddRange(events);
                     cursorTask.Wait(2000);
+
                     //yield return events.AsParallel().Select(e => e).ToList();
                 } while (cursorTask.Result);
             }
 
             return mylist;
         }
+
         public async Task<dynamic> getListAsync(string collectionName)
         {
             var client = OpenDBConn();
@@ -146,6 +201,8 @@ namespace PeeringDB_Data_Import
                 else if (collectionName == "pdb_internet_exchange_prefixes")
                 {
                     var collection = database.GetCollection<pdb_internet_exchange_prefixes>(collectionName);
+                    var filter = Builders<pdb_internet_exchange_prefixes>.Filter.Empty;
+                    
                     return collection.Find(Builders<pdb_internet_exchange_prefixes>.Filter.Empty).ToList();
                 }
                 else if (collectionName == "pdb_networks")
@@ -345,17 +402,24 @@ namespace PeeringDB_Data_Import
         {
             Console.WriteLine("opening connection to Mongodb");
            
-            //MongoCollectionSettings settings= new MongoCollectionSettings();
-            
-            // settings.ReadConcern = ReadConcern.Available;
+           
             //MongoUrl url = new MongoUrl("mongodb://mvtdev:-B7Q7acF9%3FK%40KptN@dev.geomentary.com:27017/?authMechanism=SCRAM-SHA-256&authSource=mvt&maxPoolSize=200");
             //url.MaxConnectionPoolSize = 5000;
             
             //string ConnectionStringCompass = "mongodb://mvtdev:-B7Q7acF9%3FK%40KptN@dev.geomentary.com:27017/?authMechanism=SCRAM-SHA-256&authSource=mvt";
             
-            string ConnectionStringCompass = "mongodb://mvtdev:-B7Q7acF9%3FK%40KptN@dev.geomentary.com:27017/?connectTimeoutMS=3000&authMechanism=SCRAM-SHA-256&authSource=mvt&maxPoolSize=2000";
-            var client = new MongoClient(ConnectionStringCompass);
+            string ConnectionStringCompass = "mongodb://mvtdev:-B7Q7acF9%3FK%40KptN@dev.geomentary.com:27017/?connectTimeoutMS=3000&authMechanism=SCRAM-SHA-256&authSource=mvt";
             
+            MongoClientSettings settings = MongoClientSettings.FromConnectionString(ConnectionStringCompass);
+            settings.ReadConcern = ReadConcern.Majority;
+            //settings.WaitQueueTimeout = TimeSpan.FromMinutes(1);
+            //settings.MinConnectionPoolSize = 100;
+            //settings.MaxConnectionPoolSize = 500;
+
+
+            //settings.Server = new MongoServerAddress( ConnectionStringCompass);
+            var client = new MongoClient(settings);
+            //client.Settings.ReadConcern = ReadConcern.Majority;
             return client;
         }
     }

@@ -43,20 +43,21 @@ foreach (var collectionName in collectionList)
     {
         Console.WriteLine("Getting all data for: " + collectionName);
         //List<pdb_InternetExchangeFacility> pdbData_List = new List<pdb_InternetExchangeFacility>();
-        var pdbData_List = mongodb.LoadAll_pdb_internet_exchange_facilities(collectionName);
-        foreach (var doc in pdbData_List)
-        {
-            //TO DO
-        }
+        //var pdbData_List = mongodb.LoadAll_pdb_internet_exchange_facilities(collectionName);
+        //foreach (varMongoClientSettings is frozen.' doc in pdbData_List)
+        //{
+        //    //TO DO
+        //}
     }
     else if (collectionName == "pdb_internet_exchange_networks")
     {
         Console.WriteLine("Getting all data for: " + collectionName);
         //List<pdb_internet_exchange_networks> pdbData_List = new List<pdb_internet_exchange_networks>();
-        //pdbData_List = mongodb.GetCollection(collectionName);
+        var pdbData_List =await mongodb.AsyncLoadAll_pdb_internet_exchange_networks(collectionName);
+        Console.WriteLine("Getting all data for: " + collectionName);
         //foreach (var doc in pdbData_List)
         //{
-        //    //TO DO
+        ////    //TO DO
         //}
     }
     else if (collectionName == "pdb_internet_exchange_prefixes")
