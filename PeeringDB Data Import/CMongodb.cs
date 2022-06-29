@@ -82,7 +82,8 @@ namespace PeeringDB_Data_Import
                 var options = new FindOptions<pdb_InternetExchangeFacility>
                 {
                     // Get 10 docs at a time
-                    BatchSize = 100
+                    //BatchSize = 10
+                   Limit=50
                 };
                 
                 AggregateOptions aggregateOptions = new AggregateOptions();
@@ -93,13 +94,16 @@ namespace PeeringDB_Data_Import
                     //cursor.batchSize(10);
                     cursor.MoveNextAsync().Wait();
                     Task<bool> cursorTask;
+
                     do
                     {
+                        
 
                         var events = cursor.Current;
                         cursorTask = cursor.MoveNextAsync();
                         mylist.AddRange(events);
                         cursorTask.Wait(2000);
+                       // var List= events.AsParallel().Select(e => e).ToList();
                         //yield return events.AsParallel().Select(e => e).ToList();
                     } while (cursorTask.Result);
                 }
@@ -409,12 +413,22 @@ namespace PeeringDB_Data_Import
             //string ConnectionStringCompass = "mongodb://mvtdev:-B7Q7acF9%3FK%40KptN@dev.geomentary.com:27017/?authMechanism=SCRAM-SHA-256&authSource=mvt";
             
             string ConnectionStringCompass = "mongodb://mvtdev:-B7Q7acF9%3FK%40KptN@dev.geomentary.com:27017/?connectTimeoutMS=3000&authMechanism=SCRAM-SHA-256&authSource=mvt";
-            
+
             MongoClientSettings settings = MongoClientSettings.FromConnectionString(ConnectionStringCompass);
             settings.ReadConcern = ReadConcern.Majority;
-            //settings.WaitQueueTimeout = TimeSpan.FromMinutes(1);
-            //settings.MinConnectionPoolSize = 100;
-            //settings.MaxConnectionPoolSize = 500;
+           // settings.WaitQueueTimeout = TimeSpan.FromMinutes(1);
+            settings.MinConnectionPoolSize = 100;
+            settings.MaxConnectionPoolSize = 500;
+            settings.ConnectionMode = ConnectionMode.Standalone;
+
+
+            var credentials = MongoCredential.CreateCredential(
+            databaseName: "myDatabaseName",
+            username: "myUsername",
+            password: "myPassword");
+
+            //settings.Credential= credentials;
+            //settings.AutoEncryptionOptions
 
 
             //settings.Server = new MongoServerAddress( ConnectionStringCompass);
