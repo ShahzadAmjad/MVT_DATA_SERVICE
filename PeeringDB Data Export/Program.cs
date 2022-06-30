@@ -12,6 +12,7 @@ List<string> collectionList = new List<string>
     "pdb_internet_exchange_networks","pdb_internet_exchange_prefixes","pdb_networks",
     "pdb_network_pocs","pdb_network_facilities","pdb_network_to_ix_connection","pdb_organizations","pdb_as_set"};
 
+//For mongo connection
 CMongodb mongodb = new CMongodb();
 
 foreach (var collectionName in collectionList)
